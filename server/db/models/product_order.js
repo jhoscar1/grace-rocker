@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Order = require('./order')
+
+console.log(Order);
 
 module.exports = db.define('product_order', {
     unit_quantity: {
@@ -19,13 +22,23 @@ module.exports = db.define('product_order', {
         }
     },
     hooks: {
-      //dummy values for hook
-    //   beforeCreate: function(instance){
-    //     console.log('im here', instance)
-    //     instance.unit_price = 5009;
-    //     instance.unit_quantity = 5;
-    //     instance.subtotal = (instance.getDataValue('unit_price') * instance.unit_quantity)
-    //     return instance;
-    // }
+      beforeBulkCreate: function(instances){
+        console.log(instances)
+        const promises = instances.map(instance => {
+          return Order.findById(instance.orderId)
+        });
+        return Promise.all(promises)
+        .then(foundOrders => {
+          return Promise.all(
+            foundOrders.map((foundOrder, i) => {
+              foundOrder.totalCost += instances[i].subtotal
+              return foundOrder.save()
+            })
+          )
+        })
+        .then(() => {
+          console.log('saved');
+        })
+    }
   }
 })

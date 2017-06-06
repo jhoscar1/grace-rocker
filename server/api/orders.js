@@ -44,6 +44,17 @@ router.post('/', (req, res, next) => {
     })
 })
 
+router.put('/:id', (req, res, next) => {
+    req.order.update()
+    .then(order => {
+        order.addProduct(req.body.product)
+        .then(order => {
+            res.json(order);
+        })
+    })
+    .catch(next);
+})
+
 router.delete('/:id', (req, res, next) => {
     req.order.destroy()
     .then(() => {
