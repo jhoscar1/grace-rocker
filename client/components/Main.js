@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../reducer/user';
+import axios from 'axios';
 
 // Component //
 
@@ -21,6 +22,7 @@ const Main = props => {
           <nav>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
+            <button onClick= {props.getTotal}> The Get Total Cost Test Button</button>
           </nav>
       }
       <hr />
@@ -44,7 +46,14 @@ const mapState = ({ user }) => ({
 const mapDispatch = dispatch => ({
   handleClick () {
     dispatch(logout());
-  }
+  },
+  getTotal () {
+    return axios.get('/api/testroute')
+    .then(res => res.data)
+    .then(res => {
+      console.log(res)
+    })
+ }
 });
 
 export default connect(mapState, mapDispatch)(Main);
