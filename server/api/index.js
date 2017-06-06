@@ -4,6 +4,8 @@ module.exports = router;
 
 router.use('/users', require('./users'));
 
+router.use('/orders', require('./orders'));
+
 router.get('/testroute', function(req, res, next){
   console.log('hi we are in the test route')
   return Order.findById(1)
