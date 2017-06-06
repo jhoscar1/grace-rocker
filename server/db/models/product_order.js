@@ -13,20 +13,6 @@ module.exports = db.define('product_order', {
       }
     }
   }, {
-    classMethods: {
-      getTotalCost: function(id){
-        return this.findAll({
-          where: {orderId: id}
-        })
-        .then(orderArray => {
-          var output = 0;
-          orderArray.forEach(order => {
-            output += order.subtotal
-          })
-          return output;
-        })
-      }
-    },
     getterMethods: {
         subtotal: function() {
             return this.unit_price * this.unit_quantity;
