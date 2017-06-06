@@ -7,6 +7,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
 import { Main, Login, Signup, UserHome, UsersListContainer, ProductDetail } from './components';
 import { me, fetchUsers, fetchProducts } from './reducer/';
+import OrderList from './components/orders/OrderList';
 
 const whoAmI = store.dispatch(me());
 const grabUsers = store.dispatch(fetchUsers());
@@ -35,6 +36,8 @@ ReactDOM.render(
         <Route onEnter={requireLogin}>
           <Route path="home" component={UserHome} onEnter={grabProducts} />
           <Route path="products/:id" component={ProductDetail} />
+          <Route path="home" component={UserHome} />
+          <Route path="orders" component={OrderList} />
         </Route>
       </Route>
     </Router>
