@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const ProductOrder = require('./product_order')
+const ProductOrder = require('./product_order');
 
 module.exports = db.define('order', {
   purchase_date: {
@@ -8,28 +8,36 @@ module.exports = db.define('order', {
   },
   status: {
     type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed')
+  },
+  totalCost: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+    // get: function(){
+    //     return this.getDataValue('totalCost') / 100
+    // }
   }
 },
 {
-  getterMethods: {
-    totalCost(){
+  hooks: {
+    beforeCreate: function(instance){
+      instance.purchase_date = Date.now();
+    },
+    beforeUpdate: function(order) {
       return ProductOrder.findAll({
         where: {
-          orderId: this.id
+          orderId: order.id
         }
       })
       .then(orderArray => {
-        var output = 0;
-        orderArray.forEach(order => {
-          output += order.subtotal
+        //console.log(orderArray);
+        let output = 0;
+        orderArray.forEach(orderEl => {
+          output += orderEl.subtotal
         })
-        return output;
+        console.log(output);
+        order.totalCost = output;
+        console.log(order);
       })
-    }
-  },
-  hooks: {
-    beforeCreate: function(instance){
-      instance.purchase_date = Date.now()
     }
   }
 })
