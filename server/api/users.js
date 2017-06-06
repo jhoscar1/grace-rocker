@@ -7,3 +7,42 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next);
 });
+
+
+// find a single user
+router.get('/:id', (req, res, next) => {
+    User.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(foundUser => res.json(foundUser))
+    .catch(next)
+})
+
+
+// create a single user
+router.post('/', (req, res, next) => {
+  User.create(req.body)
+  .then(createdUser => res.json(createdUser))
+  .catch(next)
+})
+
+//update a user
+// will need to worry about authentication stuff later, then update
+router.put('/:id', (req, res, next) => {
+  User.findById(req.params.id)
+  .then(foundUser => {
+    // foundUser = Object.assign(foundUser, req.body)
+    return foundUser.update(req.body)
+    })
+    .then(savedUser => res.json(savedUser))
+})
+
+router.delete('/:id', (req, res, next) => {
+  User.destroy({
+    where: {id : req.params.id}
+  })
+  .then(() => res.sendStatus(204))
+  }
+)

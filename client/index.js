@@ -7,6 +7,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
 import { Main, Login, Signup, UserHome } from './components';
 import { me } from './reducer/user';
+import allUsers from './components/AllUsers';
 
 const whoAmI = store.dispatch(me());
 
@@ -25,6 +26,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={Main}>
         <IndexRoute component={Login} />
+        <Route path="allUsers" component={allUsers} />
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
         <Route onEnter={requireLogin}>
