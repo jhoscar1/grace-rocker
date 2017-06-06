@@ -12,9 +12,19 @@ module.exports = db.define('order', {
 },
 {
   getterMethods: {
-    total_cost: function(){
-      return this.getDataValue('total_cost')
-      //there should be something great here
+    totalCost(){
+      return ProductOrder.findAll({
+        where: {
+          orderId: this.id
+        }
+      })
+      .then(orderArray => {
+        var output = 0;
+        orderArray.forEach(order => {
+          output += order.subtotal
+        })
+        return output;
+      })
     }
   },
   hooks: {

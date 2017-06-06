@@ -1,4 +1,4 @@
-const ProductOrder = require('../db/models/').ProductOrder
+const Order = require('../db/models/').Order
 const router = require('express').Router();
 module.exports = router;
 
@@ -6,9 +6,11 @@ router.use('/users', require('./users'));
 
 router.get('/testroute', function(req, res, next){
   console.log('hi we are in the test route')
-  return ProductOrder.getTotalCost('1')
+  return Order.findById(1)
+  .then((order) => {
+    return order.totalCost
+  })
   .then(info => {
-    console.log(info)
     res.send({totalCost: info})
   })
 })
