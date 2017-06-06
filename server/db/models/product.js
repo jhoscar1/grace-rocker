@@ -33,4 +33,10 @@ module.exports = db.define('product', {
             return this.getDataValue("tags").join(", ")
         }
   }
+}, {
+  getterMethods: {
+    priceInCents: function(){
+      return this.getDataValue('price')
+    }
+  }
 })
