@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CatalogContainer } from './ProductsCatalog'
+import { CatalogContainer } from './Product/ProductsCatalog'
 
 const UserHome = props => {
   const { email } = props;

@@ -34,6 +34,23 @@ export const fetchProducts = () => {
   }
 }
 
+export const deleteSelectedProduct = (id) => {
+  return dispatch => {
+    axios.delete(`/api/products/${id}`)
+    .then(() => {
+      dispatch(removeProduct(id))
+    })
+  }
+}
+
+export const updateSelectedProduct = (id, body) => {
+  return dispatch => {
+    axios.put(`/api/products/${id}`, body)
+    .then(updatedProduct => {
+      dispatch(updateProduct(updatedProduct));
+    })
+  }
+}
 /* -------------------------- REDUCER ------------------------*/
 
 export default function (state = initialState, action) {
@@ -47,6 +64,11 @@ export default function (state = initialState, action) {
       break;
     case REMOVE_PRODUCT:
       newState.products = newState.products.filter(product => product.id !== action.id)
+      break;
+    case UPDATE_PRODUCT:
+      newState.products = newState.products.map(product => {
+        return action.product.id === product.id ? action.product : product
+      })
       break;
     default:
       return state;
