@@ -9,8 +9,7 @@ const GET_USERS = 'GET_USERS';
 
 const initialState = {
   users: [],
-  user: {},
-  defaultUser: {}
+  user: {}
 };
 
 /* -------------------------- ACTION CREATORS ------------------------*/
@@ -77,10 +76,13 @@ export default function (state = initialState, action) {
       newState.user = action.user;
       break;
     case REMOVE_USER:
-      newState.users = newState.users.filter(user => user.id !== action.id)
+      newState.user = {}
       break;
     default:
       return state;
   }
   return newState;
 }
+
+
+// newState.users.filter(user => user.id !== action.id)

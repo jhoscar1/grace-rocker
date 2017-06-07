@@ -24,7 +24,7 @@ module.exports = db.define('product', {
   },
   picture: {
     type: Sequelize.STRING,
-    defaultValue: "this should be a stock photo"
+    defaultValue: "https://cdn.tutsplus.com/net/uploads/legacy/958_placeholders/placehold.gif"
   },
   tags: {
         type: Sequelize.ARRAY(Sequelize.STRING),
