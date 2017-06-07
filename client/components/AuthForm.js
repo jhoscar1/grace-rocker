@@ -8,17 +8,19 @@ const AuthForm = props => {
   const signUpData = (
     <div>
       <div>
-            <label htmlFor="username"><small>Name</small></label>
-            <input name="username" type="text" />
+        <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
+        <input name="shippingAddress" type="text" />
       </div>
       <div>
-          <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
-          <input name="shippingAddress" type="text" />
+        <label htmlFor="userName"><small>Name</small></label>
+        <input name="userName" type="text" />
       </div>
     </div>
   );
 
   const updateData = (
+    <div>
+
       <div>
         <label htmlFor="isAdmin"><small>Admin Status</small></label>
         <select name="isAdmin">
@@ -26,6 +28,7 @@ const AuthForm = props => {
           <option> false </option>
         </select>
       </div>
+    </div>
   )
 
   return (

@@ -3,8 +3,10 @@ const User = require('../db/models/user');
 
 module.exports = router
   .post('/login', (req, res, next) => {
+    console.log("----LOGIN----", req.body)
     User.findOne({ where: { email: req.body.email } })
       .then(user => {
+        console.log("USER", user)
         if (!user)
           res.status(401).send('User not found');
         else if (!user.correctPassword(req.body.password))
@@ -15,6 +17,7 @@ module.exports = router
       .catch(next);
   })
   .post('/signup', (req, res, next) => {
+    console.log("---SIGNUP----", req.body)
     User.create(req.body)
       .then(user =>
         req.login(user, err => err ? next(err) : res.json(user)))

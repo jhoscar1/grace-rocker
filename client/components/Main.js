@@ -13,7 +13,7 @@ const Main = props => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>Grace Rocker</h1>
       { loggedIn ?
           <nav>
             <Link to="/home">Home</Link>
@@ -38,8 +38,8 @@ Main.propTypes = {
 
 // Container //
 
-const mapState = ({ user }) => ({
-  loggedIn: !!user.id
+const mapState = ({ userReducer }) => ({
+  loggedIn: !!userReducer.user.id
 });
 
 const mapDispatch = dispatch => ({
