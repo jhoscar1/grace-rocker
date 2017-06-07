@@ -1,6 +1,7 @@
 const db = require('./db');
+
 // register models
-db.models = require('./models');
+require('./models');
 
 module.exports = db;
 

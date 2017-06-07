@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const Order = require('../db').models.Order;
-const Product = require('../db').models.Product;
+const Order = require('../db').Order;
 
 router.param('id', (req, res, next, id) => {
     Order.findById(id)
@@ -13,12 +12,9 @@ router.param('id', (req, res, next, id) => {
 })
 
 router.get('/', (req, res, next) => {
-    Order.findAll({
-        include: [Product]
-    })
+    Order.findAll()
     .then(foundOrders => {
         res.json(foundOrders);
-        return null;
     })
     .catch(next);
 })
