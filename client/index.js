@@ -26,7 +26,9 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={Main}>
         <IndexRoute component={Login} />
-        <Route path="userslist" component={UsersListContainer} onEnter={grabUsers}/>
+        <Route path="admin">
+         <Route path="users" component={UsersListContainer} onEnter={grabUsers} />
+        </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
         <Route onEnter={requireLogin}>
