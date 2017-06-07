@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios'
 import { connect } from 'react-redux';
-import UserItem from './UserItem'
-import AuthForm from './AuthForm'
+import ProductItem from './ProductItem'
+import UpdateForm from './ProductUpdateForm'
 import { deleteSelectedProduct, updateSelectedProduct } from '../../reducer/product'
 
 
@@ -11,19 +10,38 @@ class ProductAdminPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      updateUserId: ''
+      updateProductId: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
   deleteProduct(id) {
     return () => {
-      axios.delete(`/api/users/${id}`)
-      .then(() => {
-        this.props.fetchProduct()
-      })
+      this.props.deleteProduct(id)
     }
   }
+
+  handleUpdateClick(id) {
+  return () => {
+    this.setState({
+      updateProductId: id
+    })
+  }
+}
+
+handleSubmit(event){
+    event.preventDefault();
+    const id = this.state.updateProductId
+    const name = event.target.name.value;
+    const carat = event.target.carat.value;
+    const price = event.target.price.value;
+    const stock = event.target.stock.value;
+    const description = event.target.description.value;
+    const body = {name, carat, price, stock, description}
+    this.props.updateSelectedProduct(id, body)
+}
+
 
   render(){
     return (
@@ -44,13 +62,13 @@ class ProductAdminPanel extends React.Component {
             </thead>
             <tbody>
               {
-                this.props.users.map((user) => {
+                this.props.products.map((product) => {
                   return (
-                  <UserItem
-                  key={user.id}
-                  deleteUser = {this.deleteUser(user.id)}
-                  handleUpdateClick = {this.handleUpdateClick(user.id)}
-                  user={user}
+                  <ProductItem
+                  key={product.id}
+                  deleteProduct = {this.deleteProduct(product.id)}
+                  handleUpdateClick = {this.handleUpdateClick(product.id)}
+                  product={product}
                   />
                 )
                 })
@@ -58,6 +76,12 @@ class ProductAdminPanel extends React.Component {
             </tbody>
           </table>
         </div>
+         {
+        this.state.updateProductId ?
+        <UpdateForm
+        handleSubmit={this.handleSubmit}
+        /> : null
+        }
       </div>
   )}
 }
@@ -68,7 +92,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteProduct: id => dispatch(deleteSelectedProduct(id)),
-  updateSelectedProduct: (id, body) => dispatch(deleteSelectedProduct(id, body))
+  updateSelectedProduct: (id, body) => dispatch(updateSelectedProduct(id, body))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductAdminPanel)
