@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { CatalogContainer } from './ProductsCatalog'
 
 const UserHome = props => {
-  console.log(props)
   const { email } = props;
 
   return (

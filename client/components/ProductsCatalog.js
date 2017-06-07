@@ -8,10 +8,10 @@ const Catalog = props => {
       {
         products.map(product => {
           return (
-          <div>
-            <img src="{product.image}" />
+          <div className="clearfix productItem">
+            <img className="productImage" src={`${product.picture}`} />
             <h2> {product.name} </h2>
-            <h4> {product.price} </h4>
+            <h4> Stock: {product.price} </h4>
           </div>
         )
       })
