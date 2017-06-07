@@ -39,7 +39,7 @@ const AuthForm = props => {
           <label htmlFor="password"><small>Password</small></label>
           <input name="password" type="password" />
         </div>
-        {displayName === 'Sign Up' || 'Update' ? signUpData : null}
+        {displayName === 'Sign Up' || displayName === 'Update' ? signUpData : null}
         {displayName === 'Update' ? updateData : null}
         <div>
           <button type="submit">{ displayName }</button>
