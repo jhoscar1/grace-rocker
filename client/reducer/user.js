@@ -43,7 +43,7 @@ export const me = () =>
   dispatch =>
     axios.get('/auth/me')
       .then(res =>
-        dispatch(getUser(res.data || initialState.defaultUser)));
+        dispatch(getUser(res.data || initialState.user)));
 
 export const auth = (email, password, method) =>
   dispatch =>
