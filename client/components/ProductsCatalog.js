@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 const Catalog = props => {
   const { products } = props;
@@ -8,10 +9,11 @@ const Catalog = props => {
       {
         products.map(product => {
           return (
-          <div className="clearfix productItem">
+          <div key={product.id} className="clearfix productItem">
             <img className="productImage" src={`${product.picture}`} />
-            <h2> {product.name} </h2>
-            <h4> Stock: {product.price} </h4>
+            <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
+            <h4> Price: $ {product.price} </h4>
+            <hr />
           </div>
         )
       })
