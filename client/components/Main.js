@@ -18,11 +18,13 @@ const Main = props => {
           <nav>
             <Link to="/home">Home</Link>
             <a href="#" onClick={handleClick}>Logout</a>
+            <Link to="/admin">Admin</Link>
           </nav> :
           <nav>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </nav>
+
       }
       <hr />
       { children }

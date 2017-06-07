@@ -38,7 +38,13 @@ handleSubmit(event){
     const price = event.target.price.value;
     const stock = event.target.stock.value;
     const description = event.target.description.value;
-    const body = {name, carat, price, stock, description}
+    const body = {}
+    if (description) body.description = description
+    if (name) body.name = name
+    if (carat) body.carat = carat
+    if (stock) body.stock = stock
+    if (price) body.price = price
+
     this.props.updateSelectedProduct(id, body)
 }
 
@@ -47,6 +53,7 @@ handleSubmit(event){
     return (
       <div>
         <div className="allProducts">
+        <h1> Product List </h1>
           <table className="table">
             <thead>
               <tr>

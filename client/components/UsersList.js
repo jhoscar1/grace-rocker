@@ -59,6 +59,7 @@ class UserList extends React.Component {
   render() {
     return (
       <div>
+        <h2> Users List </h2>
         <div className="allUsers">
           <table className="table">
             <thead>

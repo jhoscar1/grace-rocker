@@ -48,6 +48,7 @@ export const updateSelectedProduct = (id, body) => {
     axios.put(`/api/products/${id}`, body)
     .then(updatedProduct => {
       dispatch(updateProduct(updatedProduct));
+      dispatch(fetchProducts())
     })
   }
 }
