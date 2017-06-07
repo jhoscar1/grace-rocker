@@ -5,6 +5,29 @@ const AuthForm = props => {
 
   const { name, displayName, handleSubmit, error } = props;
 
+  const signUpData = (
+    <div>
+      <div>
+            <label htmlFor="username"><small>Name</small></label>
+            <input name="username" type="text" />
+      </div>
+      <div>
+          <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
+          <input name="shippingAddress" type="text" />
+      </div>
+    </div>
+  );
+
+  const updateData = (
+      <div>
+        <label htmlFor="isAdmin"><small>Admin Status</small></label>
+        <select name="isAdmin">
+          <option> true </option>
+          <option> false </option>
+        </select>
+      </div>
+  )
+
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -16,6 +39,8 @@ const AuthForm = props => {
           <label htmlFor="password"><small>Password</small></label>
           <input name="password" type="password" />
         </div>
+        {displayName === 'Sign Up' || displayName === 'Update' ? signUpData : null}
+        {displayName === 'Update' ? updateData : null}
         <div>
           <button type="submit">{ displayName }</button>
         </div>
