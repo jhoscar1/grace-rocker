@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
+/* -------------------------- CONSTANTS ------------------------*/
+
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const GET_USERS = 'GET_USERS';
@@ -11,9 +13,13 @@ const initialState = {
   defaultUser: {}
 };
 
+/* -------------------------- ACTION CREATORS ------------------------*/
+
 const getUsers = users => ({ type: GET_USERS, users });
 const getUser = user => ({ type: GET_USER, user });
-const removeUser = () => ({ type: REMOVE_USER });
+const removeUser = id => ({ type: REMOVE_USER, id });
+
+/* -------------------------- DISPATCHERS ------------------------*/
 
 export const fetchUsers = () => {
   return dispatch => {
@@ -25,7 +31,14 @@ export const fetchUsers = () => {
   }
 }
 
-
+export const removeSelectedUser = id => {
+  return dispatch => {
+    axios.delete(`/api/users/${id}`)
+    .then(() => {
+      dispatch(removeUser(id))
+    })
+  }
+}
 
 export const me = () =>
   dispatch =>
@@ -33,11 +46,10 @@ export const me = () =>
       .then(res =>
         dispatch(getUser(res.data || initialState.defaultUser)));
 
-export const auth = (email, password, name, shippingAddress, method) =>
+export const auth = (email, password, method) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { name, email, password, shippingAddress })
+    axios.post(`/auth/${method}`, { email, password })
       .then(res => {
-        console.log(res)
         dispatch(getUser(res.data));
         browserHistory.push('/home');
       })
@@ -53,6 +65,8 @@ export const logout = () =>
       })
       .catch(err => console.log(err));
 
+/* -------------------------- REDUCER ------------------------*/
+
 export default function (state = initialState, action) {
   var newState = Object.assign({}, state)
   switch (action.type) {
@@ -63,7 +77,8 @@ export default function (state = initialState, action) {
       newState.user = action.user;
       break;
     case REMOVE_USER:
-      return {};
+      newState.users = newState.users.filter(user => user.id !== action.id)
+      break;
     default:
       return state;
   }
