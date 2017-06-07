@@ -10,22 +10,22 @@ var User = require('./server/db/models').User;
 var data = {
   user: [
   {name: 'Shaun', email: 'shaun@shaunsworld.com', password: 'nothashed', shippingAddress: '111 Shaun Street, Shawnee Hills, OH'},
-  {name: 'Jason', email: 'jason@shaunsworld.com', password: 'mypassword', shippingAddress: '1 Jason Avenue, Shawnee Hills, OH'},
-  {name: 'David', email: 'david@shaunsworld.com', password: 'passie', shippingAddress: '55 David Drive, Columbus, OH'},
-  {name: 'Geoff', email: 'geoff@geoffstack.com', password: 'geoffsmyname', shippingAddress: '124 Geoff Drive, NYC, NY'},
-  {name: 'Cassio', email: 'cassio@geoffstack.com', password: 'reacter', shippingAddress: '126 Geoff Drive, NYC, NY'},
-  {name: 'Dan', email: 'dan@geoffstack.com', password: 'dantheman', shippingAddress: '25 Dan Drive, NYC, NY'}
+  {name: 'Jason', email: 'jason@shaunsworld.com', password: 'mypassword', shippingAddress: '1 Jason Avenue, Shawnee Hills, OH'}
+  // {name: 'David', email: 'david@shaunsworld.com', password: 'passie', shippingAddress: '55 David Drive, Columbus, OH'},
+  // {name: 'Geoff', email: 'geoff@geoffstack.com', password: 'geoffsmyname', shippingAddress: '124 Geoff Drive, NYC, NY'},
+  // {name: 'Cassio', email: 'cassio@geoffstack.com', password: 'reacter', shippingAddress: '126 Geoff Drive, NYC, NY'},
+  // {name: 'Dan', email: 'dan@geoffstack.com', password: 'dantheman', shippingAddress: '25 Dan Drive, NYC, NY'}
   ],
   product: [
     {name: 'Rubies', carat: 5, price: 50, stock: 1, description: 'A really really cool product'},
-    {name: 'Gems', carat: 1, price: 100, stock: 4, description: 'A kinda really cool product'},
-    {name: 'Diamonds', carat: 1, price: 4500, stock: 87, description: 'Diamonds are forever'},
-    {name: 'Meteor', carat: 1000, price: 90000, stock: 1, description: 'A big meteor'},
-    {name: 'Pig Iron', carat: 2, price: 500, stock: 2, description: 'A hunk of iron with pig ears'},
-    {name: 'Cat Iron', carat: 2, price: 200, stock: 5, description: 'A hunk of iron with cat ears'},
-    {name: 'Fools Iron', carat: 6, price: 100, stock: 200, description: 'Only a fool would buy this iron'},
-    {name: 'Gold', carat: 2, price: 10000, stock: 5, description: 'Just gold'},
-    {name: 'Sapphires', carat: 16, price: 5000, stock: 15, description: 'A mediocre gem'}
+    {name: 'Gems', carat: 1, price: 100, stock: 4, description: 'A kinda really cool product'}
+    // {name: 'Diamonds', carat: 1, price: 4500, stock: 87, description: 'Diamonds are forever'},
+    // {name: 'Meteor', carat: 1000, price: 90000, stock: 1, description: 'A big meteor'},
+    // {name: 'Pig Iron', carat: 2, price: 500, stock: 2, description: 'A hunk of iron with pig ears'},
+    // {name: 'Cat Iron', carat: 2, price: 200, stock: 5, description: 'A hunk of iron with cat ears'},
+    // {name: 'Fools Iron', carat: 6, price: 100, stock: 200, description: 'Only a fool would buy this iron'},
+    // {name: 'Gold', carat: 2, price: 10000, stock: 5, description: 'Just gold'},
+    // {name: 'Sapphires', carat: 16, price: 5000, stock: 15, description: 'A mediocre gem'}
   ],
   review: [
     {body: 'What product am I even reviewing right now?', stars: 3},
@@ -94,7 +94,7 @@ db.sync({force: true})
     .create(orderItem)
     .then(order => {
       return Promise.map(productArray, productInst => {
-        return order.addProduct(productInst, {unit_quantity: Math.floor(Math.random() * 10), unit_price: productInst.priceInCents})
+        return order.addProduct(productInst, {unit_quantity: Math.floor(10), unit_price: productInst.priceInCents})
       })
       .then(() => {
         return order.setUser(userArray[Math.floor(Math.random() * userArray.length)])

@@ -23,22 +23,33 @@ module.exports = db.define('product_order', {
     },
     hooks: {
       beforeBulkCreate: function(instances){
-        console.log(instances)
-        const promises = instances.map(instance => {
-          return Order.findById(instance.orderId)
-        });
-        return Promise.all(promises)
-        .then(foundOrders => {
-          return Promise.all(
-            foundOrders.map((foundOrder, i) => {
-              foundOrder.totalCost += instances[i].subtotal
-              return foundOrder.save()
-            })
-          )
+        // const promises = instances.map(instance => {
+        //   return Order.findById(instance.orderId)
+        // });
+        return Order.findById(instances[0].orderId)
+        .then(foundOrder => {
+          console.log('before', foundOrder);
+          foundOrder.totalCost += instances[0].subtotal;
+          console.log('after', foundOrder);
+          return foundOrder.save();
         })
         .then(() => {
-          console.log('saved');
+          console.log('actually saved?');
         })
+        .catch(console.error)
+        // console.log(promises[0]);
+        // return Promise.all(promises)
+        // .then(foundOrders => {
+        //   // console.log(foundOrders);
+        //   foundOrders.map((foundOrder, i) => {
+        //     // console.log(i,": ", instances[i].subtotal);
+        //     foundOrder.totalCost += instances[i].subtotal
+        //     return foundOrder.save()
+        //   })
+        // })
+        // .then(() => {
+        //   console.log('saved');
+        // })
     }
   }
 })
