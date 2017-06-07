@@ -7,13 +7,21 @@ const ProductDetail = props => {
   if ( product ){
     return (
       <div className="clearfix">
+        <div>
         <img className="productImage" src={`${product.picture}`} />
+        <button className="addToCart"> ADD TO CART </button>
         <h2> {product.name} </h2>
         <h4> Price: $ {product.price} </h4>
         <h4> Stock: {product.stock} </h4>
         <h4> Carat: {product.carat} </h4>
+        <p> Description: </p>
         <p> {product.description} </p>
         <p> {product.tags} </p>
+        </div>
+        <hr/>
+        <div>
+        <p> REVIEWS GO HERE </p>
+        </div>
       </div>
     )
   } else {

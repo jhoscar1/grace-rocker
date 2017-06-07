@@ -19,10 +19,16 @@ body {
     display: inline-block;
   }
 }
+nav>h1 {
+  display: inline;
+}
+.addToCart {
+  float: right;
+}
 
 
 .productImage {
-  display: inline-block;
+  float: left;
 }
 
 

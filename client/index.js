@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome, UsersListContainer, ProductsList, ProductDetail } from './components';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail } from './components';
 import { me, fetchUsers, fetchProducts } from './reducer/';
 
 const whoAmI = store.dispatch(me());
@@ -27,9 +27,9 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={Main}>
         <IndexRoute component={Login} />
-        <Route path="admin">
-         <Route path="users" component={UsersListContainer} onEnter={grabUsers} />
-          <Route path="products" component={ProductsList} />
+        <Route path="admin" component={AdminPanel}>
+         <Route path="users" component={UsersList} onEnter={grabUsers} />
+         <Route path="products" component={ProductsList} />
         </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />

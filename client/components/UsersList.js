@@ -59,7 +59,7 @@ class UserList extends React.Component {
   render() {
     return (
       <div>
-        <h2> Users List </h2>
+        <h2> User List </h2>
         <div className="allUsers">
           <table className="table">
             <thead>
@@ -69,8 +69,8 @@ class UserList extends React.Component {
                 <th>Administrator Status</th>
                 <th>Shipping Address</th>
                 <th>Signup Date</th>
-                <th>Delete User</th>
-                <th>Update User</th>
+                <th>Delete</th>
+                <th>Update</th>
               </tr>
             </thead>
             <tbody>
@@ -115,4 +115,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const UsersListContainer = connect(mapStateToProps, mapDispatchToProps)(UserList);
+export const UsersList = connect(mapStateToProps, mapDispatchToProps)(UserList);

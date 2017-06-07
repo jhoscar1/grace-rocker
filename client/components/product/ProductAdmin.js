@@ -10,29 +10,29 @@ class ProductAdminPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      updateProductId: ''
+      selectedProduct: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
-  deleteProduct(id) {
+  deleteProductCooker(id) {
     return () => {
       this.props.deleteProduct(id)
     }
   }
 
-  handleUpdateClick(id) {
+  handleClickCooker(productInst) {
   return () => {
     this.setState({
-      updateProductId: id
+      selectedProduct: productInst
     })
   }
 }
 
 handleSubmit(event){
     event.preventDefault();
-    const id = this.state.updateProductId
+    const id = this.state.selectedProduct.id
     const name = event.target.name.value;
     const carat = event.target.carat.value;
     const price = event.target.price.value;
@@ -53,7 +53,7 @@ handleSubmit(event){
     return (
       <div>
         <div className="allProducts">
-        <h1> Product List </h1>
+        <h2> Product List </h2>
           <table className="table">
             <thead>
               <tr>
@@ -62,9 +62,9 @@ handleSubmit(event){
                 <th>Price</th>
                 <th>Stock</th>
                 <th>Description</th>
-                <th>Add Date</th>
-                <th>Delete Product</th>
-                <th>Update Product</th>
+                <th>Creation Date</th>
+                <th>Delete</th>
+                <th>Update</th>
               </tr>
             </thead>
             <tbody>
@@ -73,8 +73,8 @@ handleSubmit(event){
                   return (
                   <ProductItem
                   key={product.id}
-                  deleteProduct = {this.deleteProduct(product.id)}
-                  handleUpdateClick = {this.handleUpdateClick(product.id)}
+                  deleteProduct = {this.deleteProductCooker(product.id)}
+                  handleUpdateClick = {this.handleClickCooker(product)}
                   product={product}
                   />
                 )
@@ -84,9 +84,10 @@ handleSubmit(event){
           </table>
         </div>
          {
-        this.state.updateProductId ?
+        this.state.selectedProduct.id ?
         <UpdateForm
         handleSubmit={this.handleSubmit}
+        product={this.state.selectedProduct || ''}
         /> : null
         }
       </div>
