@@ -1,4 +1,5 @@
 import React from 'react';
+import Review from '../Review';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -20,7 +21,9 @@ const ProductDetail = props => {
         </div>
         <hr/>
         <div>
-        <p> REVIEWS GO HERE </p>
+        {product.reviews && product.reviews.map(review => {
+          return <Review key={review.id} review={review} />
+        })}
         </div>
       </div>
     )

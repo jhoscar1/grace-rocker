@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 module.exports = db.define('review', {
+  title: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
   body: {
     type: Sequelize.TEXT,
     allowNull: false
