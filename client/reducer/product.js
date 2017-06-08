@@ -34,7 +34,7 @@ export const fetchProducts = () => {
   }
 }
 
-export const deleteSelectedProduct = (id) => {
+export const deleteSelectedProduct = id => {
   return dispatch => {
     axios.delete(`/api/products/${id}`)
     .then(() => {
@@ -48,6 +48,7 @@ export const updateSelectedProduct = (id, body) => {
     axios.put(`/api/products/${id}`, body)
     .then(updatedProduct => {
       dispatch(updateProduct(updatedProduct));
+      dispatch(fetchProducts())
     })
   }
 }
