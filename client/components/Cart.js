@@ -40,7 +40,7 @@ class Cart extends React.Component {
           </div>
         </div>
         <hr />
-      {cart.products ? cart.products.map(product => {
+      {cart && cart.products ? cart.products.map(product => {
         return (
           <div key={product.id}>
             <img className="column-sm product-image" src={`${product.picture}`} />
@@ -55,7 +55,7 @@ class Cart extends React.Component {
             <p className="inline"> {product.product_order.unit_quantity} </p>
           </div>
         )
-      }) : null }
+      }) : <p> Cart not found </p> }
       </div>
     )}
 }
