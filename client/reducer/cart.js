@@ -3,23 +3,28 @@ import axios from 'axios';
 /* -------------------------- CONSTANTS ------------------------*/
 
 
-const GET_ITEMS = 'GET_ITEMS';
+const GET_CART = 'GET_CART';
 
 
 const initialState = {
-  items: []
+  cart: {}
 };
 
 /* -------------------------- ACTION CREATORS ------------------------*/
 
 
-const getItems = items => ({type: GET_ITEMS, items})
+const getCart = cart => ({type: GET_CART, cart})
 
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
-export const fetchCart = userId => {
+export const fetchCart = userId => dispatch => {
   axios.get(`/api/cart/${userId}`)
+  .then(res => res.data)
+  .then(cart => {
+    dispatch(getCart(cart))
+  })
+  .catch()
 }
 
 
@@ -29,8 +34,8 @@ export const fetchCart = userId => {
 export default function (state = initialState, action) {
   var newState = Object.assign({}, state)
   switch (action.type) {
-    case GET_ITEMS:
-      newState.items = action.items;
+    case GET_CART:
+      newState.cart = action.cart;
       break;
     default:
       return state;
