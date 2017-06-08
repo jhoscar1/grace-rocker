@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CatalogContainer } from './Product/ProductsCatalog'
+import { CatalogContainer } from './product/ProductsCatalog'
 
 const UserHome = props => {
-  const { email } = props;
+  const { name } = props;
 
   return (
     <div>
-      <h3>Welcome, { email }</h3>
+      <h3>Welcome, { name }</h3>
       <CatalogContainer />
     </div>
   );
@@ -16,12 +16,12 @@ const UserHome = props => {
 
 const mapState = ({ userReducer }) => {
   return ({
-     email: userReducer.user.email
+     name: userReducer.user.name
     })
 }
 
 export default connect(mapState)(UserHome);
 
 UserHome.propTypes = {
-  email: PropTypes.string
+  name: PropTypes.string
 };
