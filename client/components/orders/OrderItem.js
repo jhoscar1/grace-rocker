@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const OrderItem = props => {
   const { order } = props;
@@ -6,21 +7,24 @@ const OrderItem = props => {
   return (
     <div>
       <div className="order-header">
-        <span className="order-date">{order.purchase_date}</span>
-        <span className="order-status">{order.status}</span>
-        <span className="order-id">{order.id}</span>
+        <p className="order-date">Date: {order.purchase_date}</p>
+        <p className="order-status">Status: {order.status}</p>
+        <p className="order-id">Order #: {order.id}</p>
       </div>
       <div>
         {order.products ? order.products.map( product => (
-          <div>
+          <div key={product.id}>
             <img className="product-image" src={`${product.picture}`} />
-            <p className="product-name">{product.name}</p>
-            <p className="product-quantity">{product.product_order.unit_quantity}</p>
-            <p className="product-price">{product.product_order.unit_price}</p>
+            <h3 className="product-name"><Link to={`products/${product.id}`}>{product.name}</Link></h3>
+            <p className="product-quantity">Quantity: {product.product_order.unit_quantity}</p>
+            <p className="product-price">Price: {product.product_order.unit_price}
+            </p>
+            <h4 className="product-subtotal">Subtotal: {product.product_order.subtotal}</h4>
           </div>
         )) : null
         }
       </div>
+      {/* TODO: Refactor totalCost hook on Order Model*/}
       <div className="order-cost">COME BACK TO THIS LATA</div>
     </div>
   )

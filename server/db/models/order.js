@@ -5,6 +5,14 @@ const ProductOrder = require('./product_order')
 module.exports = db.define('order', {
   purchase_date: {
     type: Sequelize.DATE,
+    get: function(){
+      const unreadable = this.getDataValue('purchase_date');
+      return unreadable.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
   },
   status: {
     type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed')
