@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const Order = require('../db').Order;
+const Order = require('../db').model('order');
+const Product = require('../db').model('product')
 
 router.param('id', (req, res, next, id) => {
     Order.findById(id)
@@ -19,9 +20,24 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
+router.get('/user/:userId', (req, res, next) => {
+    Order.findAll({
+      where: {
+        userId: +req.params.userId
+      },
+      include: [Product]
+    })
+    .then(ordersArr => {
+      res.json(ordersArr)
+    })
+    .catch(next);
+})
+
 router.get('/:id', (req, res, next) => {
     res.json(req.order);
 })
+
+
 
 router.post('/', (req, res, next) => {
     Order.create({

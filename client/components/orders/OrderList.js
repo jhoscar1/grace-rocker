@@ -1,28 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import OrderItem from './OrderItem';
 
-export default (props) => {
+const OrderList = (props) => {
+  console.log(props);
   return (
     <div>
         <h3>My Order History</h3>
-        {props.orders && props.orders.map( order => (
-          <div>
-            <div className="order-header">
-              <div className="order-date"></div>
-              <div className="order-id"></div>
-            </div>
-            <div>
-              {order.products.map( product => (
-                <div className="product-row">
-                  <div className="product-image"></div>
-                  <div className="product-name"></div>
-                  <div className="product-price"></div>
-                  <div className="product-quantity"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+        {props.orders ? props.orders.map( order => {
+            return (<OrderItem
+              key={+order.id}
+              order={order}
+            />)
+        }) : null }
     </div>
   )
 }
+
+const mapStateToProps = state => ({
+  orders: state.orderReducer.orders
+})
+
+export default connect(mapStateToProps)(OrderList);
