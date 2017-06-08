@@ -1,12 +1,11 @@
 import React from 'react';
 import { UsersList, ProductsList} from './'
 
-export default () => {
+export default (props) => {
 
   return (
     <div>
-      <UsersList />
-      <ProductsList />
+      {props.children && props.children}
     </div>
   )
 }
