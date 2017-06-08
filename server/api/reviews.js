@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const Review = require('../db').model('review');
-const User = require('../db').model('user');
 const Product = require('../db').model('product');
 
 router.param('id', (req, res, next, id) => {
@@ -31,7 +30,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/products/:productId/reviews/:id', (req, res, next) => {
     res.json(req.review);
 })
 
