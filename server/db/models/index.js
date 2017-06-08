@@ -10,7 +10,10 @@ Review.belongsTo(Product);
 
 User.hasMany(Order);
 User.hasMany(Review);
-Product.hasMany(Review);
+Product.hasMany(Review, {
+  onDelete: 'cascade',
+  hooks: true
+});
 
 Product.belongsToMany(Order, {through: ProductOrder});
 Order.belongsToMany(Product, {through: ProductOrder});
