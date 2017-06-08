@@ -22,6 +22,7 @@ const grabAllOrders = () => {
 const whoAmI = store.dispatch(me());
 const grabUsers = store.dispatch(fetchUsers());
 const grabCart = () => {
+  console.log(store.getState().userReducer.user.id)
   store.dispatch(fetchCart((store.getState().userReducer.user.id)));
 }
 const grabProducts = () => {
@@ -46,7 +47,7 @@ ReactDOM.render(
         <IndexRoute component={Login} />
         <Route path="admin" component={AdminPanel}>
          <Route path="users" component={UsersList} onEnter={grabUsers} />
-         <Route path="products" component={ProductsList} />
+         <Route path="products" component={ProductsList} onEnter={grabProducts} />
          <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
         </Route>
         <Route path="login" component={Login} />
