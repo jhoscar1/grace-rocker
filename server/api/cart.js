@@ -22,11 +22,6 @@ router.param('userId', (req, res, next, id) => {
 });
 
 
-router.get('/:userId', (req, res, next) => {
-  console.log('hi', req.order);
-  res.json(req.order)
-});
-
 router.put('/:orderId/:productId', (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
@@ -42,4 +37,10 @@ router.put('/:orderId/:productId', (req, res, next) => {
     res.status(201).json(updatedObj)
   })
   .catch(next);
+});
+
+
+router.get('/:userId', (req, res, next) => {
+  console.log('hi', req.order);
+  res.json(req.order)
 });

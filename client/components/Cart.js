@@ -8,18 +8,20 @@ class Cart extends React.Component {
     super(props);
     this.state = {
       cart: this.props.cart,
-      warning: false
+      warning: -1
     }
     this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this);
    }
 
-  handleUpdateSubmit(productId, orderId) {
-    (evt) => {const quantityValue = evt.target.quantityValue.value;
-    if(typeof quantityValue !== 'number') {
-      this.setState({ warning: true })
+  handleUpdateSubmit(productId, orderId, userId) {
+    return evt => {
+    evt.preventDefault()
+    const quantityValue = {quantity: +evt.target.quantityValue.value};
+    if (isNaN(quantityValue.quantity) || !quantityValue.quantity) {
+      this.setState({ warning: productId })
     } else {
-      this.setState({ warning: false })
-      this.props.storeUpdate(productId, orderId, quantityValue)
+      this.setState({ warning: -1 })
+      this.props.storeUpdate(productId, orderId, quantityValue, userId)
     }}
 
   }
@@ -42,9 +44,9 @@ class Cart extends React.Component {
         return (
           <div key={product.id}>
             <img className="column-sm product-image" src={`${product.picture}`} />
-            <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id)}>
+            <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id, cart.userId)}>
               <input placeholder={`${product.product_order.unit_quantity}`} name="quantityValue"></input>
-              {this.state.warning ? <p>Invalid Input!</p> : null}
+              {this.state.warning === product.id ? <p>Invalid Input!</p> : null}
               <button type="submit" className="inline"> Update Quantity </button>
             </form>
             <button  className="inline right"> Delete </button>
@@ -63,7 +65,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  storeUpdate: (productId, orderId, quantity) => dispatch(updateQuantity(productId, orderId, quantity))
+  storeUpdate: (productId, orderId, quantity, userId) => dispatch(updateQuantity(productId, orderId, quantity, userId))
 })
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)
