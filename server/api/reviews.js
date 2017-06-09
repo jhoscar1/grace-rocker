@@ -18,7 +18,6 @@ router.param('id', (req, res, next, id) => {
 });
 
 router.get('/:productId/reviews', (req, res, next) => {
-    console.log(req.params.productId)
     Review.findAll({
         where: {
             productId: req.params.productId
@@ -40,8 +39,6 @@ router.get('/:productId/reviews/:id', (req, res, next) => {
 })
 
 router.post('/:productId/reviews', (req, res, next) => {
-    console.log(req.body);
-    console.log(req.user);
     Review.create({
         title: req.body.title,
         body: req.body.body,
