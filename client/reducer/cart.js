@@ -2,7 +2,9 @@ import axios from 'axios';
 
 /* -------------------------- CONSTANTS ------------------------*/
 
+const SET_QUANTITY = 'SET_QUANTITY'
 const GET_CART = 'GET_CART';
+
 
 const initialState = {
   cart: {}
@@ -12,6 +14,11 @@ const initialState = {
 
 
 const getCart = cart => ({type: GET_CART, cart})
+const setQuantity = (productId, quantity) => ({
+  type: SET_QUANTITY,
+  quantity,
+  productId
+})
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
@@ -24,11 +31,10 @@ export const fetchCart = userId => dispatch => {
   .catch()
 }
 
-
-export const updateQuantity = (productId, orderId, quantity, userId) => dispatch => {
+export const updateQuantity = (productId, orderId, quantity) => dispatch => {
   axios.put(`/api/cart/${orderId}/${productId}`, quantity)
-  .then(() => {
-    dispatch(fetchCart(userId));
+  .then((updatedCart) => {
+    dispatch(fetchCart(updatedCart.userId));
   });
 }
 
@@ -40,6 +46,9 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       newState.cart = action.cart;
+      break;
+    case SET_QUANTITY:
+      newState.cart.product[action.productId].product_order.unit_quantity = action.quantity
       break;
     default:
       return state;
