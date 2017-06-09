@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Product = require('../db').model('product');
+const gatekeeper = require('../utils/gatekeeper');
 
 module.exports = router;
 
@@ -20,7 +21,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', gatekeeper.isAdmin, (req, res, next) => {
   Product.create(req.body)
   .then(createdProduct => res.json(createdProduct))
   .catch(next)
@@ -30,12 +31,12 @@ router.get('/:id', (req, res, next) => {
   res.json(req.product);
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', gatekeeper.isAdmin, (req, res, next) => {
     return req.product.update(req.body)
     .then(savedProduct => res.json(savedProduct))
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', gatekeeper.isAdmin, (req, res, next) => {
   req.product.destroy()
   .then(() => res.sendStatus(204))
 });
