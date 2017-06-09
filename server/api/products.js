@@ -1,11 +1,21 @@
 const router = require('express').Router();
 const Product = require('../db').model('product');
 const gatekeeper = require('../utils/gatekeeper');
+const User = require('../db').model('user');
+const Review = require('../db').model('review');
 
 module.exports = router;
 
 router.param('id', (req, res, next, id) => {
-  Product.findById(id)
+  Product.findById(id, {
+    include: [
+      {model: Review,
+        include: [
+          {model: User}
+        ]
+      }
+    ]
+  })
   .then(product => {
     if (!product) throw new Error('Product not found');
     req.product = product;
@@ -16,7 +26,15 @@ router.param('id', (req, res, next, id) => {
 });
 
 router.get('/', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [
+      {model: Review,
+        include: [
+          {model: User}
+        ]
+      }
+    ]
+  })
     .then(products => res.json(products))
     .catch(next);
 });
