@@ -13,12 +13,22 @@ router.param('id', (req, res, next, id) => {
 })
 
 router.get('/', (req, res, next) => {
-    Order.findAll()
+    Order.findAll({order: [['id', 'ASC']]})
     .then(foundOrders => {
         res.json(foundOrders);
     })
     .catch(next);
 })
+
+// router.get('/sorted/:displayOrder', (req, res, next) => {
+//     let order = req.params.displayOrder
+//     Order.findAll({order: [[order, 'ASC']]})
+//     .then(foundOrders => {
+//         res.json(foundOrders);
+//     })
+//     .catch(next);
+//   }
+// )
 
 router.get('/user/:userId', (req, res, next) => {
     Order.findAll({
@@ -37,8 +47,6 @@ router.get('/:id', (req, res, next) => {
     res.json(req.order);
 })
 
-
-
 router.post('/', (req, res, next) => {
     Order.create({
         status: 'created'
@@ -56,6 +64,15 @@ router.post('/', (req, res, next) => {
     })
 })
 
+router.put('/:id', (req, res, next) => {
+  console.log('put route hit')
+  Order.findById(req.params.id)
+  .then(foundOrder => {
+    return foundOrder.update(req.body)
+  })
+  .then(updatedOrder => res.json(updatedOrder))
+})
+
 router.delete('/:id', (req, res, next) => {
     req.order.destroy()
     .then(() => {
@@ -65,3 +82,11 @@ router.delete('/:id', (req, res, next) => {
 })
 
 module.exports = router;
+
+// router.put('/:id', (req, res, next) => {
+//   Order.findById(req.params.id)
+//   .then(foundOrder => {
+//     return foundOrder.update(req.body)
+//   })
+//   .then(updatedOrder => res.json(updatedOrder))
+// })

@@ -5,12 +5,18 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList } from './components';
-import { me, fetchUsers, fetchProducts, fetchOrders } from './reducer/';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList} from './components';
+import {AdminOrderList} from './components/orders/AdminOrderList'
+import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders} from './reducer/';
 
 const grabOrders = () => {
   const { user } = store.getState().userReducer;
   store.dispatch(fetchOrders(user.id));
+}
+
+const grabAllOrders = () => {
+  console.log('grab all orders firing')
+  store.dispatch(fetchAllOrders())
 }
 
 const whoAmI = store.dispatch(me());
@@ -35,6 +41,7 @@ ReactDOM.render(
         <Route path="admin" component={AdminPanel}>
          <Route path="users" component={UsersList} onEnter={grabUsers} />
          <Route path="products" component={ProductsList} />
+         <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
         </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
