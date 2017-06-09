@@ -15,15 +15,15 @@ class Cart extends React.Component {
     this.handleDeleteCartProd = this.handleDeleteCartProd.bind(this);
    }
 
-  handleUpdateSubmit(productId, orderId) {
-    (evt) => {
+  handleUpdateSubmit(productId, orderId, userId) {
+    return (evt) => {
       evt.preventDefault();
-      const quantityValue = evt.target.quantityValue.value;
+      const quantityValue = +evt.target.quantityValue.value;
       if(typeof quantityValue !== 'number') {
         this.setState({ warning: true })
       } else {
         this.setState({ warning: false })
-        this.props.storeUpdate(productId, orderId, quantityValue)
+        this.props.storeUpdate(productId, orderId, quantityValue, userId)
       }}
   }
 
@@ -55,7 +55,7 @@ class Cart extends React.Component {
         return (
           <div key={product.id}>
             <img className="column-sm product-image" src={`${product.picture}`} />
-            <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id)}>
+            <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id, cart.userId)}>
               <input placeholder={`${product.product_order.unit_quantity}`} name="quantityValue"></input>
               {this.state.warning ? <p>Invalid Input!</p> : null}
               <button type="submit" className="inline"> Update Quantity </button>
@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  storeUpdate: (productId, orderId, quantity) => dispatch(updateQuantity(productId, orderId, quantity)),
+  storeUpdate: (productId, orderId, quantity, userId) => dispatch(updateQuantity(productId, orderId, quantity, userId)),
   fetchCart: userId => dispatch(fetchCart(userId))
 })
 

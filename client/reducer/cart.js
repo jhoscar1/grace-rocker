@@ -31,10 +31,12 @@ export const fetchCart = userId => dispatch => {
   .catch()
 }
 
-export const updateQuantity = (productId, orderId, quantity) => dispatch => {
-  axios.put(`/api/cart/${orderId}/${productId}`, quantity)
+export const updateQuantity = (productId, orderId, quantity, userId) => dispatch => {
+  const quantityObj = {quantity: +quantity}
+  console.log('hi');
+  axios.put(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then((updatedCart) => {
-    dispatch(fetchCart(updatedCart.userId));
+    dispatch(fetchCart(userId));
   });
 }
 
