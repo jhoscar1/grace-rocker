@@ -5,9 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList} from './components';
-import {AdminOrderList} from './components/orders/AdminOrderList';
 import {AdminOrderDetails} from './components/orders/AdminOrderDetails';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList } from './components';
 import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders} from './reducer/';
 import {fetchSingleOrder} from './reducer/orders'
 

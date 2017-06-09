@@ -114,4 +114,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const AdminOrderList = connect(mapStateToProps, mapDispatchToProps)(AdminOrdersView)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminOrdersView)
