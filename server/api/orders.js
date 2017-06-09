@@ -65,7 +65,6 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  console.log('put route hit')
   Order.findById(req.params.id)
   .then(foundOrder => {
     return foundOrder.update(req.body)
@@ -76,7 +75,6 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     req.order.destroy()
     .then(() => {
-        console.log('Order deleted');
         res.sendStatus(204);
     })
 })

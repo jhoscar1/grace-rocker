@@ -37,6 +37,9 @@ module.exports = db.define('product', {
   getterMethods: {
     priceInCents: function(){
       return this.getDataValue('price')
+    },
+    tagsArray: function(){
+      return this.getDataValue('tags')
     }
   }
 })

@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 const OrderItem = props => {
   const { order } = props;
-  console.log(order.products[0]);
   return (
     <div>
       <div className="order-header">

@@ -14,7 +14,6 @@ const grabOrders = () => {
 }
 
 const grabAllOrders = () => {
-  console.log('grab all orders firing')
   store.dispatch(fetchAllOrders())
 }
 

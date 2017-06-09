@@ -22,7 +22,7 @@ export const deleteOrder = (order) => ({ type: DELETE_ORDER, order });
 /* -----------------------------  DISPATCHERS   ------------------------------*/
 
 export const fetchOrders = userId => dispatch => {
-  axios.get(`/api/orders/user/${userId}`)
+  axios.get(`/api/orders/usaer/${userId}`)
   .then(res => res.data)
   .then(ordersArr => dispatch(setOrder(ordersArr)));
 }
