@@ -39,4 +39,17 @@ gatekeeper.isAdminOrSelf = (req, res, next) => {
     }
 }
 
+gatekeeper.isAdminOrHasOrder = (req, res, next) => {
+    if (!req.user) {
+        next(needAuthError);
+    }
+    // req.order is coming from req.params on the order router
+    else if (req.order.userId !== req.user.id && !req.user.isAdmin) {
+        next(forbiddenError);
+    }
+    else {
+        next();
+    }
+}
+
 module.exports = gatekeeper;

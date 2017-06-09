@@ -44,11 +44,11 @@ router.get('/user/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
     .catch(next);
 })
 
-router.get('/:id', gatekeeper.isAdminOrSelf, (req, res, next) => {
+router.get('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     res.json(req.order);
 })
 
-router.post('/', gatekeeper.isAdmin, (req, res, next) => {
+router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
     Order.create({
         status: 'created'
     })
@@ -65,7 +65,7 @@ router.post('/', gatekeeper.isAdmin, (req, res, next) => {
     })
 })
 
-router.put('/:id', gatekeeper.isAdmin, (req, res, next) => {
+router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   console.log('put route hit')
   Order.findById(req.params.id)
   .then(foundOrder => {
@@ -74,7 +74,7 @@ router.put('/:id', gatekeeper.isAdmin, (req, res, next) => {
   .then(updatedOrder => res.json(updatedOrder))
 })
 
-router.delete('/:id', gatekeeper.isAdmin, (req, res, next) => {
+router.delete('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     req.order.destroy()
     .then(() => {
         console.log('Order deleted');
@@ -83,11 +83,3 @@ router.delete('/:id', gatekeeper.isAdmin, (req, res, next) => {
 })
 
 module.exports = router;
-
-// router.put('/:id', (req, res, next) => {
-//   Order.findById(req.params.id)
-//   .then(foundOrder => {
-//     return foundOrder.update(req.body)
-//   })
-//   .then(updatedOrder => res.json(updatedOrder))
-// })
