@@ -7,6 +7,8 @@ class Catalog extends React.Component {
 
   constructor(props){
     super(props);
+    //checkedObj controls the tick boxes on each checkbox input. basically, when it is deleted, all boxes untick.
+    //selectedCategories controls which boxes are ticked.
     this.state = {
       searchInput: '',
       selectedCategories: [],
@@ -21,7 +23,7 @@ class Catalog extends React.Component {
     this.setState({searchInput: event.target.value})
     this.tagsGet()
   }
-
+  //this function constructs a set of all agglomerated tags from the products array
   tagsGet(){
     let temp = [], obj = {};
     this.props.products.forEach(product => {
@@ -44,7 +46,7 @@ class Catalog extends React.Component {
       checkedObj: {},
     })
   }
-
+  //ontick; if checked, add it to the checkedObj to ensure it remains checked and include it in categories to search for. if unchecked, remove it from the checkedObj and the active categories array.
   handleTick(event){
     const category = event.target.value
     if (event.target.checked){
@@ -66,17 +68,21 @@ class Catalog extends React.Component {
     }
  }
 
+ //just returns checkbox html
   createCheckbox(value){
     return <input checked={this.state.checkedObj[value]} className="check" type="checkbox" onChange={this.handleTick} value={value}></input>
   }
 
+
+//the big ternary on products.map is the search logic. it allows us to search by name and category simultaneously.
+//when selectedCategories is empty, no categories are filtered. as soon as it contains one value, we filter our selecton down to that category.
   render(){
-    const { products } = this.props;
+    const { products } = this.props, { searchInput, selectedCategories } = this.state
     return (
       <div>
       <hr />
-      <label htmlFor="search">Search by Tags</label>
-      <input value={this.state.searchInput} placeholder="Search..." name="search" onChange={this.handleChange}></input>
+      <label htmlFor="search">Search by Name</label>
+      <input value={searchInput} placeholder="Search..." name="search" onChange={this.handleChange}></input>
       <hr />
       <div>
         <form className="inline">
@@ -92,27 +98,25 @@ class Catalog extends React.Component {
         })
       }
         <button className="right" onClick={this.resetTags}>Reset Filter</button>
-
       </form>
       <hr />
     </div>
         {
           products.map(product => {
             return (
-            (product.tags.includes(this.state.searchInput.toLowerCase()) ||
-            product.tags.includes(this.state.searchInput.toLowerCase())
-            ) && (
-              !this.state.selectedCategories.length ||
-              _.intersection(this.state.selectedCategories, product.tagsArray).length
-            ) ?
-            (
-              <div key={product.id} className="clearfix productItem">
-                <img className="productImage" src={`${product.picture}`} />
-                <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
-                <h4> Price: $ {product.price} </h4>
-                <hr />
-              </div>
-            ) : null
+                product.name.toLowerCase().includes(searchInput.toLowerCase())
+                  && (
+                !selectedCategories.length ||
+                _.intersection(selectedCategories, product.tagsArray).length
+              ) ?
+              (
+                <div key={product.id} className="clearfix productItem">
+                  <img className="productImage" src={`${product.picture}`} />
+                  <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
+                  <h4> Price: $ {product.price} </h4>
+                  <hr />
+                </div>
+              ) : null
             )
           })
         }
