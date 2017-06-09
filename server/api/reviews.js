@@ -35,7 +35,10 @@ router.get('/products/:productId/reviews/:id', (req, res, next) => {
 })
 
 router.post('/products/:productId/reviews', (req, res, next) => {
+    console.log(req.body);
+    console.log(req.user);
     Review.create({
+        title: req.body.title,
         body: req.body.body,
         stars: req.body.stars
     })
@@ -69,4 +72,3 @@ router.delete('/products/:productId/reviews/:id', (req, res, next) => {
 })
 
 module.exports = router;
-
