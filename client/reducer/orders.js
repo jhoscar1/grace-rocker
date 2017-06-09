@@ -26,17 +26,10 @@ export const fetchOrders = userId => dispatch => {
   .then(ordersArr => dispatch(getOrders(ordersArr)));
 }
 
-export const fetchAllOrders = displayOrder => dispatch => {
-  if (!displayOrder) {
-
+export const fetchAllOrders = ()  => dispatch => {
   axios.get('/api/orders')
   .then(res => res.data)
   .then(allOrders => dispatch(getOrders(allOrders)))
-} else {
-  axios.get(`/api/orders/${displayOrder}`)
-  .then(res => res.data)
-  .then(allOrders => dispatch(getOrders(allOrders)))
-}
 }
 
 /* -----------------------------    REDUCERS    ------------------------------*/
