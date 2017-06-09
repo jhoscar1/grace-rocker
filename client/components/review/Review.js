@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Star from './Star';
+import Star from '../Star';
 
 export default ({review}) => {
     return (
