@@ -9,9 +9,8 @@ class Catalog extends React.Component {
     super(props);
     this.state = {
       searchInput: '',
-      categoryArray: [],
-      selectedCategories: ['--all--'],
-      dirty: false
+      selectedCategories: [],
+      checkedObj: {}
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleTick = this.handleTick.bind(this);
@@ -42,30 +41,34 @@ class Catalog extends React.Component {
   resetTags(evt){
     evt.preventDefault()
     this.setState({
-      selectedCategories: ['--all--']
+      checkedObj: {},
     })
   }
 
   handleTick(event){
-    if (!this.state.dirty){
-      this.state.selectedCategories.pop()
-      this.setState({
-        dirty: true,
-      })
-    }
+    const category = event.target.value
     if (event.target.checked){
-      let eventObj = {};
-      eventObj[event.target.value] = true;
+      let newCheckedValObj = {};
+      newCheckedValObj[category] = true;
       this.setState({
-        selectedCategories: this.state.selectedCategories.concat(event.target.value)
+        checkedObj: Object.assign({}, this.state.checkedObj, newCheckedValObj),
+        selectedCategories: this.state.selectedCategories.concat(category)
       })
     } else {
-      let tempArr = this.state.selectedCategories.splice(this.state.selectedCategories.indexOf(event.target.value), 1)
+      let tempArr = this.state.selectedCategories
+      let tempObj = this.state.checkedObj;
+      tempArr.splice(this.state.selectedCategories.indexOf(category), 1)
+      delete tempObj[category]
       this.setState({
-        categoryObj: tempArr
+        checkedObj: tempObj,
+        selectedCategories: tempArr
       })
     }
  }
+
+  createCheckbox(value){
+    return <input checked={this.state.checkedObj[value]} className="check" type="checkbox" onChange={this.handleTick} value={value}></input>
+  }
 
   render(){
     const { products } = this.props;
@@ -83,7 +86,7 @@ class Catalog extends React.Component {
           return (
             <div key={tag.name}>
               <label> {tag.name} : {tag.quantity}</label>
-              <input className="check" type="checkbox" onChange={this.handleTick} value={tag.name}></input>
+              {this.createCheckbox(tag.name)}
             </div>
           )
         })
@@ -99,7 +102,7 @@ class Catalog extends React.Component {
             (product.tags.includes(this.state.searchInput.toLowerCase()) ||
             product.tags.includes(this.state.searchInput.toLowerCase())
             ) && (
-              this.state.selectedCategories[0] === "--all--" ||
+              !this.state.selectedCategories.length ||
               _.intersection(this.state.selectedCategories, product.tagsArray).length
             ) ?
             (
