@@ -26,6 +26,12 @@ export const fetchOrders = userId => dispatch => {
   .then(ordersArr => dispatch(getOrders(ordersArr)));
 }
 
+export const fetchAllOrders = ()  => dispatch => {
+  axios.get('/api/orders')
+  .then(res => res.data)
+  .then(allOrders => dispatch(getOrders(allOrders)))
+}
+
 /* -----------------------------    REDUCERS    ------------------------------*/
 export default (state = initialState, action) => {
   const newState = Object.assign({}, state);
@@ -33,6 +39,8 @@ export default (state = initialState, action) => {
     case GET_ORDERS:
       newState.orders = action.orders;
       return newState;
+    // case GET_ALL_ORDERS:
+    //   newState.orders
     case SET_ORDER:
     case DELETE_ORDER:
     default:
