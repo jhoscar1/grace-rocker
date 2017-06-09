@@ -17,35 +17,17 @@ class AdminOrdersView extends React.Component {
     this.handleStatusUpdate = this.handleStatusUpdate.bind(this)
   }
 
-  componentWillMount(){
-    console.log('about to mount')
-  }
-  //
-  // componentDidMount () {
-  //   this.unsubscribe = store.subscribe( () => this.setState(store.getState()))
-  //   console.log('hello')
-  // // }
-  //
-  // componentWillUnmount() {
-  //   this.unsubscribe()
-  // }
-
   handleUpdateClick(orderId) {
-    console.log('hi from handleUpdateClick')
-    console.log('orderId is', orderId);
-    console.log('state is', this.state)
     return () => {
       this.setState({
         orderToUpdateId: orderId,
       })
-      console.log('hello')
     }
   }
 
   handleStatusUpdate(event) {
 
     event.preventDefault();
-    console.log('status update hit')
     const id = this.state.orderToUpdateId;
     const status = event.target.orderStatus.value;
     axios.put(`/api/orders/${this.state.orderToUpdateId}`, {
@@ -67,15 +49,7 @@ class AdminOrdersView extends React.Component {
 
   }
 
-
-    // event.preventDefault()
-    // api call to update the order....
-    // orderToUpdateId set to ''
-    // dispatch the thing to get all the orders again
-
   render () {
-    console.log('hi');
-    // console.log(this.state.orderReducer.orders)
     return (
       <div>
         <h3>All Orders</h3>
@@ -139,6 +113,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-// Use the connect function here....
 
 export const AdminOrderList = connect(mapStateToProps, mapDispatchToProps)(AdminOrdersView)

@@ -20,16 +20,6 @@ router.get('/', (req, res, next) => {
     .catch(next);
 })
 
-// router.get('/sorted/:displayOrder', (req, res, next) => {
-//     let order = req.params.displayOrder
-//     Order.findAll({order: [[order, 'ASC']]})
-//     .then(foundOrders => {
-//         res.json(foundOrders);
-//     })
-//     .catch(next);
-//   }
-// )
-
 router.get('/user/:userId', (req, res, next) => {
     Order.findAll({
       where: {
@@ -43,9 +33,27 @@ router.get('/user/:userId', (req, res, next) => {
     .catch(next);
 })
 
+// router.get('/:id', (req, res, next) => {
+//   console.log('router for api/orders/id')
+//     res.json(req.order);
+// })
+
+
 router.get('/:id', (req, res, next) => {
-    res.json(req.order);
+
+  Order.findOne({
+    where: {
+      id: +req.params.id
+    },
+    include: [Product]
+  })
+  .then(order => {
+      res.json(order)
+  })
+  .catch(next);
 })
+
+
 
 router.post('/', (req, res, next) => {
     Order.create({
@@ -65,7 +73,6 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  console.log('put route hit')
   Order.findById(req.params.id)
   .then(foundOrder => {
     return foundOrder.update(req.body)
