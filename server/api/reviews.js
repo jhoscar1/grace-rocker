@@ -17,8 +17,13 @@ router.param('id', (req, res, next, id) => {
     .catch(next);
 });
 
-router.get('/', (req, res, next) => {
-    Review.findAll()
+router.get('/:productId/reviews', (req, res, next) => {
+    console.log(req.params.productId)
+    Review.findAll({
+        where: {
+            productId: req.params.productId
+        }
+    })
     .then(foundReviews => {
         if (!foundReviews) {
             const err = new Error(`No reviews found`);
@@ -30,11 +35,11 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/products/:productId/reviews/:id', (req, res, next) => {
+router.get('/:productId/reviews/:id', (req, res, next) => {
     res.json(req.review);
 })
 
-router.post('/products/:productId/reviews', (req, res, next) => {
+router.post('/:productId/reviews', (req, res, next) => {
     console.log(req.body);
     console.log(req.user);
     Review.create({
@@ -54,7 +59,7 @@ router.post('/products/:productId/reviews', (req, res, next) => {
     .catch(next);
 })
 
-router.put('/products/:productId/reviews/:id', (req, res, next) => {
+router.put('/:productId/reviews/:id', (req, res, next) => {
     req.review.update({
         body: req.body.body,
         stars: req.body.stars
@@ -65,7 +70,7 @@ router.put('/products/:productId/reviews/:id', (req, res, next) => {
     .catch(next);
 })
 
-router.delete('/products/:productId/reviews/:id', (req, res, next) => {
+router.delete('/:productId/reviews/:id', (req, res, next) => {
     req.review.destroy()
     .then(() => res.sendStatus(204))
     .catch(next);
