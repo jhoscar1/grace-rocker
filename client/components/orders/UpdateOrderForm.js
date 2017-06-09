@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function UpdateOrderForm (props) {
-  console.log('i triggered in updateOrderForm')
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
