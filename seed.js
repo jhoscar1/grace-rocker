@@ -28,23 +28,23 @@ var data = {
     {name: 'Sapphires', carat: 16, price: 5000, stock: 15, description: 'A mediocre gem'}
   ],
   review: [
-    {body: 'What product am I even reviewing right now?', stars: 3},
-    {body: 'I am questioning why I purchased this?', stars: 2},
-    {body: 'I am content with this I suppose?', stars: 3},
-    {body: 'A good product, if you are stupid?', stars: 2},
-    {body: 'I did not like this very much I think?', stars: 1},
-    {body: 'I did not like this at all I think?', stars: 1},
-    {body: 'I am loving this?', stars: 4},
-    {body: 'A good product, NOT?', stars: 2},
-    {body: 'Possibly the worst product in the world?', stars: 1},
-    {body: 'I did not like this at all, I would like my money back please?', stars: 1},
-    {body: 'A wonderful product, where can I get more?', stars: 4},
-    {body: 'What product am I even reviewing right now?', stars: 3},
-    {body: 'I am questioning why I purchased this?', stars: 2},
-    {body: 'I am content with this I suppose?', stars: 3},
-    {body: 'A good product, if you are smart?', stars: 4},
-    {body: 'I did like this very much I think?', stars: 5},
-    {body: 'I did like this somewhat I think?', stars: 3}
+    {title: 'Good Product', body: 'What product am I even reviewing right now?', stars: 3},
+    {title: 'Good Product', body: 'I am questioning why I purchased this?', stars: 2},
+    {title: 'Good Product', body: 'I am content with this I suppose?', stars: 3},
+    {title: 'Good Product', body: 'A good product, if you are stupid?', stars: 2},
+    {title: 'Good Product', body: 'I did not like this very much I think?', stars: 1},
+    {title: 'Good Product', body: 'I did not like this at all I think?', stars: 1},
+    {title: 'Good Product', body: 'I am loving this?', stars: 4},
+    {title: 'Good Product', body: 'A good product, NOT?', stars: 2},
+    {title: 'Good Product', body: 'Possibly the worst product in the world?', stars: 1},
+    {title: 'Good Product', body: 'I did not like this at all, I would like my money back please?', stars: 1},
+    {title: 'Good Product', body: 'A wonderful product, where can I get more?', stars: 4},
+    {title: 'Good Product', body: 'What product am I even reviewing right now?', stars: 3},
+    {title: 'Bad Product', body: 'I am questioning why I purchased this?', stars: 2},
+    {title: 'Bad Product', body: 'I am content with this I suppose?', stars: 3},
+    {title: 'Bad Product', body: 'A Bad product, if you are smart?', stars: 4},
+    {title: 'Bad Product', body: 'I did like this very much I think?', stars: 5},
+    {title: 'Bad Product', body: 'I did like this somewhat I think?', stars: 3}
   ]
 }
 
