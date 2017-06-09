@@ -40,7 +40,6 @@ class AdminOrdersView extends React.Component {
 
   handleSortRequest(event) {
     event.preventDefault();
-    console.log('sort request hit');
     const sortOrder = event.target.sortOrder.value;
     axios.put(`/api/orders/sorted/${sortedOrder}`)
     .then(() => {

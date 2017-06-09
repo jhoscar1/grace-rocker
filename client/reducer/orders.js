@@ -34,7 +34,6 @@ export const fetchAllOrders = ()  => dispatch => {
 }
 
 export const fetchSingleOrder = orderId => dispatch => {
-  console.log('fetch singleOrder thunk')
   axios.get(`/api/orders/${orderId}`)
   .then(res => res.data)
   .then(foundOrder => dispatch(setOrder(foundOrder)))

@@ -5,10 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import {AdminOrderDetails} from './components/orders/AdminOrderDetails';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList } from './components';
-import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders} from './reducer/';
-import {fetchSingleOrder} from './reducer/orders'
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails } from './components';
+import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchSingleOrder} from './reducer/';
 
 const grabOrders = () => {
   const { user } = store.getState().userReducer;
@@ -16,7 +14,6 @@ const grabOrders = () => {
 }
 
 const grabAllOrders = () => {
-  console.log('grab all orders firing')
   store.dispatch(fetchAllOrders())
 }
 
@@ -34,7 +31,6 @@ const requireLogin = (nextRouterState, replace, next) =>
     .catch(err => console.log(err));
 
 const onOrderEnter = (nextRouterState) => {
-  console.log('onenter hook')
   const orderId = nextRouterState.params.id;
   store.dispatch(fetchSingleOrder(orderId))
 }

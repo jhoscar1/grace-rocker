@@ -9,4 +9,4 @@ const mapStateToProps = state => {
   )
 }
 
-export const AdminOrderDetails = connect(mapStateToProps)(OrderItem)
+export default connect(mapStateToProps)(OrderItem)
