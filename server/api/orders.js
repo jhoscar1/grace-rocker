@@ -3,7 +3,9 @@ const Order = require('../db').model('order');
 const Product = require('../db').model('product')
 
 router.param('id', (req, res, next, id) => {
-    Order.findById(id)
+    Order.findById(id, {
+        include: [Product]
+    })
     .then(order => {
         if (!order) throw new Error(`No Order with ID: ${id} found`)
         req.order = order;
@@ -19,16 +21,6 @@ router.get('/', (req, res, next) => {
     })
     .catch(next);
 })
-
-// router.get('/sorted/:displayOrder', (req, res, next) => {
-//     let order = req.params.displayOrder
-//     Order.findAll({order: [[order, 'ASC']]})
-//     .then(foundOrders => {
-//         res.json(foundOrders);
-//     })
-//     .catch(next);
-//   }
-// )
 
 router.get('/user/:userId', (req, res, next) => {
     Order.findAll({
@@ -65,7 +57,6 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  console.log('put route hit')
   Order.findById(req.params.id)
   .then(foundOrder => {
     return foundOrder.update(req.body)
@@ -82,11 +73,3 @@ router.delete('/:id', (req, res, next) => {
 })
 
 module.exports = router;
-
-// router.put('/:id', (req, res, next) => {
-//   Order.findById(req.params.id)
-//   .then(foundOrder => {
-//     return foundOrder.update(req.body)
-//   })
-//   .then(updatedOrder => res.json(updatedOrder))
-// })

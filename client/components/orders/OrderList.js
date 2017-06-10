@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
 
 const OrderList = (props) => {
-  console.log(props);
   return (
     <div>
         <h3>My Order History</h3>
