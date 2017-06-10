@@ -94,7 +94,7 @@ db.sync({force: true})
     .create(orderItem)
     .then(order => {
       return Promise.map(productArray, productInst => {
-        return order.addProduct(productInst, {unit_quantity: Math.floor(Math.random() * 10), unit_price: productInst.priceInCents})
+        return order.addProduct(productInst, {unit_quantity: Math.floor(Math.random() * 10)+1, unit_price: productInst.priceInCents})
       })
       .then(() => {
         return order.setUser(userArray[Math.floor(Math.random() * userArray.length)])

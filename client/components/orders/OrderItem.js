@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const OrderItem = props => {
   const { order } = props;
-  console.log(order.products[0]);
+  let totalCost = 0;
   return (
     <div>
       <div className="order-header">
@@ -12,7 +12,8 @@ const OrderItem = props => {
         <p className="order-id">Order #: {order.id}</p>
       </div>
       <div>
-        {order.products ? order.products.map( product => (
+        {
+          order.products ? order.products.map( product => (
           <div key={product.id}>
             <img className="product-image" src={`${product.picture}`} />
             <h3 className="product-name"><Link to={`products/${product.id}`}>{product.name}</Link></h3>
@@ -25,7 +26,7 @@ const OrderItem = props => {
         }
       </div>
       {/* TODO: Refactor totalCost hook on Order Model*/}
-      <div className="order-cost">COME BACK TO THIS LATA</div>
+      <div className="order-cost"><h2>Total Cost: ${totalCost}</h2></div>
     </div>
   )
 }
