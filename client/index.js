@@ -50,10 +50,11 @@ ReactDOM.render(
       <Route path="/" component={Main} onEnter={grabProducts} >
         <IndexRoute component={UserHome} />
         <Route path="admin" component={AdminPanel}>
-         <Route path="users" component={UsersList} onEnter={grabUsers} />
-         <Route path="products" component={ProductsList} onEnter={grabProducts} />
-         <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
-         <Route path="orders/:id" component={AdminOrderDetails} onEnter={onOrderEnter}/>
+          <IndexRoute component={UsersList} />
+          <Route path="users" component={UsersList} onEnter={grabUsers} />
+          <Route path="products" component={ProductsList} onEnter={grabProducts} />
+          <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
+          <Route path="orders/:id" component={AdminOrderDetails} onEnter={onOrderEnter}/>
         </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
