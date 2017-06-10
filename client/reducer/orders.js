@@ -2,7 +2,8 @@
 // And each product will contain the correct quantity and price
 import axios from 'axios';
 const initialState = ({
-    orders: []
+    orders: [],
+    currentOrder: {}
 });
 
 /* ------------------------------    ACTIONS    ------------------------------*/
@@ -32,6 +33,12 @@ export const fetchAllOrders = ()  => dispatch => {
   .then(allOrders => dispatch(getOrders(allOrders)))
 }
 
+export const fetchSingleOrder = orderId => dispatch => {
+  axios.get(`/api/orders/${orderId}`)
+  .then(res => res.data)
+  .then(foundOrder => dispatch(setOrder(foundOrder)))
+}
+
 /* -----------------------------    REDUCERS    ------------------------------*/
 export default (state = initialState, action) => {
   const newState = Object.assign({}, state);
@@ -42,6 +49,8 @@ export default (state = initialState, action) => {
     // case GET_ALL_ORDERS:
     //   newState.orders
     case SET_ORDER:
+      newState.currentOrder = action.order;
+      return newState;
     case DELETE_ORDER:
     default:
       return newState;

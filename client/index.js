@@ -5,9 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, Cart } from './components';
-import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchCart} from './reducer/';
-
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart } from './components';
+import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchSingleOrder, fetchCart} from './reducer/';
 
 const grabOrders = () => {
   const { user } = store.getState().userReducer;
@@ -15,7 +14,6 @@ const grabOrders = () => {
 }
 
 const grabAllOrders = () => {
-  console.log('grab all orders firing')
   store.dispatch(fetchAllOrders())
 }
 
@@ -39,6 +37,10 @@ const requireLogin = (nextRouterState, replace, next) =>
     })
     .catch(err => console.log(err));
 
+const onOrderEnter = (nextRouterState) => {
+  const orderId = nextRouterState.params.id;
+  store.dispatch(fetchSingleOrder(orderId))
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -49,6 +51,7 @@ ReactDOM.render(
          <Route path="users" component={UsersList} onEnter={grabUsers} />
          <Route path="products" component={ProductsList} onEnter={grabProducts} />
          <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
+         <Route path="orders/:id" component={AdminOrderDetails} onEnter={onOrderEnter}/>
         </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
