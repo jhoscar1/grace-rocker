@@ -8,6 +8,7 @@ forbiddenError.status = 403;
 
 gatekeeper.isLoggedIn = (req, res, next) => {
     if (req.user) {
+        console.log('here');
         next();
     }
     else {
@@ -31,7 +32,7 @@ gatekeeper.isAdminOrSelf = (req, res, next) => {
     if (!req.user) {
         next(needAuthError);
     }
-    else if (req.user.id === req.params.userId || req.user.isAdmin){
+    else if (req.user.id === (+req.params.userId || +req.params.id) || req.user.isAdmin){
         next();
     }
     else {

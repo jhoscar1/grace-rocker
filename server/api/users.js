@@ -3,7 +3,7 @@ const User = require('../db').model('user');
 const gatekeeper = require('../utils/gatekeeper');
 module.exports = router;
 
-router.get('/', (req, res, next) => {
+router.get('/', gatekeeper.isAdmin, (req, res, next) => {
   User.findAll()
     .then(users => res.json(users))
     .catch(next);
