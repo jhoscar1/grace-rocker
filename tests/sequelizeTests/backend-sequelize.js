@@ -39,8 +39,10 @@ describe('Sequelize Tests', () => {
     // cannot "get" the purchase date as the method used in sequelize getter for purchase date produces an error
     it('sets the purchase date to the current date when the order is created', (done) => {
       const fakeOrder = Order.create();
+      const todayDateArr = Date(Date.now()).split(" ")
+      const todayDayYear = todayDateArr[2] + " " + todayDateArr[3]
       done();
-      expect(fakeOrder.getDataValue("purchase_date")).to.be.equal("June 10 2017");
+      expect(fakeOrder.getDataValue("purchase_date")).to.be.equal("June " + todayDayYear);
     });
   });
 });
