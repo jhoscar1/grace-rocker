@@ -4,7 +4,9 @@ const Product = require('../db').model('product')
 const gatekeeper = require('../utils/gatekeeper');
 
 router.param('id', (req, res, next, id) => {
-    Order.findById(id)
+    Order.findById(id, {
+        include: [Product]
+    })
     .then(order => {
         if (!order) throw new Error(`No Order with ID: ${id} found`)
         req.order = order;
@@ -20,16 +22,6 @@ router.get('/', gatekeeper.isAdmin, (req, res, next) => {
     })
     .catch(next);
 })
-
-// router.get('/sorted/:displayOrder', (req, res, next) => {
-//     let order = req.params.displayOrder
-//     Order.findAll({order: [[order, 'ASC']]})
-//     .then(foundOrders => {
-//         res.json(foundOrders);
-//     })
-//     .catch(next);
-//   }
-// )
 
 router.get('/user/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
     Order.findAll({
@@ -66,7 +58,6 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
 })
 
 router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
-  console.log('put route hit')
   Order.findById(req.params.id)
   .then(foundOrder => {
     return foundOrder.update(req.body)
