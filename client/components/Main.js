@@ -14,7 +14,7 @@ const Main = props => {
   return (
     <div>
       <nav>
-        <h1>Grace Rocker</h1>
+        <h1><Link to={'/home'}>Grace Rocker</Link></h1>
       { loggedIn ?
         <div className="nav-div">
           <Link to="/home">Home</Link>
