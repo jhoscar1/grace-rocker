@@ -20,7 +20,7 @@ describe('http requests', function() {
     describe('GET /admin/', function() {
         it('responds with 200', function(done) {
             agent
-                .get('/wiki/add')
+                .get('/admin')
                 .expect(200, done);
           });
       });
@@ -28,7 +28,7 @@ describe('http requests', function() {
     describe('GET /cart/', function() {
         it('responds with 200', function(done) {
             agent
-                .get('/wiki/add')
+                .get('/cart')
                 .expect(200, done);
           });
       });
@@ -44,16 +44,16 @@ describe('http requests', function() {
     describe('GET /api/users', function() {
         it('responds with 401', function(done) {
             agent
-                .get('/wiki/add')
-                .expect(200, done);
+                .get('/api/users')
+                .expect(401, done);
           });
       });
 
     describe('GET /api/orders', function() {
         it('responds with 401', function(done) {
             agent
-                .get('/wiki/add')
-                .expect(200, done);
+                .get('/api/orders')
+                .expect(401, done);
           });
       });
     });
