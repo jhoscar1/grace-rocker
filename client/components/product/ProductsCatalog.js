@@ -23,6 +23,7 @@ class Catalog extends React.Component {
     this.setState({searchInput: event.target.value})
     this.tagsGet()
   }
+
   //this function constructs a set of all agglomerated tags from the products array
   tagsGet(){
     let temp = [], obj = {};
@@ -46,7 +47,8 @@ class Catalog extends React.Component {
       checkedObj: {},
     })
   }
-  //ontick; if checked, add it to the checkedObj to ensure it remains checked and include it in categories to search for. if unchecked, remove it from the checkedObj and the active categories array.
+
+  //ontick: if checked, add it to the checkedObj to ensure it remains checked and include it in categories to search for. if unchecked, remove it from the checkedObj and the active categories array.
   handleTick(event){
     const category = event.target.value
     if (event.target.checked){
@@ -68,7 +70,7 @@ class Catalog extends React.Component {
     }
  }
 
- //just returns checkbox html
+ //just returns some checkbox html
   createCheckbox(value){
     return <input checked={this.state.checkedObj[value]} className="check" type="checkbox" onChange={this.handleTick} value={value}></input>
   }
@@ -80,7 +82,6 @@ class Catalog extends React.Component {
     const { products } = this.props, { searchInput, selectedCategories } = this.state
     return (
       <div>
-      <hr />
       <label htmlFor="search">Search by Name</label>
       <input value={searchInput} placeholder="Search..." name="search" onChange={this.handleChange}></input>
       <hr />
