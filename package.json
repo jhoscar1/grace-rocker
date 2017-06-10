@@ -8,7 +8,7 @@
     "start-dev": "webpack -w & NODE_ENV=development nodemon server",
     "start-server": "nodemon server",
     "build-client": "webpack",
-    "test": "DATABASE_URL='postgres://localhost:5432/grace_rocker' mocha ./tests/sequelizeTests/backend-sequelize.js --compilers js:babel-register"
+    "test": "DATABASE_URL='postgres://localhost:5432/grace_rocker' mocha ./tests/**/*.js --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
