@@ -26,6 +26,22 @@ router.get('/:userId', (req, res, next) => {
   res.json(req.order)
 });
 
+router.post('/:orderId/:productId', (req, res, next) => {
+  Product.findById(req.params.productId)
+  .then(selectedProduct => {
+    const product = selectedProduct;
+    return Order.findById(req.params.orderId)
+    .then(order => {
+    return order.addProduct(product, {unit_quantity: req.body.quantity});
+    })
+  })
+  .then(result => {
+    console.log(result)
+    res.status(201).json(result)
+  })
+  .catch(next);
+});
+
 router.put('/:orderId/:productId', (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
