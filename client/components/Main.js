@@ -13,20 +13,20 @@ const Main = props => {
 
   return (
     <div>
+      <nav>
+        <h1>Grace Rocker</h1>
       { loggedIn ?
-          <nav>
-            <h1>Grace Rocker</h1>
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>Logout</a>
-            <Link to="/admin">Admin</Link>
-          </nav> :
-          <nav>
-            <h1>Grace Rocker</h1>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </nav>
-
+        <div className="nav-div">
+          <Link to="/home">Home</Link>
+          <a href="#" onClick={handleClick}>Logout</a>
+          <Link to="/admin">Admin</Link>
+        </div> : <div className="nav-div">
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
+        </div>
       }
+        <Link to="/cart"> Cart </Link>
+      </nav>
       <hr />
       { children }
     </div>

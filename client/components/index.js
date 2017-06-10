@@ -8,3 +8,4 @@ export { default as ProductsList } from './product/ProductAdmin';
 export { default as AdminPanel } from './AdminPanel';
 export { default as AdminOrderList } from './orders/AdminOrderList';
 export { default as AdminOrderDetails } from './orders/AdminOrderDetails';
+export { default as Cart } from './Cart';

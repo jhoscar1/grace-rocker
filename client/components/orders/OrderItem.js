@@ -12,7 +12,8 @@ const OrderItem = props => {
         <p className="order-id">Order #: {order.id}</p>
       </div>
       <div>
-        {order.products ? order.products.map( product => (
+        {
+          order.products ? order.products.map( product => (
           <div key={product.id}>
             { (() => {
               totalCost += product.product_order.subtotal
