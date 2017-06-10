@@ -1,8 +1,7 @@
 import React from 'react';
 import Review from '../review/Review';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { addProduct } from '../../reducer/cart'
+import { addProduct, updateQuantity } from '../../reducer/cart';
 
 class ProductDetail extends React.Component {
   constructor(props){
@@ -10,25 +9,35 @@ class ProductDetail extends React.Component {
     this.state = {
       message: ''
     }
-    this.addToCart = this.addToCart.bind(this);
+    this.validatePurchase = this.validatePurchase.bind(this);
   }
 
-  addToCart(evt){
+  validatePurchase(evt){
     evt.preventDefault()
-    this.props.confirmAdd(this.props.product.id, this.props.activeUser, this.props.activeOrder, evt.target.addQuantity.value);
-    this.setState({message: 'Added!'})
+    const order = this.props.activeOrder.products.filter(product => this.props.product.id === product.id),
+    orderQuantity = +evt.target.addQuantity.value
+    if (orderQuantity < 0){
+      this.setState({message: 'Please enter a number greater than zero.'})
+    } else if (order.length) {
+      const newQuantity = orderQuantity + +order[0].product_order.unit_quantity
+      this.props.updateQuantity(this.props.activeOrder.id, this.props.product.id, newQuantity, this.props.activeUser);
+      this.setState({message: 'Product already in cart. Quantity updated!'})
+    } else {
+      this.props.confirmAdd(this.props.activeOrder.id, this.props.product.id, orderQuantity, this.props.activeUser);
+      this.setState({message: 'Added!'})
+    }
   }
 
   render(){
-    const { product } = this.props;
-    const { message } = this.state;
+    let { product } = this.props;
+    let { message } = this.state;
 
     if ( product ){
       return (
         <div className="clearfix">
           <div>
           <img className="productImage" src={`${product.picture}`} />
-          <form className="addToCart" onSubmit={this.addToCart}>
+          <form className="addToCart" onSubmit={this.validatePurchase}>
             <label htmlFor="addQuantity">Quantity:</label>
             <input name="addQuantity" />
             <button><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
@@ -66,14 +75,17 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     product: selectedProduct,
     activeUser: state.userReducer.user.id,
-    activeOrder: state.cartReducer.cart.id
+    activeOrder: state.cartReducer.cart
   });
 }
 
 const mapDispatchToProps = dispatch => ({
-  confirmAdd: (productId, userId, orderId, quantity) => {
-    dispatch(addProduct(productId, userId, orderId, quantity))
+  confirmAdd: (orderId, productId, quantity, userId) => {
+    dispatch(addProduct(orderId, productId, quantity, userId))
+  },
+  updateQuantity: (orderId, productId, quantity, userId) => {
+    dispatch(updateQuantity(orderId, productId, quantity, userId))
   }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)

@@ -31,7 +31,7 @@ export const fetchCart = userId => dispatch => {
   .catch()
 }
 
-export const addProduct = (productId, userId, orderId, quantity) => dispatch => {
+export const addProduct = (orderId, productId, quantity, userId) => dispatch => {
   const quantityObj = {quantity: +quantity}
   axios.post(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then(() => {
@@ -39,7 +39,7 @@ export const addProduct = (productId, userId, orderId, quantity) => dispatch => 
   });
 }
 
-export const updateQuantity = (productId, orderId, quantity, userId) => dispatch => {
+export const updateQuantity = (orderId, productId, quantity, userId) => dispatch => {
   const quantityObj = {quantity: +quantity}
   axios.put(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then(() => {
