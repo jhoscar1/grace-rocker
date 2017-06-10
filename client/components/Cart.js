@@ -28,7 +28,6 @@ class Cart extends React.Component {
   }
 
   handleDeleteCartProd(orderId, productId) {
-    console.log('h');
     return () => {
       axios.delete(`/api/cart/${orderId}/${productId}`)
       .then( () => {

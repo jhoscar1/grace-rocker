@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 const OrderItem = props => {
   const { order } = props;
   let totalCost = 0;
-  console.log(order.products[0]);
   return (
     <div>
       <div className="order-header">
@@ -16,7 +15,6 @@ const OrderItem = props => {
         {
           order.products ? order.products.map( product => (
           <div key={product.id}>
-            {totalCost += product.product_order.subtotal}
             <img className="product-image" src={`${product.picture}`} />
             <h3 className="product-name"><Link to={`products/${product.id}`}>{product.name}</Link></h3>
             <p className="product-quantity">Quantity: {product.product_order.unit_quantity}</p>

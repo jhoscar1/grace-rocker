@@ -43,7 +43,6 @@ router.put('/:orderId/:productId', (req, res, next) => {
 });
 
 router.delete('/:orderId/:productId', (req, res, next) => {
-  console.log('hiiiii');
   ProductOrder.destroy({
     where: {
       orderId: req.params.orderId,

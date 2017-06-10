@@ -33,7 +33,6 @@ export const fetchCart = userId => dispatch => {
 
 export const updateQuantity = (productId, orderId, quantity, userId) => dispatch => {
   const quantityObj = {quantity: +quantity}
-  console.log('hi');
   axios.put(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then((updatedCart) => {
     dispatch(fetchCart(userId));
