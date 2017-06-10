@@ -42,28 +42,12 @@ class AdminOrdersView extends React.Component {
     return (
       <div>
         <h3>All Orders</h3>
-        <div>
-            <div>
-              <form onSubmit={this.handleSortRequest}>
-                <div>
-                  <label htmlFor="sortRequest"><small>Sort by Category</small></label>
-                  <select name="sortRequest">
-                    <option>Order no.</option>
-                    <option>Purchase Date</option>
-                    <option>Total Cost</option>
-                    <option>Status</option>
-                  </select>
-                </div>
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-        </div>
         <div className="AdminOrderView">
           <table className="table">
             <thead>
               <tr>
                 <th>Order No.</th>
-                <th>Order Placed</th>
+                <th>Order Date</th>
                 <th>Total Cost</th>
                 <th>View Order Details</th>
                 <th>Status</th>
