@@ -57,7 +57,7 @@ ReactDOM.render(
         <Route path="signup" component={Signup} />
         <Route onEnter={requireLogin}>
           <Route path="home" component={UserHome} onEnter={grabProducts} />
-          <Route path="products/:id" component={ProductDetail} />
+          <Route path="products/:id" component={ProductDetail} onEnter={grabProducts} />
           <Route path="orders" component={OrderList} onEnter={grabOrders} />
           <Route path="cart" component={Cart} onEnter={grabCart}/>
         </Route>

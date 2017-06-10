@@ -14,7 +14,7 @@ class ProductDetail extends Component {
     this.validatePurchase = this.validatePurchase.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
   }
-  
+
   toggleForm() {
     this.setState({
       open: !this.state.open
@@ -25,7 +25,7 @@ class ProductDetail extends Component {
     evt.preventDefault()
     const order = this.props.activeOrder.products.filter(product => this.props.product.id === product.id),
     orderQuantity = +evt.target.addQuantity.value
-    if (orderQuantity < 0){
+    if (isNaN(orderQuantity) || orderQuantity < 1){
       this.setState({message: 'Please enter a number greater than zero.'})
     } else if (order.length) {
       const newQuantity = orderQuantity + +order[0].product_order.unit_quantity
@@ -62,10 +62,10 @@ class ProductDetail extends Component {
           <p> {product.tags} </p>
           </div>
 
-          <hr/>
+          <hr />
           <div>
             <h3>Reviews</h3>
-            <button 
+            <button
               className="btn btn-default"
               onClick={this.toggleForm}
             >
