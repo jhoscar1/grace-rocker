@@ -13,7 +13,7 @@ describe('Sequelize Tests', () => {
   let orderOne;
   beforeEach(function () {
     orderOne = Order.build({
-      status: 'created'
+      status: 'cancelled'
     });
   });
 
@@ -27,13 +27,20 @@ describe('Sequelize Tests', () => {
   });
 
   describe('Validations', () => {
-  it('only has 4 statuses: "created", "processing", "cancelled", "completed"', () => {
-      const order = Order.build({status: 'hello'});
-      return order.validate()
-              .then(err => {
-                console.log(err);
-                expect(err).to.be.an('object');
-              })
+    it('returns a default value of "created" if no status is given', () => {
+      const fakeOrder = Order.build()
+      expect(fakeOrder.status).to.be.equal('created');
+    });
+
+    it('returns the status of a given order', () => {
+      expect(orderOne.status).to.be.equal('cancelled');
+    });
+
+    // cannot "get" the purchase date as the method used in sequelize getter for purchase date produces an error
+    it('sets the purchase date to the current date when the order is created', (done) => {
+      const fakeOrder = Order.create();
+      done();
+      expect(fakeOrder.getDataValue("purchase_date")).to.be.equal("June 10 2017");
     });
   });
 });
