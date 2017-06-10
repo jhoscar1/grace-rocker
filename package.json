@@ -8,7 +8,7 @@
     "start-dev": "webpack -w & NODE_ENV=development nodemon server",
     "start-server": "nodemon server",
     "build-client": "webpack",
-    "test": "DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
+    "test": "DATABASE_URL='postgres://localhost:5432/grace_rocker' mocha ./tests/sequelizeTests/backend-sequelize.js --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +16,13 @@
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
     "bootstrap": "^3.3.7",
+    "chai": "^3.5.0",
+    "chai-properties": "^1.2.1",
+    "chai-things": "^0.2.0",
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "fs-misc": "^2.0.0",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -32,7 +36,9 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^3.30.2"
+    "sequelize": "^3.30.2",
+    "sinon": "^2.3.4",
+    "supertest-as-promised": "^4.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
