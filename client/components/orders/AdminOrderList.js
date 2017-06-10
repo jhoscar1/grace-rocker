@@ -38,16 +38,6 @@ class AdminOrdersView extends React.Component {
     })
   }
 
-  handleSortRequest(event) {
-    event.preventDefault();
-    const sortOrder = event.target.sortOrder.value;
-    axios.put(`/api/orders/sorted/${sortedOrder}`)
-    .then(() => {
-      return this.props.fetchAllOrders()
-    })
-
-  }
-
   render () {
     return (
       <div>
