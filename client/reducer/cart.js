@@ -28,7 +28,7 @@ export const fetchCart = userId => dispatch => {
   .then(cart => {
     dispatch(getCart(cart))
   })
-  .catch()
+  .catch(console.error);
 }
 
 export const addProduct = (orderId, productId, quantity, userId) => dispatch => {
@@ -36,7 +36,8 @@ export const addProduct = (orderId, productId, quantity, userId) => dispatch => 
   axios.post(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then(() => {
     dispatch(fetchCart(userId));
-  });
+  })
+  .catch(console.error)
 }
 
 export const updateQuantity = (orderId, productId, quantity, userId) => dispatch => {
@@ -44,7 +45,8 @@ export const updateQuantity = (orderId, productId, quantity, userId) => dispatch
   axios.put(`/api/cart/${orderId}/${productId}`, quantityObj)
   .then(() => {
     dispatch(fetchCart(userId));
-  });
+  })
+  .catch(console.error)
 }
 
 
