@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const Main = props => {
 
-  const { children, handleClick, loggedIn } = props;
+  const { children, handleClick, loggedIn, isAdmin } = props;
 
   return (
     <div>
@@ -19,7 +19,7 @@ const Main = props => {
         <div className="nav-div">
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>Logout</a>
-          <Link to="/admin">Admin</Link>
+          { isAdmin ? <Link to="/admin">Admin</Link> : null }
         </div> : <div className="nav-div">
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
@@ -42,7 +42,8 @@ Main.propTypes = {
 // Container //
 
 const mapState = ({ userReducer }) => ({
-  loggedIn: !!userReducer.user.id
+  loggedIn: !!userReducer.user.id,
+  isAdmin: userReducer.user.isAdmin
 });
 
 const mapDispatch = dispatch => ({
