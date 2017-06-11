@@ -46,7 +46,6 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
     })
     .then(createdOrder => {
         req.body.products.forEach(product => {
-            console.log(product)
             createdOrder.addProduct(product.id, {
                 unit_quantity: product.quantity,
                 unit_price: product.price
