@@ -25,7 +25,7 @@ router.get('/:id', gatekeeper.isAdminOrSelf, (req, res, next) => {
 // create a single user
 router.post('/', gatekeeper.isAdmin, (req, res, next) => {
   User.create(req.body)
-  .then(createdUser => res.json(createdUser))
+  .then(createdUser => res.status(302).json(createdUser))
   .catch(next)
 })
 
