@@ -23,7 +23,7 @@ class Cart extends React.Component {
         this.setState({ warning: true })
       } else {
         this.setState({ warning: false })
-        this.props.storeUpdate(productId, orderId, quantityValue, userId)
+        this.props.storeUpdate(orderId, productId, quantityValue, userId)
       }}
   }
 
@@ -75,7 +75,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  storeUpdate: (productId, orderId, quantity, userId) => dispatch(updateQuantity(productId, orderId, quantity, userId)),
+  storeUpdate: (orderId, productId, quantity, userId) => dispatch(updateQuantity(orderId, productId, quantity, userId)),
   fetchCart: userId => dispatch(fetchCart(userId))
 })
 

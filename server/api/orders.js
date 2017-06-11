@@ -68,7 +68,6 @@ router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
 router.delete('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     req.order.destroy()
     .then(() => {
-        console.log('Order deleted');
         res.sendStatus(204);
     })
 })
