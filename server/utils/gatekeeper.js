@@ -40,8 +40,8 @@ gatekeeper.isAdminOrSelf = (req, res, next) => {
 }
 
 gatekeeper.isAdminOrHasOrder = (req, res, next) => {
-
-    if (req.session.order !== req.params.orderId && (req.user && !req.user.isAdmin)) {
+    const orderId = req.params.orderId ? +req.params.orderId : +req.params.id;
+    if (req.session.order !== orderId && (req.user && !req.user.isAdmin)) {
         next(forbiddenError);
     }
     else {

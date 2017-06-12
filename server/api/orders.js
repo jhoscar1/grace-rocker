@@ -54,11 +54,9 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
                 });
             });
         }
-
-            if (req.user) {
-                createdOrder.setUser(req.user)
-            }
-        })
+        if (req.user) {
+            createdOrder.setUser(req.user)
+        }
         res.sendStatus(201);
     })
 });

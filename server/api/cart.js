@@ -24,7 +24,6 @@ const findOrCreateCartByCookie = (req, res, next) => {
   .catch(next);
 }
 
-
 const findOrCreateCartByUser = (req, res, next) => {
   Order.findOrCreate({
     where: {
@@ -34,7 +33,6 @@ const findOrCreateCartByUser = (req, res, next) => {
     include: [Product]
   })
   .spread((order) => {
-    console.log('order by user', order);
     req.session.order = order.id;
     return order;
   })
