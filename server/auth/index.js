@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../db/models/user');
 const Order = require('../db').model('order');
 
+
 module.exports = router
   .post('/login', (req, res, next) => {
     User.findOne({ where: { email: req.body.email }})
@@ -41,7 +42,6 @@ module.exports = router
   .use('/google', require('./google'));
 
 const prepareAnonCart = (user, orderId) => {
-  console.log('here');
   Order.findAll({
     where: {
       userId: user.id,
@@ -57,7 +57,6 @@ const prepareAnonCart = (user, orderId) => {
           console.log('Built cart');
         })
       })
-      console.log('id', orderId);
     }
   })
 }

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Order = require('../db').model('order');
 const Product = require('../db').model('product');
 const ProductOrder = require('../db').model('product_order');
+const gatekeeper = require('../utils/gatekeeper');
 
 module.exports = router;
 
@@ -52,13 +53,14 @@ router.get('/', (req, res, next) => {
   else {
     findOrCreateCartByCookie(req, res, next);
   }
-
-
-router.get('/:userId', (req, res, next) => {
-  res.json(req.order)
 });
 
-router.post('/:orderId/:productId', (req, res, next) => {
+
+router.get('/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
+  findOrCreateCartByUser(req, res, next);
+});
+
+router.post('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Product.findById(req.params.productId)
   .then(selectedProduct => {
     const product = selectedProduct;
@@ -74,7 +76,7 @@ router.post('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-router.put('/:orderId/:productId', (req, res, next) => {
+router.put('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
   }, {
@@ -90,7 +92,7 @@ router.put('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-router.delete('/:orderId/:productId', (req, res, next) => {
+router.delete('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.destroy({
     where: {
       orderId: req.params.orderId,
@@ -101,4 +103,4 @@ router.delete('/:orderId/:productId', (req, res, next) => {
     res.sendStatus(204)
   })
   .catch(next);
-})
+});

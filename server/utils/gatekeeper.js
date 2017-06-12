@@ -45,7 +45,7 @@ gatekeeper.isAdminOrHasOrder = (req, res, next) => {
         next(needAuthError);
     }
     // req.order is coming from req.params on the order router
-    else if (req.order.userId !== req.user.id && !req.user.isAdmin) {
+    else if (req.session.order !== req.params.orderId && !req.user.isAdmin) {
         next(forbiddenError);
     }
     else {
