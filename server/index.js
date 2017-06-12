@@ -7,6 +7,9 @@ const passport = require('passport');
 if (process.env.NODE_ENV === 'development') require('../secrets');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
+const mailer = require('nodemailer');
+const inlineBase64 = require('nodemailer-plugin-inline-base64');
+
 const store = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -19,6 +22,7 @@ passport.deserializeUser((id, done) =>
   db.model('user').findById(id)
     .then(user => done(null, user))
     .catch(done));
+
 
 const createApp = () => app
   .use(morgan('dev'))

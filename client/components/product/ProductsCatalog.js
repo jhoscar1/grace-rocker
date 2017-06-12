@@ -44,6 +44,7 @@ class Catalog extends React.Component {
     evt.preventDefault()
     this.setState({
       checkedObj: {},
+      selectedCategories: []
     })
   }
 
@@ -58,8 +59,8 @@ class Catalog extends React.Component {
         selectedCategories: this.state.selectedCategories.concat(category)
       })
     } else {
-      let tempArr = this.state.selectedCategories.slice();
-      let tempObj = this.state.checkedObj.slice();
+      let tempArr = this.state.selectedCategories
+      let tempObj = this.state.checkedObj
       tempArr.splice(this.state.selectedCategories.indexOf(category), 1)
       delete tempObj[category]
       this.setState({

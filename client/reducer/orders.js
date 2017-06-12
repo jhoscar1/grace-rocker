@@ -30,7 +30,12 @@ export const processOrder = (orderId, body) => dispatch => {
     return res.data
   })
   .then(() => {
-    dispatch(fetchCart());
+   return axios.post(`/api/mailing/`, body)
+    .then(() => {
+     dispatch(fetchCart());
+    })
+    .catch(console.error.bind(console));
+
   })
   .catch(error => {
     dispatch(fetchCart(error));

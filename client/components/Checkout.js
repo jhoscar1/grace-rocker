@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCart } from '../reducer/cart';
 import { Link, browserHistory } from 'react-router';
 import { processOrder } from '../reducer/orders';
+import axios from 'axios';
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -15,9 +16,8 @@ class Checkout extends React.Component {
   }
 
   handleSuccessfulSubmit(orderId) {
-
     const { cart } = this.props
-    let body = Object.assign({}, cart, {status: 'processing'});
+    let body = Object.assign({}, cart, {status: 'processing'}, {email: this.props.user.email});
     this.props.processTheOrder(orderId, body)
     })
     .then(() => {
@@ -38,6 +38,7 @@ class Checkout extends React.Component {
   render() {
     const { cart, user } = this.props
     return(
+
       <div>
         <div className="row">
           <p>Review Order</p>
@@ -50,8 +51,8 @@ class Checkout extends React.Component {
         <div className = "left">
           {(cart && cart.products) ? cart.products.map(product => {
             return (
-              <div key={product.id}>
-                <img className="column-sm product-image" src={`${product.picture}`} />
+              <div className="clearfix productItem" key={product.id}>
+                <img className="productImage column-sm" src={`${product.picture}`} />
                 <p className="inline"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
                 <p className="inline"> ${product.price} </p>
                 <p className="inline"> {product.product_order.unit_quantity} </p>
@@ -60,7 +61,10 @@ class Checkout extends React.Component {
           }) : null }
         </div>
         <div>
-          <form className="right">
+          <form className="borderedForm right">
+              <h2> Order Summary </h2>
+              <h3> Total Cost: $1000 </h3>
+              <h4> Change Order Details: </h4>
               <label htmlFor="userName" >Name: </label>
               <input defaultValue={`${user.name || '' }`} name="userName"></input>
               <label htmlFor="shippingAddress" >Shipping Address: </label>
@@ -68,8 +72,8 @@ class Checkout extends React.Component {
             </form>
         </div>
           <div className="clearfix right">
-          <button onClick={this.onSubmit} className="inline"> Submit Order </button>
-          <button className="inline"> <Link to="/cart"> Go Back </Link> </button>
+          <button onClick={this.onSubmit} className="btn-success inline"> Submit Order </button>
+          <button className="btn-default inline"> <Link to="/cart"> Go Back </Link> </button>
             {this.state.message ? <p>{ this.state.message }!</p> : null}
           </div>
       </div>
