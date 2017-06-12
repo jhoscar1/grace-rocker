@@ -17,15 +17,15 @@ var data = {
   {name: 'Dan', email: 'dan@geoffstack.com', password: 'dantheman', shippingAddress: '25 Dan Drive, NYC, NY'}
   ],
   product: [
-    {name: 'Rubies', carat: 5, price: 50, stock: 1, description: 'A really really cool product'},
-    {name: 'Gems', carat: 1, price: 100, stock: 4, description: 'A kinda really cool product'},
-    {name: 'Diamonds', carat: 1, price: 4500, stock: 87, description: 'Diamonds are forever'},
-    {name: 'Meteor', carat: 1000, price: 90000, stock: 1, description: 'A big meteor'},
-    {name: 'Pig Iron', carat: 2, price: 500, stock: 2, description: 'A hunk of iron with pig ears'},
-    {name: 'Cat Iron', carat: 2, price: 200, stock: 5, description: 'A hunk of iron with cat ears'},
-    {name: 'Fools Iron', carat: 6, price: 100, stock: 200, description: 'Only a fool would buy this iron'},
-    {name: 'Gold', carat: 2, price: 10000, stock: 5, description: 'Just gold'},
-    {name: 'Sapphires', carat: 16, price: 5000, stock: 15, description: 'A mediocre gem'}
+    {name: 'Rubies', carat: 5, price: 50, stock: 1, description: 'A really really cool product', tags: ["shiny", "ruby", "rock"]},
+    {name: 'Gems', carat: 1, price: 100, stock: 4, description: 'A kinda really cool product', tags: ["shiny", "rock"]},
+    {name: 'Diamonds', carat: 1, price: 4500, stock: 87, description: 'Diamonds are forever', tags: ["shiny", "rock"]},
+    {name: 'Meteor', carat: 1000, price: 90000, stock: 1, description: 'A big meteor', tags: ["big", "rock"]},
+    {name: 'Pig Iron', carat: 2, price: 500, stock: 2, description: 'A hunk of iron with pig ears', tags: ["animal", "rock"]},
+    {name: 'Cat Iron', carat: 2, price: 200, stock: 5, description: 'A hunk of iron with cat ears', tags: ["animal", "rock"]},
+    {name: 'Fools Iron', carat: 6, price: 100, stock: 200, description: 'Only a fool would buy this iron', tags: ["trick", "rock", "shiny"]},
+    {name: 'Gold', carat: 2, price: 10000, stock: 5, description: 'Just gold', tags: ["shiny", "evil", "money"]},
+    {name: 'Sapphires', carat: 16, price: 5000, stock: 15, description: 'A mediocre gem', tags: ["shiny", "gem", "rock"]}
   ],
   review: [
     {title: 'Good Product', body: 'What product am I even reviewing right now?', stars: 3},

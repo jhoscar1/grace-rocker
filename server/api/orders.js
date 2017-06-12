@@ -59,6 +59,7 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
     })
 })
 
+
 router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Order.findById(req.params.id)
   .then(foundOrder => {
