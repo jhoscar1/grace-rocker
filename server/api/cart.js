@@ -5,22 +5,54 @@ const ProductOrder = require('../db').model('product_order');
 
 module.exports = router;
 
-router.param('userId', (req, res, next, id) => {
-  Order.findOne({
+const findOrCreateCartByCookie = (req, res, next) => {
+  return Order.findOrCreate({
     where: {
       status: 'created',
-      userId: id
+      id: req.session.order
     },
     include: [Product]
   })
+  .spread((order) => {
+    req.session.order = order.id;
+    return order;
+  })
   .then(order => {
-    req.order = order;
-    next();
-    return null;
+    res.json(order);
   })
   .catch(next);
-});
+}
 
+const findOrCreateCartByUser = (req, res, next) => {
+  Order.findOrCreate({
+    where: {
+      status: 'created',
+      userId: req.user.id
+    },
+    include: [Product]
+  })
+  .spread((order) => {
+    console.log('order by user', order);
+    req.session.order = order.id;
+    return order;
+  })
+  .then((order) => {
+    order.setUser(req.user)
+    .then(setOrder => {
+      res.json(setOrder);
+    })
+  })
+  .catch(next);
+}
+
+router.get('/', (req, res, next) => {
+  if (req.user) {
+    findOrCreateCartByUser(req, res, next)
+  }
+  else {
+    findOrCreateCartByCookie(req, res, next);
+  }
+});
 
 router.get('/:userId', (req, res, next) => {
   res.json(req.order)
