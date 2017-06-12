@@ -9,24 +9,24 @@ import axios from 'axios';
 
 const Main = props => {
 
-  const { children, handleClick, loggedIn } = props;
+  const { children, handleClick, loggedIn, isAdmin } = props;
 
   return (
     <div>
+      <nav>
+        <h1><Link to={'/home'}>Grace Rocker</Link></h1>
       { loggedIn ?
-          <nav>
-            <h1>Grace Rocker</h1>
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>Logout</a>
-            <Link to="/admin">Admin</Link>
-          </nav> :
-          <nav>
-            <h1>Grace Rocker</h1>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </nav>
-
+        <div className="nav-div">
+          <Link to="/home">Home</Link>
+          <a href="#" onClick={handleClick}>Logout</a>
+          { isAdmin ? <Link to="/admin">Admin</Link> : null }
+        </div> : <div className="nav-div">
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
+        </div>
       }
+        <Link to="/cart"> Cart </Link>
+      </nav>
       <hr />
       { children }
     </div>
@@ -42,7 +42,8 @@ Main.propTypes = {
 // Container //
 
 const mapState = ({ userReducer }) => ({
-  loggedIn: !!userReducer.user.id
+  loggedIn: !!userReducer.user.id,
+  isAdmin: userReducer.user.isAdmin
 });
 
 const mapDispatch = dispatch => ({

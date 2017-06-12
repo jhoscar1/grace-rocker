@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList } from './components';
-import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders} from './reducer/';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart } from './components';
+import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchSingleOrder, fetchCart} from './reducer/';
 
 const grabOrders = () => {
   const { user } = store.getState().userReducer;
@@ -19,7 +19,16 @@ const grabAllOrders = () => {
 
 const whoAmI = store.dispatch(me());
 const grabUsers = store.dispatch(fetchUsers());
-const grabProducts = store.dispatch(fetchProducts());
+const grabCart = () => {
+  console.log(store.getState().userReducer.user.id)
+  if (store.getState().userReducer.user.id) {
+    store.dispatch(fetchCart((store.getState().userReducer.user.id)));
+  }
+}
+const grabProducts = () => {
+  store.dispatch(fetchProducts());
+  grabCart()
+}
 
 const requireLogin = (nextRouterState, replace, next) =>
   whoAmI
@@ -30,24 +39,29 @@ const requireLogin = (nextRouterState, replace, next) =>
     })
     .catch(err => console.log(err));
 
+const onOrderEnter = (nextRouterState) => {
+  const orderId = nextRouterState.params.id;
+  store.dispatch(fetchSingleOrder(orderId))
+}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Main}>
-        <IndexRoute component={Login} />
+      <Route path="/" component={Main} onEnter={grabProducts} >
+        <IndexRoute component={UserHome} />
         <Route path="admin" component={AdminPanel}>
-         <Route path="users" component={UsersList} onEnter={grabUsers} />
-         <Route path="products" component={ProductsList} />
-         <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
+          <IndexRoute component={UsersList} />
+          <Route path="users" component={UsersList} onEnter={grabUsers} />
+          <Route path="products" component={ProductsList} onEnter={grabProducts} />
+          <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
+          <Route path="orders/:id" component={AdminOrderDetails} onEnter={onOrderEnter}/>
         </Route>
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
-        <Route onEnter={requireLogin}>
-          <Route path="home" component={UserHome} onEnter={grabProducts} />
-          <Route path="products/:id" component={ProductDetail} />
-          <Route path="orders" component={OrderList} onEnter={grabOrders} />
-        </Route>
+        <Route path="home" component={UserHome} />
+        <Route path="products/:id" component={ProductDetail} onEnter={grabProducts} />
+        <Route path="orders" component={OrderList} onEnter={grabOrders} />
+        <Route path="cart" component={Cart} onEnter={grabCart} />
       </Route>
     </Router>
   </Provider>,

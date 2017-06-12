@@ -3,7 +3,8 @@
 import axios from 'axios';
 const initialState = ({
     orders: [],
-    activeOrders: []
+    activeOrders: [],
+    currentOrder: {}
 });
 
 /* ------------------------------    ACTIONS    ------------------------------*/
@@ -31,6 +32,12 @@ export const fetchAllOrders = ()  => dispatch => {
   axios.get('/api/orders')
   .then(res => res.data)
   .then(allOrders => dispatch(getOrders(allOrders)))
+}
+
+export const fetchSingleOrder = orderId => dispatch => {
+  axios.get(`/api/orders/${orderId}`)
+  .then(res => res.data)
+  .then(foundOrder => dispatch(setOrder(foundOrder)))
 }
 
 /* -----------------------------    REDUCERS    ------------------------------*/

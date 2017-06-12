@@ -44,7 +44,7 @@ class UserList extends React.Component {
     const shippingAddress = event.target.shippingAddress.value;
     const password = event.target.password.value;
 
-    axios.put(`api/users/${id}`, {
+    axios.put(`/api/users/${id}`, {
       name: name,
       email: email,
       isAdmin: isAdmin,
@@ -115,4 +115,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const UsersList = connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
