@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCart } from '../reducer/cart';
 import { Link, browserHistory } from 'react-router';
 import { processOrder } from '../reducer/orders';
+import axios from 'axios';
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -16,8 +17,13 @@ class Checkout extends React.Component {
 
   handleSuccessfulSubmit(orderId) {
     let body = {status: 'processing'}
+    const userMail = {email: this.props.user.email}
     this.props.processTheOrder(orderId, body)
-    browserHistory.push("/home")
+    axios.post(`/api/mailing/`)
+    .then(() => {
+      browserHistory.push("/home")
+    })
+    .catch(console.error.bind(console));
   }
 
 
