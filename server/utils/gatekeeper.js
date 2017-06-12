@@ -8,7 +8,6 @@ forbiddenError.status = 403;
 
 gatekeeper.isLoggedIn = (req, res, next) => {
     if (req.user) {
-        console.log('here');
         next();
     }
     else {
@@ -41,11 +40,8 @@ gatekeeper.isAdminOrSelf = (req, res, next) => {
 }
 
 gatekeeper.isAdminOrHasOrder = (req, res, next) => {
-    if (!req.user) {
-        next(needAuthError);
-    }
-    // req.order is coming from req.params on the order router
-    else if (req.session.order !== req.params.orderId && !req.user.isAdmin) {
+
+    if (req.session.order !== req.params.orderId && (req.user && !req.user.isAdmin)) {
         next(forbiddenError);
     }
     else {
