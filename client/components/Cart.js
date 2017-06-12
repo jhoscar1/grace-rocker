@@ -64,7 +64,7 @@ class Cart extends React.Component {
         <hr />
       {(cart && cart.products) ? cart.products.map(product => {
         return (
-          <div key={product.id}>
+          <div className="clearfix productItem" key={product.id}>
             <img className="column-sm productImage" src={`${product.picture}`} />
             <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id, cart.userId)}>
               <input placeholder={`${product.product_order.unit_quantity}`} name="quantityValue"></input>

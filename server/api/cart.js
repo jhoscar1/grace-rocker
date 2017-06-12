@@ -72,7 +72,7 @@ router.post('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, nex
     const product = selectedProduct;
     return Order.findById(req.params.orderId)
     .then(order => {
-      return order.addProduct(product, {unit_quantity: req.body.quantity});
+      return order.addProduct(product, {unit_quantity: req.body.quantity, unit_price: product.price});
     })
   })
   .then(result => {

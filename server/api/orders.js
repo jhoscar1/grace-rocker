@@ -50,7 +50,7 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
             req.body.products.forEach(product => {
                 createdOrder.addProduct(product.id, {
                     unit_quantity: product.quantity,
-                    unit_price: product.price
+                    unit_price: product.priceInCents
                 });
             });
         }
