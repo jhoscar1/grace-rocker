@@ -42,6 +42,7 @@ router.post('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
+// This is to update the cart for a specific product
 router.put('/:orderId/:productId', (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
@@ -57,6 +58,13 @@ router.put('/:orderId/:productId', (req, res, next) => {
   })
   .catch(next);
 });
+
+// This is to update the cart's status
+// router.put('/changeStatus/:orderId', (req, res, next) => {
+//   Order.update({
+//     status: req.body.status
+//   })
+// });
 
 router.delete('/:orderId/:productId', (req, res, next) => {
   ProductOrder.destroy({

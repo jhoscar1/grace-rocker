@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart } from './components';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart, Checkout } from './components';
 import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchSingleOrder, fetchCart} from './reducer/';
 
 const grabOrders = () => {
@@ -62,6 +62,7 @@ ReactDOM.render(
         <Route path="products/:id" component={ProductDetail} onEnter={grabProducts} />
         <Route path="orders" component={OrderList} onEnter={grabOrders} />
         <Route path="cart" component={Cart} onEnter={grabCart} />
+        <Route path="checkout" component={Checkout}/>
       </Route>
     </Router>
   </Provider>,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { updateQuantity, fetchCart } from '../reducer/cart';
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ class Cart extends React.Component {
     }
     this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this);
     this.handleDeleteCartProd = this.handleDeleteCartProd.bind(this);
+    this.handleCartCheckout = this.handleCartCheckout.bind(this);
    }
 
   handleUpdateSubmit(productId, orderId, userId) {
@@ -36,6 +37,13 @@ class Cart extends React.Component {
     }
   }
 
+  handleCartCheckout() {
+    return () => {
+      console.log('hi');
+      browserHistory.push('/checkout')
+    };
+  }
+
   render(){
     const { cart } = this.props
     return (
@@ -47,6 +55,11 @@ class Cart extends React.Component {
           </div>
           <div className="column-sm inline">
             <span> Quantity </span>
+          </div>
+          <div>
+            <button className="right" onClick={this.handleCartCheckout()}>
+              Checkout
+            </button>
           </div>
         </div>
         <hr />
