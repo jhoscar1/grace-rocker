@@ -36,7 +36,8 @@ router.get('/user/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
     .catch(next);
 })
 
-router.get('/:id', (req, res, next) => {
+// **TODO**
+router.get('/:id', /*insert gatekeeper for self or admin */ (req, res, next) => {
     res.json(req.order);
 })
 
