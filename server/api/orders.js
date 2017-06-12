@@ -65,7 +65,12 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
 router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Order.findById(req.params.id)
   .then(foundOrder => {
-    return foundOrder.update(req.body)
+    console.log("BODY", req.body)
+    console.log(req.body.status)
+    let newStatus = {status: req.body.status}
+        console.log("NEWSTATUS", newStatus)
+
+    return foundOrder.update(newStatus)
   })
   .then(updatedOrder => res.json(updatedOrder))
 })

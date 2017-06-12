@@ -23,15 +23,6 @@ passport.deserializeUser((id, done) =>
     .then(user => done(null, user))
     .catch(done));
 
- const transporter = mailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'mailservice.gracerocker@gmail.com',
-    pass: 'rockinbot',
-  },
-});
-
-  transporter.use('compile', inlineBase64());
 
 const createApp = () => app
   .use(morgan('dev'))
@@ -75,5 +66,3 @@ if (require.main === module) {
 } else {
   createApp(app);
 }
-
-module.exports = transporter;

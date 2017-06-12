@@ -26,7 +26,11 @@ export const processOrder = (orderId, body) => dispatch => {
   axios.put(`/api/orders/${orderId}`, body)
   .then(res => res.data)
   .then(() => {
-  return axios.post(`/api/orders/`)
+   return axios.post(`/api/mailing/`, body)
+    .then(() => {
+     console.log("OK")
+    })
+    .catch(console.error.bind(console));
   })
 }
 

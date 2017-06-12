@@ -16,14 +16,12 @@ class Checkout extends React.Component {
   }
 
   handleSuccessfulSubmit(orderId) {
-    let body = {status: 'processing'}
-    const userMail = {email: this.props.user.email}
+    const { cart } = this.props;
+
+    let body = Object.assign({}, cart, {status: 'processing'}, {email: this.props.user.email})
     this.props.processTheOrder(orderId, body)
-    axios.post(`/api/mailing/`)
-    .then(() => {
-      browserHistory.push("/home")
-    })
-    .catch(console.error.bind(console));
+      console.log('ok')
+      browserHistory.push('/home');
   }
 
 
@@ -39,7 +37,7 @@ class Checkout extends React.Component {
   render() {
         const { cart, user } = this.props
 
-    return(
+    return (
       <div>
         <div className="row">
           <p>Review Order</p>
@@ -49,7 +47,7 @@ class Checkout extends React.Component {
           {(cart && cart.products) ? cart.products.map(product => {
             return (
               <div key={product.id}>
-                <img className="column-sm product-image" src={`${product.picture}`} />
+                <img className="productImage column-sm" src={`${product.picture}`} />
                 <p className="inline"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
                 <p className="inline"> ${product.price} </p>
                 <p className="inline"> {product.product_order.unit_quantity} </p>
