@@ -19,7 +19,6 @@ class Checkout extends React.Component {
     const { cart } = this.props
     let body = Object.assign({}, cart, {status: 'processing'}, {email: this.props.user.email});
     this.props.processTheOrder(orderId, body)
-    })
     .then(() => {
       browserHistory.push("/home")
     });
