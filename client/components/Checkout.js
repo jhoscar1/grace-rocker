@@ -15,9 +15,15 @@ class Checkout extends React.Component {
   }
 
   handleSuccessfulSubmit(orderId) {
-    let body = {status: 'processing'}
+    const { cart } = this.props
+    let body = Object.assign({}, cart, {status: 'processing'});
     this.props.processTheOrder(orderId, body)
-    browserHistory.push("/home")
+    .then((wtf) => {
+      console.log(wtf);
+    })
+    .then(() => {
+      browserHistory.push("/home")
+    });
   }
 
 
@@ -31,13 +37,16 @@ class Checkout extends React.Component {
   }
 
   render() {
-        const { cart, user } = this.props
-
+    const { cart, user } = this.props
     return(
       <div>
         <div className="row">
           <p>Review Order</p>
         </div>
+        <hr />
+        {
+          cart.error && <div> {cart.error.response.data} </div>
+        }
         <hr />
         <div className = "left">
           {(cart && cart.products) ? cart.products.map(product => {

@@ -37,9 +37,10 @@ const findOrCreateCartByUser = (req, res, next) => {
     return order;
   })
   .then((order) => {
-    order.setUser(req.user)
+    return order.setUser(req.user)
     .then(setOrder => {
       res.json(setOrder);
+      return null;
     })
   })
   .catch(next);

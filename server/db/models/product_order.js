@@ -4,7 +4,10 @@ const db = require('../db');
 module.exports = db.define('product_order', {
     unit_quantity: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     },
     unit_price: {
       type: Sequelize.INTEGER,
