@@ -24,10 +24,9 @@ const grabUsers = () => {
   store.dispatch(fetchUsers());
 }
 const grabCart = () => {
-  if (store.getState().userReducer.user.id) {
-    store.dispatch(fetchCart((store.getState().userReducer.user.id)));
-  }
+  store.dispatch(fetchCart());
 }
+
 const grabProducts = () => {
   store.dispatch(fetchProducts());
   grabCart()

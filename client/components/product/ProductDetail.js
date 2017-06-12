@@ -42,6 +42,7 @@ class ProductDetail extends Component {
 
   validatePurchase(orderQuantity){
     const order = this.props.activeOrder.products ? this.props.activeOrder.products.filter(product => this.props.product.id === product.id) : [];
+
     if (isNaN(orderQuantity) || orderQuantity < 1){
       this.setState({message: 'Please enter a number greater than zero.'})
     } else if (order.length) {

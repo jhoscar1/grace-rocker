@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Order = require('../db').model('order');
 const Product = require('../db').model('product');
 const ProductOrder = require('../db').model('product_order');
+const gatekeeper = require('../utils/gatekeeper');
 
 module.exports = router;
 
@@ -22,6 +23,7 @@ const findOrCreateCartByCookie = (req, res, next) => {
   })
   .catch(next);
 }
+
 
 const findOrCreateCartByUser = (req, res, next) => {
   Order.findOrCreate({
@@ -44,6 +46,14 @@ const findOrCreateCartByUser = (req, res, next) => {
   })
   .catch(next);
 }
+router.get('/', (req, res, next) => {
+  if (req.user) {
+    findOrCreateCartByUser(req, res, next)
+  }
+  else {
+    findOrCreateCartByCookie(req, res, next);
+  }
+});
 
 router.get('/', (req, res, next) => {
   if (req.user) {
@@ -54,17 +64,17 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.get('/:userId', (req, res, next) => {
-  res.json(req.order)
+router.get('/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
+  findOrCreateCartByUser(req, res, next);
 });
 
-router.post('/:orderId/:productId', (req, res, next) => {
+router.post('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Product.findById(req.params.productId)
   .then(selectedProduct => {
     const product = selectedProduct;
     return Order.findById(req.params.orderId)
     .then(order => {
-    return order.addProduct(product, {unit_quantity: req.body.quantity});
+      return order.addProduct(product, {unit_quantity: req.body.quantity});
     })
   })
   .then(result => {
@@ -74,8 +84,7 @@ router.post('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-// This is to update the cart for a specific product
-router.put('/:orderId/:productId', (req, res, next) => {
+router.put('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
   }, {
@@ -91,14 +100,8 @@ router.put('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-// This is to update the cart's status
-// router.put('/changeStatus/:orderId', (req, res, next) => {
-//   Order.update({
-//     status: req.body.status
-//   })
-// });
 
-router.delete('/:orderId/:productId', (req, res, next) => {
+router.delete('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.destroy({
     where: {
       orderId: req.params.orderId,
@@ -109,4 +112,4 @@ router.delete('/:orderId/:productId', (req, res, next) => {
     res.sendStatus(204)
   })
   .catch(next);
-})
+});
