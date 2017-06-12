@@ -5,8 +5,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart } from './components';
+import { Main, Login, Signup, AdminPanel, UserHome, UsersList, ProductsList, ProductDetail, OrderList, AdminOrderList, AdminOrderDetails, Cart, Checkout } from './components';
 import { me, fetchUsers, fetchProducts, fetchOrders, fetchAllOrders, fetchSingleOrder, fetchCart} from './reducer/';
+
+
+const whoAmI = store.dispatch(me());
 
 const grabOrders = () => {
   const { user } = store.getState().userReducer;
@@ -14,11 +17,12 @@ const grabOrders = () => {
 }
 
 const grabAllOrders = () => {
-  store.dispatch(fetchAllOrders())
+  store.dispatch(fetchAllOrders());
 }
 
-const whoAmI = store.dispatch(me());
-const grabUsers = store.dispatch(fetchUsers());
+const grabUsers = () => {
+  store.dispatch(fetchUsers());
+}
 const grabCart = () => {
   store.dispatch(fetchCart());
 }
@@ -48,7 +52,7 @@ ReactDOM.render(
       <Route path="/" component={Main} onEnter={grabProducts} >
         <IndexRoute component={UserHome} />
         <Route path="admin" component={AdminPanel}>
-          <IndexRoute component={UsersList} />
+          <IndexRoute component={UsersList}  onEnter={grabUsers} />
           <Route path="users" component={UsersList} onEnter={grabUsers} />
           <Route path="products" component={ProductsList} onEnter={grabProducts} />
           <Route path="orders" component={AdminOrderList} onEnter={grabAllOrders} />
@@ -60,6 +64,7 @@ ReactDOM.render(
         <Route path="products/:id" component={ProductDetail} onEnter={grabProducts} />
         <Route path="orders" component={OrderList} onEnter={grabOrders} />
         <Route path="cart" component={Cart} onEnter={grabCart} />
+        <Route path="checkout" component={Checkout} onEnter={grabCart} />
       </Route>
     </Router>
   </Provider>,

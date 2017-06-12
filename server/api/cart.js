@@ -33,7 +33,6 @@ const findOrCreateCartByUser = (req, res, next) => {
     include: [Product]
   })
   .spread((order) => {
-    console.log('order by user', order);
     req.session.order = order.id;
     return order;
   })
@@ -45,7 +44,6 @@ const findOrCreateCartByUser = (req, res, next) => {
   })
   .catch(next);
 }
-
 router.get('/', (req, res, next) => {
   if (req.user) {
     findOrCreateCartByUser(req, res, next)
@@ -55,6 +53,14 @@ router.get('/', (req, res, next) => {
   }
 });
 
+router.get('/', (req, res, next) => {
+  if (req.user) {
+    findOrCreateCartByUser(req, res, next)
+  }
+  else {
+    findOrCreateCartByCookie(req, res, next);
+  }
+});
 
 router.get('/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
   findOrCreateCartByUser(req, res, next);
@@ -91,6 +97,7 @@ router.put('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next
   })
   .catch(next);
 });
+
 
 router.delete('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.destroy({

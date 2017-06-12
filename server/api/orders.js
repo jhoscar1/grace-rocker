@@ -46,18 +46,20 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
         status: 'created'
     })
     .then(createdOrder => {
-        req.body.products.forEach(product => {
-            createdOrder.addProduct(product.id, {
-                unit_quantity: product.quantity,
-                unit_price: product.price
+        if (req.body.products){
+            req.body.products.forEach(product => {
+                createdOrder.addProduct(product.id, {
+                    unit_quantity: product.quantity,
+                    unit_price: product.price
+                });
             });
-            if (req.user) {
-                createdOrder.setUser(req.user)
-            }
-        })
+        }
+        if (req.user) {
+            createdOrder.setUser(req.user)
+        }
         res.sendStatus(201);
     })
-})
+});
 
 
 router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {

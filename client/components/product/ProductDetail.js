@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Review from '../review/Review';
 import { connect } from 'react-redux';
 import AddReview from '../review/AddReview';
-import { addProduct, updateQuantity } from '../../reducer/cart';
+import { addProduct, updateQuantity, fetchCart } from '../../reducer/cart';
+import axios from 'axios';
 
 class ProductDetail extends Component {
   constructor(props){
@@ -13,6 +14,7 @@ class ProductDetail extends Component {
     }
     this.validatePurchase = this.validatePurchase.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
+    this.checkCart = this.checkCart.bind(this);
   }
 
   toggleForm() {
@@ -21,13 +23,26 @@ class ProductDetail extends Component {
     })
   }
 
-  validatePurchase(evt){
+  checkCart(evt){
     evt.preventDefault()
+    const orderQuantity = +evt.target.addQuantity.value
+    if (!this.props.activeOrder || !this.props.activeOrder.length){
+      return axios.post(`/api/orders/`)
+      .then(res => res.data)
+      .then((order) => {
+        return this.props.fetchCart(order.userId)
+      })
+      .then(() => {
+        this.validatePurchase(orderQuantity)
+      })
+    } else {
+      this.validatePurchase(orderQuantity)
+    }
+  }
 
+  validatePurchase(orderQuantity){
     const order = this.props.activeOrder.products ? this.props.activeOrder.products.filter(product => this.props.product.id === product.id) : [];
 
-    const orderQuantity = +evt.target.addQuantity.value
-    
     if (isNaN(orderQuantity) || orderQuantity < 1){
       this.setState({message: 'Please enter a number greater than zero.'})
     } else if (order.length) {
@@ -49,7 +64,7 @@ class ProductDetail extends Component {
         <div className="clearfix">
           <div>
           <img className="productImage" src={`${product.picture}`} />
-          <form className="addToCart" onSubmit={this.validatePurchase}>
+          <form className="addToCart" onSubmit={this.checkCart}>
             <label htmlFor="addQuantity">Quantity:</label>
             <input name="addQuantity" />
             <button><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
@@ -101,6 +116,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  fetchCart: userId => dispatch(fetchCart(userId)),
   confirmAdd: (orderId, productId, quantity, userId) => {
     dispatch(addProduct(orderId, productId, quantity, userId))
   },

@@ -23,10 +23,8 @@ const getCart = cart => ({type: GET_CART, cart})
 /* -------------------------- DISPATCHERS ------------------------*/
 
 export const fetchCart = () => dispatch => {
-  axios.get(`/api/cart`)
-  .then(res => {
-    return res.data
-  })
+  axios.get(`/api/cart/`)
+  .then(res => res.data)
   .then(cart => {
     dispatch(getCart(cart))
   })

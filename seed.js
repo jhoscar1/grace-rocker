@@ -9,6 +9,7 @@ var User = require('./server/db/models').User;
 
 var data = {
   user: [
+  {name: 'Big Boss', email: 'admin@admin.com', password: 'admin', isAdmin: true},
   {name: 'Shaun', email: 'shaun@shaunsworld.com', password: 'nothashed', shippingAddress: '111 Shaun Street, Shawnee Hills, OH'},
   {name: 'Jason', email: 'jason@shaunsworld.com', password: 'mypassword', shippingAddress: '1 Jason Avenue, Shawnee Hills, OH'},
   {name: 'David', email: 'david@shaunsworld.com', password: 'passie', shippingAddress: '55 David Drive, Columbus, OH'},

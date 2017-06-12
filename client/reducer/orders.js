@@ -12,15 +12,23 @@ const initialState = ({
 const SET_ORDER = 'SET_ORDER';
 const DELETE_ORDER = 'DELETE_ORDER';
 const GET_ORDERS = 'GET_ORDERS';
-
+const PROCESS_ORDER = 'PROCESS_ORDER'
 
 /* --------------------------    ACTION-CREATORS    --------------------------*/
 
 export const getOrders = (orders) => ({ type: GET_ORDERS, orders})
 export const setOrder = (orders) => ({ type: SET_ORDER, orders });
 export const deleteOrder = (order) => ({ type: DELETE_ORDER, order });
-
+export const shipOrder = order => ({ type: PROCESS_ORDER, order });
 /* -----------------------------  DISPATCHERS   ------------------------------*/
+
+export const processOrder = (orderId, body) => dispatch => {
+  axios.put(`/api/orders/${orderId}`, body)
+  .then(res => res.data)
+  .then(() => {
+  return axios.post(`/api/orders/`)
+  })
+}
 
 export const fetchOrders = userId => dispatch => {
   axios.get(`/api/orders/user/${userId}`)
