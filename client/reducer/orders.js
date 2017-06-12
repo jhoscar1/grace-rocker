@@ -23,7 +23,7 @@ export const deleteOrder = (order) => ({ type: DELETE_ORDER, order });
 /* -----------------------------  DISPATCHERS   ------------------------------*/
 
 export const fetchOrders = userId => dispatch => {
-  axios.get(`/api/orders/usaer/${userId}`)
+  axios.get(`/api/orders/user/${userId}`)
   .then(res => res.data)
   .then(ordersArr => dispatch(setOrder(ordersArr)));
 }
@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
     // case GET_ALL_ORDERS:
     //   newState.orders
     case SET_ORDER:
-      newState.activeOrders = action.orders;
+      newState.orders = action.orders;
       return newState;
     case DELETE_ORDER:
     default:

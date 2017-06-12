@@ -17,7 +17,7 @@ const OrderList = (props) => {
 }
 
 const mapStateToProps = state => ({
-  orders: state.orderReducer.activeOrders
+  orders: state.orderReducer.orders
 })
 
 export default connect(mapStateToProps)(OrderList);

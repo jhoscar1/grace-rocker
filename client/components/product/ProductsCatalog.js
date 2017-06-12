@@ -21,7 +21,6 @@ class Catalog extends React.Component {
 
   handleChange(event){
     this.setState({searchInput: event.target.value})
-    this.tagsGet()
   }
 
   //this function constructs a set of all agglomerated tags from the products array
@@ -59,8 +58,8 @@ class Catalog extends React.Component {
         selectedCategories: this.state.selectedCategories.concat(category)
       })
     } else {
-      let tempArr = this.state.selectedCategories
-      let tempObj = this.state.checkedObj;
+      let tempArr = this.state.selectedCategories.slice();
+      let tempObj = this.state.checkedObj.slice();
       tempArr.splice(this.state.selectedCategories.indexOf(category), 1)
       delete tempObj[category]
       this.setState({
