@@ -20,11 +20,9 @@ const grabAllOrders = () => {
 const whoAmI = store.dispatch(me());
 const grabUsers = store.dispatch(fetchUsers());
 const grabCart = () => {
-  console.log(store.getState().userReducer.user.id)
-  if (store.getState().userReducer.user.id) {
-    store.dispatch(fetchCart((store.getState().userReducer.user.id)));
-  }
+  store.dispatch(fetchCart());
 }
+
 const grabProducts = () => {
   store.dispatch(fetchProducts());
   grabCart()

@@ -31,7 +31,7 @@ class Cart extends React.Component {
     return () => {
       axios.delete(`/api/cart/${orderId}/${productId}`)
       .then( () => {
-        this.props.fetchCart(this.props.cart.userId)
+        this.props.fetchCart()
       })
     }
   }
@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   storeUpdate: (orderId, productId, quantity, userId) => dispatch(updateQuantity(orderId, productId, quantity, userId)),
-  fetchCart: userId => dispatch(fetchCart(userId))
+  fetchCart: () => dispatch(fetchCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

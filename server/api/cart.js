@@ -2,37 +2,71 @@ const router = require('express').Router();
 const Order = require('../db').model('order');
 const Product = require('../db').model('product');
 const ProductOrder = require('../db').model('product_order');
+const gatekeeper = require('../utils/gatekeeper');
 
 module.exports = router;
 
-router.param('userId', (req, res, next, id) => {
-  Order.findOne({
+const findOrCreateCartByCookie = (req, res, next) => {
+  return Order.findOrCreate({
     where: {
       status: 'created',
-      userId: id
+      id: req.session.order
     },
     include: [Product]
   })
+  .spread((order) => {
+    req.session.order = order.id;
+    return order;
+  })
   .then(order => {
-    req.order = order;
-    next();
-    return null;
+    res.json(order);
   })
   .catch(next);
+}
+
+const findOrCreateCartByUser = (req, res, next) => {
+  Order.findOrCreate({
+    where: {
+      status: 'created',
+      userId: req.user.id
+    },
+    include: [Product]
+  })
+  .spread((order) => {
+    console.log('order by user', order);
+    req.session.order = order.id;
+    return order;
+  })
+  .then((order) => {
+    order.setUser(req.user)
+    .then(setOrder => {
+      res.json(setOrder);
+    })
+  })
+  .catch(next);
+}
+
+router.get('/', (req, res, next) => {
+  if (req.user) {
+    findOrCreateCartByUser(req, res, next)
+  }
+  else {
+    findOrCreateCartByCookie(req, res, next);
+  }
 });
 
 
-router.get('/:userId', (req, res, next) => {
-  res.json(req.order)
+router.get('/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
+  findOrCreateCartByUser(req, res, next);
 });
 
-router.post('/:orderId/:productId', (req, res, next) => {
+router.post('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Product.findById(req.params.productId)
   .then(selectedProduct => {
     const product = selectedProduct;
     return Order.findById(req.params.orderId)
     .then(order => {
-    return order.addProduct(product, {unit_quantity: req.body.quantity});
+      return order.addProduct(product, {unit_quantity: req.body.quantity});
     })
   })
   .then(result => {
@@ -42,7 +76,7 @@ router.post('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-router.put('/:orderId/:productId', (req, res, next) => {
+router.put('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.update({
     unit_quantity: req.body.quantity
   }, {
@@ -58,7 +92,7 @@ router.put('/:orderId/:productId', (req, res, next) => {
   .catch(next);
 });
 
-router.delete('/:orderId/:productId', (req, res, next) => {
+router.delete('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   ProductOrder.destroy({
     where: {
       orderId: req.params.orderId,
@@ -69,4 +103,4 @@ router.delete('/:orderId/:productId', (req, res, next) => {
     res.sendStatus(204)
   })
   .catch(next);
-})
+});

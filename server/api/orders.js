@@ -36,7 +36,8 @@ router.get('/user/:userId', gatekeeper.isAdminOrSelf, (req, res, next) => {
     .catch(next);
 })
 
-router.get('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
+// **TODO**
+router.get('/:id', /*insert gatekeeper for self or admin */ (req, res, next) => {
     res.json(req.order);
 })
 
@@ -54,6 +55,7 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
                 createdOrder.setUser(req.user)
             }
         })
+        res.sendStatus(201);
     })
 })
 

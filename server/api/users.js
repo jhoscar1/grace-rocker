@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../db').model('user');
+const Order = require('../db').model('order');
 const gatekeeper = require('../utils/gatekeeper');
 module.exports = router;
 
@@ -11,11 +12,15 @@ router.get('/', gatekeeper.isAdmin, (req, res, next) => {
 
 
 // find a single user
-router.get('/:id', gatekeeper.isAdminOrSelf, (req, res, next) => {
+router.get('/:id', /* gatekeeper.isAdminOrSelf,*/ (req, res, next) => {
     User.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [{
+        model: Order,
+        where: { status: 'created' }
+      }]
     })
     .then(foundUser => res.json(foundUser))
     .catch(next)
