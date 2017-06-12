@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchCart } from '../reducer/cart';}
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -27,4 +29,12 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout;
+
+const mapStateToProps = state => ({
+  cart: state.cartReducer.cart
+})
+
+const mapDispatchToProps = dispatch => ({fetchCart: userId => dispatch(fetchCart(userId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -39,7 +39,6 @@ class Cart extends React.Component {
 
   handleCartCheckout() {
     return () => {
-      console.log('hi');
       browserHistory.push('/checkout')
     };
   }
