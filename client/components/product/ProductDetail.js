@@ -26,18 +26,9 @@ class ProductDetail extends Component {
   checkCart(evt){
     evt.preventDefault()
     const orderQuantity = +evt.target.addQuantity.value
-    if (!this.props.activeOrder || !this.props.activeOrder.length){
-      return axios.post(`/api/orders/`)
-      .then(res => res.data)
-      .then((order) => {
-        return this.props.fetchCart(order.userId)
-      })
-      .then(() => {
-        this.validatePurchase(orderQuantity)
-      })
-    } else {
-      this.validatePurchase(orderQuantity)
-    }
+    console.log(this.props.activeOrder)
+    this.props.fetchCart()
+    this.validatePurchase(orderQuantity)
   }
 
   validatePurchase(orderQuantity){
@@ -116,7 +107,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchCart: userId => dispatch(fetchCart(userId)),
+  fetchCart: () => dispatch(fetchCart()),
   confirmAdd: (orderId, productId, quantity, userId) => {
     dispatch(addProduct(orderId, productId, quantity, userId))
   },

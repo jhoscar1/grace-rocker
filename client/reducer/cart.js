@@ -22,8 +22,10 @@ const getCart = cart => ({type: GET_CART, cart})
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
+
 export const fetchCart = (err) => dispatch => {
   axios.get(`/api/cart/`)
+
   .then(res => res.data)
   .then(cart => {
     if(err) cart.error = err;

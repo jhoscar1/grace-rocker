@@ -43,7 +43,7 @@ router.get('/:id', /*insert gatekeeper for self or admin */ (req, res, next) => 
     res.json(req.order);
 });
 
-router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
+router.post('/', (req, res, next) => {
     Order.create({
         status: 'created'
     })
@@ -92,7 +92,6 @@ router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     return badOrders;
   })
   .then(badOrders => {
-    console.log('1', badOrders);
     if(!badOrders.length) {
       // If validation checks out, then decrement the available in stock in the database and change the status
       Promise.map(req.body.products, prodInOrder => {
@@ -110,7 +109,6 @@ router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
       .catch(next);
     } else {
       // Send the array of bad orders
-      console.log('2', badOrders);
       let errStatement = '';
       badOrders.forEach(badOrder => {
         errStatement += ('Sorry, we do not have enough ' + badOrder.product + '. We only have ' + badOrder.stock + ' but you ordered ' + badOrder.unit_quantity + '. \n');
@@ -122,6 +120,7 @@ router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   })
   .catch(next);
 });
+
 
 router.delete('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     req.order.destroy()

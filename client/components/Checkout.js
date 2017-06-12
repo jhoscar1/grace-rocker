@@ -15,11 +15,10 @@ class Checkout extends React.Component {
   }
 
   handleSuccessfulSubmit(orderId) {
+
     const { cart } = this.props
     let body = Object.assign({}, cart, {status: 'processing'});
     this.props.processTheOrder(orderId, body)
-    .then((wtf) => {
-      console.log(wtf);
     })
     .then(() => {
       browserHistory.push("/home")

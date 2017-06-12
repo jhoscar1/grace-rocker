@@ -45,6 +45,7 @@ const findOrCreateCartByUser = (req, res, next) => {
   })
   .catch(next);
 }
+
 router.get('/', (req, res, next) => {
   if (req.user) {
     findOrCreateCartByUser(req, res, next)
