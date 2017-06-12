@@ -4,6 +4,7 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
+    "postinstall": "webpack",
     "start": "node server",
     "start-dev": "webpack -w & NODE_ENV=development nodemon server",
     "start-server": "nodemon server",
@@ -38,7 +39,8 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.2",
     "sinon": "^2.3.4",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -55,6 +57,5 @@
     "sass-loader": "^6.0.0",
     "style-loader": "^0.13.1",
     "supertest": "^3.0.0",
-    "webpack": "^2.2.1"
   }
 }
