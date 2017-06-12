@@ -2,7 +2,6 @@
 // And each product will contain the correct quantity and price
 import { fetchCart } from './cart';
 import axios from 'axios';
-import { fetchCart } from './cart';
 const initialState = ({
     orders: [],
     activeOrders: [],
