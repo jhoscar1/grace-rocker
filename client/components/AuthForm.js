@@ -51,6 +51,7 @@ class AuthForm extends React.Component {
 
     return (
       <div>
+        { this.state.pwInvalid && <div><h2> Password should be at least 3 characters long </h2></div> }
         <form onSubmit={handleSubmit} name={name}>
           <div>
             <label htmlFor="email"><small>Email</small></label>
