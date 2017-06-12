@@ -6,7 +6,9 @@ const OrderList = (props) => {
   return (
     <div>
         <h3>My Order History</h3>
-        {props.orders ? props.orders.map( order => {
+        {props.orders ? props.orders.filter(order => {
+          return order.status !== 'created';
+        }).map( order => {
             return (<OrderItem
               key={+order.id}
               order={order}

@@ -22,9 +22,11 @@ const getCart = cart => ({type: GET_CART, cart})
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
-export const fetchCart = userId => dispatch => {
-  axios.get(`/api/cart/${userId}`)
-  .then(res => res.data)
+export const fetchCart = () => dispatch => {
+  axios.get(`/api/cart`)
+  .then(res => {
+    return res.data
+  })
   .then(cart => {
     dispatch(getCart(cart))
   })
