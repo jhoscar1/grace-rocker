@@ -41,7 +41,7 @@ router.get('/:id', /*insert gatekeeper for self or admin */ (req, res, next) => 
     res.json(req.order);
 })
 
-router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
+router.post('/', (req, res, next) => {
     Order.create({
         status: 'created'
     })
@@ -64,10 +64,13 @@ router.post('/', gatekeeper.isLoggedIn, (req, res, next) => {
 
 router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
   Order.findById(req.params.id)
-  .then(foundOrder => {
-    return foundOrder.update(req.body)
-  })
-  .then(updatedOrder => res.json(updatedOrder))
+    .then(foundOrder => {
+        if (foundOrder.id === req.session.order && req.body.status === 'processing') {
+            delete req.session.order;
+        }
+        return foundOrder.update(req.body)
+    })
+    .then(updatedOrder => res.json(updatedOrder))
 })
 
 router.delete('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
