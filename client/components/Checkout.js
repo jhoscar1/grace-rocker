@@ -15,9 +15,9 @@ class Checkout extends React.Component {
   }
 
   handleSuccessfulSubmit(orderId) {
-    let body = {status: 'processing'}
-    this.props.processTheOrder(orderId, body)
-    browserHistory.push("/home")
+    let body = {status: 'processing'};
+    this.props.processTheOrder(orderId, body);
+    browserHistory.push("/home");
   }
 
 

@@ -1,5 +1,6 @@
 // TODO: Our orders will need to send along an array of products on the order
 // And each product will contain the correct quantity and price
+import { fetchCart } from './cart';
 import axios from 'axios';
 const initialState = ({
     orders: [],
@@ -26,7 +27,7 @@ export const processOrder = (orderId, body) => dispatch => {
   axios.put(`/api/orders/${orderId}`, body)
   .then(res => res.data)
   .then(() => {
-  return axios.post(`/api/orders/`)
+    dispatch(fetchCart());
   })
 }
 
