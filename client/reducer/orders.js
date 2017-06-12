@@ -2,6 +2,7 @@
 // And each product will contain the correct quantity and price
 import { fetchCart } from './cart';
 import axios from 'axios';
+import { fetchCart } from './cart';
 const initialState = ({
     orders: [],
     activeOrders: [],
@@ -25,10 +26,15 @@ export const shipOrder = order => ({ type: PROCESS_ORDER, order });
 
 export const processOrder = (orderId, body) => dispatch => {
   axios.put(`/api/orders/${orderId}`, body)
-  .then(res => res.data)
+  .then(res => {
+    return res.data
+  })
   .then(() => {
     dispatch(fetchCart());
   })
+  .catch(error => {
+    dispatch(fetchCart(error));
+  });
 }
 
 export const fetchOrders = userId => dispatch => {
