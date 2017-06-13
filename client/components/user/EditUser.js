@@ -9,7 +9,6 @@ class EditUser extends Component {
         this.state = {
             nameInput: `${props.user.name}`,
             emailInput: `${props.user.email}`,
-            passwordInput: '',
             addressInput: `${props.user.shippingAddress}`
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -29,7 +28,6 @@ class EditUser extends Component {
         this.setState({
             nameInput: '',
             emailInput: '',
-            passwordInput: '',
             addressInput: ''
         })
     }
@@ -46,13 +44,6 @@ class EditUser extends Component {
                         onChange={(event) => this.setState({nameInput: event.target.value})}
                         value={this.state.nameInput}
                     />
-                    {this.props.user.passReset ? <input
-                        className="form-control"
-                        name="password"
-                        type="text"
-                        placeholder="Password"
-                        onChange={(event) => this.setState({passwordInput: event.target.value})}
-                    /> : null }
                     <input
                         className="form-control"
                         name="email"
