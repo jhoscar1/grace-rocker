@@ -9,25 +9,29 @@ import axios from 'axios';
 
 const Main = props => {
 
-  const { children, handleClick, loggedIn, isAdmin } = props;
+  const { children, handleClick, loggedIn, isAdmin, cart } = props;
 
   return (
     <div>
-      <nav>
-        <h1><Link to={'/home'}>Grace Rocker</Link></h1>
-      { loggedIn ?
-        <div className="nav-div">
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>Logout</a>
-          { isAdmin ? <Link to="/admin">Admin</Link> : null }
-        </div> : <div className="nav-div">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+      <nav className="row relative">
+        <h2 className="left bottom"> GRACE ROCKER </h2>
+        <Link className="left" to={'/home'}><img className="logo" src="/assets/gracerocker.png" /></Link>
+      <div className="navbar-right">
+        { loggedIn ?
+          <div className="nav-div navbar-right">
+            <Link className="right navGlyph glyphicon glyphicon-home" title="Main Page" to="/home"></Link>
+            <a className="right navGlyph glyphicon glyphicon-log-out" title="Log out" href="#" onClick={handleClick}></a>
+            { isAdmin ? <Link className="right" to="/admin">Admin</Link> : null }
+          </div> : <div className="nav-div right">
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        }
+          <div className="relative shoppingCartContainer">
+            <Link title="Your Cart" to="/cart"> <span id="shoppingCart" className="inline navGlyph glyphicon glyphicon-shopping-cart"><p className="left shoppingCartCount">{cart.products ? cart.products.length : 0 }</p></span></Link>
+          </div>
         </div>
-      }
-        <Link to="/cart"> Cart </Link>
       </nav>
-      <hr />
       { children }
     </div>
   );
@@ -41,9 +45,10 @@ Main.propTypes = {
 
 // Container //
 
-const mapState = ({ userReducer }) => ({
+const mapState = ({ userReducer, cartReducer}) => ({
   loggedIn: !!userReducer.user.id,
-  isAdmin: userReducer.user.isAdmin
+  isAdmin: userReducer.user.isAdmin,
+  cart: cartReducer.cart
 });
 
 const mapDispatch = dispatch => ({

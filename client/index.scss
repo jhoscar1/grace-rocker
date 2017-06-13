@@ -26,7 +26,38 @@ nav>h1 {
   float: right;
 }
 
-.img {
+.clearleft{
+  clear: left;
+}
+
+.shoppingCartCount{
+  font-size:15px;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 15px;
+}
+
+
+.shoppingCartContainer{
+  height: 40px;
+  width: 40px;
+  margins: 20px;
+}
+.catalogHr {
+    height: 2px;
+    background-color:#555;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logo {
+  float: left;
+  height: 150px;
+  width: 150px;
+}
+
+img {
   max-width: 100%;
   height: auto;
 }
@@ -41,6 +72,26 @@ nav>h1 {
   width: 200px;
 }
 
+.navGlyph{
+  font-size:35px;
+}
+
+#shoppingCart {
+  padding: 10px 0 0 0;
+  margin: 0;
+  position: absolute;
+  top: 10px;
+}
+
+.relative{
+  position:relative;
+}
+
+.bottom{
+  position: absolute;
+  bottom: 0;
+}
+
 .borderedForm {
   border: 1px solid black;
   padding: 10px;
@@ -48,6 +99,14 @@ nav>h1 {
 
 .productItem {
   margin-bottom: 10px;
+}
+
+nav>h2{
+  display:inline;
+}
+
+nav{
+  background-color: lightgrey
 }
 
 .clearfix {
