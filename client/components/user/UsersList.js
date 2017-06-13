@@ -68,7 +68,6 @@ class UserList extends React.Component {
                 <th>Administrator Status</th>
                 <th>Shipping Address</th>
                 <th>Signup Date</th>
-                <th>Reset Password</th>
                 <th>Delete</th>
                 <th>Update</th>
               </tr>
