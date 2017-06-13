@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const GET_USERS = 'GET_USERS';
+const UPDATE_USER = 'UPDATE_USERS';
 
 const initialState = {
   users: [],
@@ -17,6 +18,7 @@ const initialState = {
 const getUsers = users => ({ type: GET_USERS, users });
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = id => ({ type: REMOVE_USER, id });
+const updateUser = user => ({type: UPDATE_USER, user});
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
@@ -39,6 +41,19 @@ export const removeSelectedUser = id => {
   }
 }
 
+export const editUser = (id, body) => {
+  console.log(body);
+  return dispatch => {
+    axios.put(`/api/users/${id}`, body)
+    .then((user) => {
+      dispatch(updateUser(user.data))
+    })
+    .then(() => {
+
+    })
+  }
+}
+
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
@@ -50,7 +65,7 @@ export const auth = (email, password, method, name) =>
     axios.post(`/auth/${method}`, { email, password, name })
       .then(res => {
         dispatch(getUser(res.data));
-        browserHistory.push('/home');
+        browserHistory.push(`/users/${res.data.id}`);
       })
       .catch(error =>
         dispatch(getUser({ error })));
@@ -77,6 +92,9 @@ export default function (state = initialState, action) {
       break;
     case REMOVE_USER:
       newState.user = {}
+      break;
+    case UPDATE_USER:
+      newState.user = action.user;
       break;
     default:
       return state;

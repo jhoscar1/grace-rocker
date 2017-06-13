@@ -39,10 +39,11 @@ router.post('/', gatekeeper.isAdmin, (req, res, next) => {
 router.put('/:id', gatekeeper.isAdminOrSelf, (req, res, next) => {
   User.findById(req.params.id)
   .then(foundUser => {
-    // foundUser = Object.assign(foundUser, req.body)
     return foundUser.update(req.body)
     })
-    .then(savedUser => res.json(savedUser))
+    .then(savedUser => {
+      res.json(savedUser)
+    })
 })
 
 router.delete('/:id', gatekeeper.isAdmin, (req, res, next) => {

@@ -2,18 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
 
-const OrderList = (props) => {
+const OrderList = ({orders}) => {
+  let completedOrders = [];
+  if (orders) {
+    completedOrders = orders.filter(order => {
+        return order.status !== 'created';
+    })
+  }
+  
   return (
     <div>
         <h3>My Order History</h3>
-        {props.orders ? props.orders.filter(order => {
-          return order.status !== 'created';
-        }).map( order => {
+        {completedOrders.map( order => {
             return (<OrderItem
               key={+order.id}
               order={order}
             />)
-        }) : null }
+        })}
+        { !completedOrders.length ? <h4>You have not made any purchases yet!</h4> : null}
     </div>
   )
 }
