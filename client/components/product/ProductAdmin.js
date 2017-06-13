@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ProductItem from './ProductItem'
 import UpdateForm from './ProductUpdateForm'
 import { deleteSelectedProduct, updateSelectedProduct } from '../../reducer/product'
+import AddProduct from './AddProduct';
 
 
 class ProductAdminPanel extends React.Component {
@@ -10,9 +11,11 @@ class ProductAdminPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProduct: {}
+      selectedProduct: {},
+      open: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
   }
 
 
@@ -23,14 +26,20 @@ class ProductAdminPanel extends React.Component {
   }
 
   handleClickCooker(productInst) {
-  return () => {
+    return () => {
+      this.setState({
+        selectedProduct: productInst
+      })
+    }
+  }
+
+  toggleForm() {
     this.setState({
-      selectedProduct: productInst
+      open: !this.state.open
     })
   }
-}
 
-handleSubmit(event){
+  handleSubmit(event){
     event.preventDefault();
     const id = this.state.selectedProduct.id
     const name = event.target.name.value;
@@ -46,7 +55,7 @@ handleSubmit(event){
     if (price) body.price = price
 
     this.props.updateSelectedProduct(id, body)
-}
+  }
 
 
   render(){
@@ -54,6 +63,14 @@ handleSubmit(event){
       <div>
         <div className="allProducts">
         <h2> Product List </h2>
+          <button
+            className="btn btn-default"
+            onClick={this.toggleForm}
+          >
+            { !this.state.open ? <span className="glyphicon glyphicon-plus" /> : <span className="glyphicon glyphicon-minus" /> }
+              Add Product
+          </button>
+          {this.state.open ? <AddProduct /> : null}
           <table className="table">
             <thead>
               <tr>
