@@ -10,10 +10,10 @@ const initialState = ({
 
 /* ------------------------------    ACTIONS    ------------------------------*/
 // Admin Order Actions
-const SET_ORDER = 'SET_ORDER';
-const DELETE_ORDER = 'DELETE_ORDER';
-const GET_ORDERS = 'GET_ORDERS';
-const PROCESS_ORDER = 'PROCESS_ORDER'
+export const SET_ORDER = 'SET_ORDER';
+export const DELETE_ORDER = 'DELETE_ORDER';
+export const GET_ORDERS = 'GET_ORDERS';
+export const PROCESS_ORDER = 'PROCESS_ORDER'
 
 /* --------------------------    ACTION-CREATORS    --------------------------*/
 
