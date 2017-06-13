@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const router = require('express').Router();
 const Order = require('../db').model('order');
 const Product = require('../db').model('product');
@@ -92,13 +93,17 @@ router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
     return badOrders;
   })
   .then(badOrders => {
-    if(!badOrders.length) {
+    if (!badOrders.length) {
       // If validation checks out, then decrement the available in stock in the database and change the status
-      Promise.map(req.body.products, prodInOrder => {
-        return prodInOrder.decStock(prodInOrder.product_order.unit_quantity);
+      Promise.map(req.body.products, (prodInOrder) => {
+        console.log(prodInOrder)
+        return Product.findById(prodInOrder.id)
+        .then(prod => {
+        return prod.decrement('stock', {by: +prodInOrder.product_order.unit_quantity});
+        })
       })
-      .then((something) => {
-        Order.findById(req.params.id);
+      .then(() => {
+        return Order.findById(req.params.id);
       })
       .then(foundOrder => {
         return foundOrder.update(req.body);

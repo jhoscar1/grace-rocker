@@ -44,13 +44,12 @@ module.exports = db.define('product', {
     tagsArray: function(){
       return this.getDataValue('tags')
     }
-  },
-  setterMethods: {
-    decStock: function(value){
-      const currentStock = +this.stock;
-      if(+value < currentStock) {
-        this.setDataValue('stock', (currentStock - +value));
-      }
-    }
   }
+  // instanceMethods: {
+  //   decStock: function(value){
+  //     const currentStock = +this.stock;
+  //     if(+value <= currentStock) {
+  //       this.setDataValue('stock', (currentStock - +value));
+  //     }
+  //   }
 })
