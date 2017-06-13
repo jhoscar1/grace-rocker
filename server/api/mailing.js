@@ -18,19 +18,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log('request recieve')
-  console.log("BODY", req.body)
-
   const productsList = req.body.products.map(product => {
       return `<li> ${product.product_order.unit_quantity} ${product.name} </li>`
     }).join('')
 
-  console.log("PRODUCTS LIST", productsList);
   const orderTotal = req.body.products.reduce((acc, val) => {
-      console.log(val)
       return acc + val.product_order.subtotal
     }, 0)
-  console.log(orderTotal)
   const template = `
     <h1>Order Confirmation</h1>
     <p>Your order has been confirmed!</p>
