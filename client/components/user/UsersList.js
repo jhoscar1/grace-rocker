@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios'
 import UserItem from './UserItem'
-import AuthForm from './AuthForm'
+import AuthForm from '../AuthForm'
 import { connect } from 'react-redux';
-import { fetchUsers } from '../reducer/user';
+import { fetchUsers } from '../../reducer/user';
 
 class UserList extends React.Component {
 
@@ -43,13 +43,14 @@ class UserList extends React.Component {
     const isAdmin = event.target.isAdmin.value;
     const shippingAddress = event.target.shippingAddress.value;
     const password = event.target.password.value;
-
+    const resetPass = event.target.passReset.value;
     axios.put(`/api/users/${id}`, {
       name: name,
       email: email,
       isAdmin: isAdmin,
       shippingAddress: shippingAddress,
-      password: password
+      password: password,
+      resetPass
     })
     .then(() => {
       return this.props.fetchUsers()
@@ -69,6 +70,7 @@ class UserList extends React.Component {
                 <th>Administrator Status</th>
                 <th>Shipping Address</th>
                 <th>Signup Date</th>
+                <th>Reset Password</th>
                 <th>Delete</th>
                 <th>Update</th>
               </tr>
