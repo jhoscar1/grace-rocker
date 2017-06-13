@@ -21,9 +21,6 @@ class EditUser extends Component {
             email: this.state.emailInput,
             shippingAddress: this.state.addressInput
         };
-        if (this.props.user.passReset) {
-            user.password = this.state.passwordInput;
-        }
         this.props.editUser(this.props.user.id, user)
         this.setState({
             nameInput: '',

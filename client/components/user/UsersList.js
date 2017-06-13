@@ -43,14 +43,12 @@ class UserList extends React.Component {
     const isAdmin = event.target.isAdmin.value;
     const shippingAddress = event.target.shippingAddress.value;
     const password = event.target.password.value;
-    const resetPass = event.target.passReset.value;
     axios.put(`/api/users/${id}`, {
       name: name,
       email: email,
       isAdmin: isAdmin,
       shippingAddress: shippingAddress,
       password: password,
-      resetPass
     })
     .then(() => {
       return this.props.fetchUsers()

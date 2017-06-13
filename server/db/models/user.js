@@ -37,10 +37,6 @@ module.exports = db.define('user', {
   shippingAddress: {
     type: Sequelize.TEXT,
     defaultValue: ''
-  },
-  passReset: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
   }
 }, {
   instanceMethods: {
