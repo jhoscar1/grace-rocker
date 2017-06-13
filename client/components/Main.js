@@ -26,7 +26,7 @@ const Main = props => {
         </div>
       }
         <Link to="/cart"> Cart </Link>
-        <Link to={`/users/${userId}`}>Account</Link>
+        <Link to={`/users/${userId}`}>My Account</Link>
       </nav>
       <hr />
       { children }
