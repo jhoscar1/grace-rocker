@@ -65,8 +65,9 @@ router.post('/', (req, res, next) => {
 });
 
 
-router.put('/:id', gatekeeper.isAdminOrHasOrder, (req, res, next) => {
+router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
   // adding validation to the cart's products
+  console.log('in router...')
   Order.findById(req.params.id, { include: {all: true}})
   .then(foundProductsArr => {
     return foundProductsArr.products;
