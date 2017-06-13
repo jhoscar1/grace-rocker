@@ -50,7 +50,7 @@ describe('http requests', function() {
       });
 
     describe('GET /api/orders', function() {
-        it('responds with 401', function(done) {
+        it('responds with 401 for unauthorized users', function(done) {
             agent
                 .get('/api/orders')
                 .expect(401, done);
@@ -60,7 +60,7 @@ describe('http requests', function() {
 
   describe('POST requests', function() {
 
-      it('responds with 302', function() {
+      it('responds with 401 for unauthorized users', function() {
           return agent
               .post('/api/users/')
               .send({
@@ -68,7 +68,7 @@ describe('http requests', function() {
                   email: "email@emails.com",
                   password: "test",
               })
-              .expect(302)
+              .expect(401)
       });
   });
 });
