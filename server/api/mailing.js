@@ -18,7 +18,7 @@ const inlineBase64 = require('nodemailer-plugin-inline-base64');
   });
 
   router.post('/', (req, res, next) => {
-    if (!req.user) next();
+    if (!req.user) res.send(204);
     const productsList = req.body.products.map(product => {
         return `<li> ${product.product_order.unit_quantity} ${product.name} </li>`
     }).join('')

@@ -32,7 +32,7 @@ export const processOrder = (orderId, body) => dispatch => {
   .then(() => {
    return axios.post(`/api/mailing/`, body)
     .then(() => {
-     dispatch(fetchCart());
+      dispatch(fetchCart());
     })
     .catch(console.error.bind(console));
   })
