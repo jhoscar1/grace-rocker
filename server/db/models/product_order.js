@@ -12,7 +12,7 @@ module.exports = db.define('product_order', {
     unit_price: {
       type: Sequelize.INTEGER,
       get: function(){
-        return this.getDataValue('unit_price') / 100
+        return this.getDataValue('unit_price')
       }
     }
   }, {
