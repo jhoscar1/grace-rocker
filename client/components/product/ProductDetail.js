@@ -60,7 +60,7 @@ class ProductDetail extends Component {
           <form className="addToCart" onSubmit={this.checkCart}>
             <label htmlFor="addQuantity">Quantity:</label>
             <input name="addQuantity" />
-            <button disabled={product.stock > 0 ? "true" : "false"}><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
+            <button disabled={product.stock > 0 ? false : true}><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
             {message ? <div><span> {message} </span></div> : null}
           </form>
 
