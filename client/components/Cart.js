@@ -48,15 +48,18 @@ class Cart extends React.Component {
     return (
       <div>
         <div className="row">
-          <h3 className="inline"> Shopping Cart </h3>
-          <div className="column-sm inline">
-            <span> Price </span>
+          <h3 className="inline needSpaceLeft"> Shopping Cart </h3>
+            <div className="column-sm inline needSpaceLeft">
+              <span> <h4 className="inline">Name</h4> </span>
+            </div>
+          <div className="column-sm inline needSpaceLeft">
+            <span> <h4 className="inline">Price</h4> </span>
           </div>
-          <div className="column-sm inline">
-            <span> Quantity </span>
+          <div className="column-sm inline needSpaceLeft">
+            <span> <h4 className="inline">Quantity</h4> </span>
           </div>
           <div>
-            <button className="right" onClick={this.handleCartCheckout()}>
+            <button className="right btn-success needSpaceRight" onClick={this.handleCartCheckout()}>
               Checkout
             </button>
           </div>
@@ -64,17 +67,17 @@ class Cart extends React.Component {
         <hr />
       {(cart && cart.products) ? cart.products.map(product => {
         return (
-          <div className="clearfix productItem" key={product.id}>
-            <img className="column-sm productImage" src={`${product.picture}`} />
+          <div className="clearfix productItem jumbotron" key={product.id}>
+            <img className="column-sm productImage needSpaceLeft" src={`${product.picture}`} />
             <form className="right" onSubmit={this.handleUpdateSubmit(product.id, cart.id, cart.userId)}>
               <input placeholder={`${product.product_order.unit_quantity}`} name="quantityValue"></input>
               {this.state.warning ? <p>Invalid Input!</p> : null}
-              <button type="submit" className="inline"> Update Quantity </button>
+              <button type="submit" className="inline btn-default needSpaceRight"> Update Quantity </button>
             </form>
-            <button onClick={this.handleDeleteCartProd(cart.id, product.id)} className="inline right"> Delete </button>
-            <p className="inline"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
-            <p className="inline"> ${product.price} </p>
-            <p className="inline"> {product.product_order.unit_quantity} </p>
+            <button onClick={this.handleDeleteCartProd(cart.id, product.id)} className="inline right btn-danger"> Delete </button>
+            <p className="inline needTinySpaceLeft"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
+            <p className="inline needTinySpaceLeft"> ${product.price} </p>
+            <p className="inline needSpaceLeft"> {product.product_order.unit_quantity} </p>
           </div>
         )
       }) : null }
