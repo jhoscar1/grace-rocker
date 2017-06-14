@@ -4,27 +4,28 @@ const mailer = require('nodemailer');
 const inlineBase64 = require('nodemailer-plugin-inline-base64');
 
  const transporter = mailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'mailservice.gracerocker@gmail.com',
-    pass: 'rockinbot',
-  },
-});
+    service: 'gmail',
+    auth: {
+      user: 'mailservice.gracerocker@gmail.com',
+      pass: 'rockinbot'
+    },
+  });
 
   transporter.use('compile', inlineBase64());
 
-router.get('/', (req, res, next) => {
-  res.sendStatus(201);
-});
+  router.get('/', (req, res, next) => {
+    res.sendStatus(201);
+  });
 
-router.post('/', (req, res, next) => {
-  const productsList = req.body.products.map(product => {
-      return `<li> ${product.product_order.unit_quantity} ${product.name} </li>`
+  router.post('/', (req, res, next) => {
+    if (!req.user) res.send(204);
+    const productsList = req.body.products.map(product => {
+        return `<li> ${product.product_order.unit_quantity} ${product.name} </li>`
     }).join('')
 
   const orderTotal = req.body.products.reduce((acc, val) => {
       return acc + val.product_order.subtotal
-    }, 0)
+  }, 0)
   const template = `
     <h1>Order Confirmation</h1>
     <p>Your order has been confirmed!</p>
@@ -39,7 +40,7 @@ router.post('/', (req, res, next) => {
     from: '"Orders @ Grace Rocker"- <mailservice.gracerocker.@gmail.com>', // sender address
     to: `${req.body.email}`, // list of receivers
     subject: 'Order Confirmation', // Subject line
-    html: template, // html body
+    html: template // html body
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
