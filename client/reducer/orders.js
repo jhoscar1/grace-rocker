@@ -1,8 +1,8 @@
 // TODO: Our orders will need to send along an array of products on the order
 // And each product will contain the correct quantity and price
-import { browserHistory } from 'react-router'
 import { fetchCart } from './cart';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 const initialState = ({
     orders: [],
     activeOrders: [],
@@ -25,7 +25,6 @@ export const shipOrder = order => ({ type: PROCESS_ORDER, order });
 /* -----------------------------  DISPATCHERS   ------------------------------*/
 
 export const processOrder = (orderId, body) => dispatch => {
-  console.log('processing order.....')
   axios.put(`/api/orders/${orderId}`, body)
   .then(res => {
     return res.data
@@ -33,13 +32,12 @@ export const processOrder = (orderId, body) => dispatch => {
   .then(() => {
    return axios.post(`/api/mailing/`, body)
     .then(() => {
-      console.log('mailing....')
-      dispatch(fetchCart());
+     dispatch(fetchCart());
     })
     .catch(console.error.bind(console));
   })
   .then(() => {
-    browserHistory.push("/home");
+    browserHistory.push('/home');
   })
   .catch(error => {
     dispatch(fetchCart(error));
