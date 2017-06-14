@@ -99,19 +99,47 @@ img {
 }
 
 #home{
-  padding: 10px 0 0 0;
   margin: 0;
-  position: absolute;
-  left: 30%;
-  top: 70%;
 }
 
-#signout{
+#accountPage {
   position: absolute;
   margin: 0;
   top: 75%;
-  left: 53%;
+  left: 90%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+            cursor:pointer;
+            overflow: hidden;
+
 }
+
+.dropdownContent {
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdownContent a {
+    min-width: 70px;
+    min-height: 5px;
+    color: black;
+    padding: 2%;
+    text-decoration: none;
+    display: block;
+}
+
+
+// #signout{
+//   position: absolute;
+//   margin: 0;
+//   top: 75%;
+//   left: 53%;
+// }
 
 a {
   margin: 0;
