@@ -9,7 +9,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
 const mailer = require('nodemailer');
 const inlineBase64 = require('nodemailer-plugin-inline-base64');
-var stripe = require("stripe")(process.env.STRIPE_KEY)
 
 const store = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;

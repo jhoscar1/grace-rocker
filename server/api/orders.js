@@ -110,6 +110,7 @@ router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
         return foundOrder.update(req.body);
       })
       .then(updatedOrder => {
+        delete req.session.order;
         res.json(updatedOrder);
       })
       .catch(next);
