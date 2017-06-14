@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 
 /* -------------------------- CONSTANTS ------------------------*/
 
-const GET_USER = 'GET_USER';
+export const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const GET_USERS = 'GET_USERS';
 const UPDATE_USER = 'UPDATE_USERS';
@@ -15,8 +15,8 @@ const initialState = {
 
 /* -------------------------- ACTION CREATORS ------------------------*/
 
-const getUsers = users => ({ type: GET_USERS, users });
-const getUser = user => ({ type: GET_USER, user });
+export const getUsers = users => ({ type: GET_USERS, users });
+export const getUser = user => ({ type: GET_USER, user });
 const removeUser = id => ({ type: REMOVE_USER, id });
 const updateUser = user => ({type: UPDATE_USER, user});
 
