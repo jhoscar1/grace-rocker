@@ -23,7 +23,6 @@ import actualStore from '../../client/store';
 
                 it('returns expected action description', () => {
 
-                    const message = .
                     const actionDescriptor = createMessagesReceivedAction(messages);
                     expect(actionDescriptor).to.be.deep.equal({
                         type: MESSAGES_RECEIVED,
