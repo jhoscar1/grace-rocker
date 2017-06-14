@@ -19,6 +19,7 @@ const Main = props => {
         <div className="nav-div">
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>Logout</a>
+          <Link to={`/users/${userId}`}>My Account</Link>
           { isAdmin ? <Link to="/admin">Admin</Link> : null }
         </div> : <div className="nav-div">
           <Link to="/login">Login</Link>
@@ -26,7 +27,6 @@ const Main = props => {
         </div>
       }
         <Link to="/cart"> Cart </Link>
-        <Link to={`/users/${userId}`}>My Account</Link>
       </nav>
       <hr />
       { children }

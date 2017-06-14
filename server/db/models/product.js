@@ -45,11 +45,4 @@ module.exports = db.define('product', {
       return this.getDataValue('tags')
     }
   }
-  // instanceMethods: {
-  //   decStock: function(value){
-  //     const currentStock = +this.stock;
-  //     if(+value <= currentStock) {
-  //       this.setDataValue('stock', (currentStock - +value));
-  //     }
-  //   }
 })
