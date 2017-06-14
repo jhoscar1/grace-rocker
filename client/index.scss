@@ -39,11 +39,14 @@ nav>h1 {
   left: 15px;
 }
 
+.noDecoration{
+  text-decoration: 'none'
+}
 
 .shoppingCartContainer{
   height: 40px;
   width: 40px;
-  margins: 20px;
+  margin: 20px;
 }
 .catalogHr {
     height: 2px;
@@ -99,14 +102,15 @@ img {
   padding: 10px 0 0 0;
   margin: 0;
   position: absolute;
-  left: 80px;
+  left: 30%;
   top: 70%;
 }
 
 #signout{
   position: absolute;
-  top: 70%;
-  left: 100px;
+  margin: 0;
+  top: 75%;
+  left: 53%;
 }
 
 a {
