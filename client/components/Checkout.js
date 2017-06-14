@@ -44,23 +44,23 @@ class Checkout extends React.Component {
     return(
 
       <div>
-        <div className="row">
-          <p>Review Order</p>
+        <div className="row needSpaceLeft">
+          <h3>Review Order</h3>
         </div>
         <hr />
         {
           cart.error && <div> {cart.error.response.data} </div>
         }
         <hr />
-        <div className = "left">
+        <div className = "left jumbotron">
           {(cart && cart.products) ? cart.products.map(product => {
             {totalCost += (+product.price) * (+product.product_order.unit_quantity)}
             return (
-              <div className="clearfix productItem" key={product.id}>
-                <img className="productImage column-sm" src={`${product.picture}`} />
-                <p className="inline"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
-                <p className="inline"> ${product.price} </p>
-                <p className="inline"> {product.product_order.unit_quantity} </p>
+              <div className="clearfix productItem needSpaceRight" key={product.id}>
+                <img className="productImage column-sm needSpaceLeft needSpaceRight" src={`${product.picture}`} />
+                <p className="inline needTinySpaceLeft"> <Link to={`products/${product.id}`}> {product.name} </Link> </p>
+                <p className="inline needTinySpaceLeft"> ${product.price} </p>
+                <p className="inline needTinySpaceLeft"> {product.product_order.unit_quantity} </p>
               </div>
             )
           }) : null }
