@@ -19,7 +19,7 @@ const getProducts = products => ({ type: GET_PRODUCTS, products });
 const selectProduct = product => ({ type: SELECT_PRODUCT, product });
 const updateProduct = product => ({ type: UPDATE_PRODUCT, product});
 const removeProduct = id => ({ type: REMOVE_PRODUCT, id });
-const createProduct = product => ({type: CREATE_PRODUCT, product })
+const addProduct = product => ({type: CREATE_PRODUCT, product })
 
 
 /* -------------------------- DISPATCHERS ------------------------*/
@@ -30,7 +30,19 @@ export const fetchProducts = () => {
     .then(res => res.data)
     .then(products => {
       dispatch(getProducts(products));
-    });
+    })
+    .catch(console.error.bind(console));
+  }
+}
+
+export const newProduct = product => {
+  return dispatch => {
+    axios.post('/api/products', product)
+    .then(res => res.data)
+    .then(createdProduct => {
+      dispatch(addProduct(createdProduct));
+    })
+    .catch(console.error.bind(console));
   }
 }
 
@@ -40,6 +52,7 @@ export const deleteSelectedProduct = id => {
     .then(() => {
       dispatch(removeProduct(id))
     })
+    .catch(console.error.bind(console));
   }
 }
 
@@ -50,6 +63,7 @@ export const updateSelectedProduct = (id, body) => {
       dispatch(updateProduct(updatedProduct));
       dispatch(fetchProducts())
     })
+    .catch(console.error.bind(console));
   }
 }
 /* -------------------------- REDUCER ------------------------*/
@@ -70,6 +84,9 @@ export default function (state = initialState, action) {
       newState.products = newState.products.map(product => {
         return action.product.id === product.id ? action.product : product
       })
+      break;
+    case CREATE_PRODUCT:
+      newState.products = [action.product, ...newState.products];
       break;
     default:
       return state;

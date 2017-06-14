@@ -22,8 +22,7 @@ module.exports = db.define('user', {
     }
   },
   password: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   salt: {
     type: Sequelize.STRING
@@ -36,7 +35,8 @@ module.exports = db.define('user', {
     defaultValue: false
   },
   shippingAddress: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    defaultValue: ''
   }
 }, {
   instanceMethods: {

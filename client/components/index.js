@@ -1,8 +1,8 @@
 export { default as Main } from './Main';
-export { default as UserHome } from './UserHome';
+export { default as UserHome } from './user/UserHome';
 export { Login, Signup } from './Auth';
-export { default as UsersList } from './UsersList';
-export { default as UserItem } from './UserItem';
+export { default as UsersList } from './user/UsersList';
+export { default as UserDetail } from './user/UserDetail';
 export { default as OrderList } from './orders/OrderList';
 export { default as ProductDetail} from './product/ProductDetail';
 export { default as ProductsList } from './product/ProductAdmin';

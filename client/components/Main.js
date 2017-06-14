@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const Main = props => {
 
-  const { children, handleClick, loggedIn, isAdmin } = props;
+  const { children, handleClick, loggedIn, isAdmin, userId } = props;
 
   return (
     <div>
@@ -26,6 +26,7 @@ const Main = props => {
         </div>
       }
         <Link to="/cart"> Cart </Link>
+        <Link to={`/users/${userId}`}>My Account</Link>
       </nav>
       <hr />
       { children }
@@ -43,7 +44,8 @@ Main.propTypes = {
 
 const mapState = ({ userReducer }) => ({
   loggedIn: !!userReducer.user.id,
-  isAdmin: userReducer.user.isAdmin
+  isAdmin: userReducer.user.isAdmin,
+  userId: userReducer.user.id
 });
 
 const mapDispatch = dispatch => ({
