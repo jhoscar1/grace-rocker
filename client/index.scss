@@ -19,6 +19,7 @@ body {
     display: inline-block;
   }
 }
+
 nav>h1 {
   display: inline;
 }
@@ -72,15 +73,44 @@ img {
   width: 200px;
 }
 
+.flex {
+  display: flex;
+}
+
 .navGlyph{
   font-size:35px;
 }
+
+.iconContainer{
+  padding-left: 10%;
+  width:15%;
+  align-items: stretch;
+}
+
 
 #shoppingCart {
   padding: 10px 0 0 0;
   margin: 0;
   position: absolute;
-  top: 10px;
+  top: 70%;
+}
+
+#home{
+  padding: 10px 0 0 0;
+  margin: 0;
+  position: absolute;
+  left: 80px;
+  top: 70%;
+}
+
+#signout{
+  position: absolute;
+  top: 70%;
+  left: 100px;
+}
+
+a {
+  margin: 0;
 }
 
 .relative{

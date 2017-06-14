@@ -13,24 +13,23 @@ const Main = props => {
 
   return (
     <div>
-      <nav className="row relative">
+      <nav className="row flex relative navbarContainer">
         <h2 className="left bottom"> GRACE ROCKER </h2>
-        <Link className="left" to={'/home'}><img className="logo" src="/assets/gracerocker.png" /></Link>
-      <div className="navbar-right">
+        <Link className="left" to={'/home'}><img className="logo" src="/assets/gracerocker.png"/></Link>
+      <div className="col-6-sm col-4-md iconContainer relative">
         { loggedIn ?
-          <div className="nav-div navbar-right">
-            <Link className="right navGlyph glyphicon glyphicon-home" title="Main Page" to="/home"></Link>
-            <a className="right navGlyph glyphicon glyphicon-log-out" title="Log out" href="#" onClick={handleClick}></a>
+          <div>
+            <Link className="right navGlyph glyphicon glyphicon-home" id="home" title="Main Page" to="/home"></Link>
+            <a className="right navGlyph glyphicon glyphicon-log-out" id="signout" title="Log out" href="#" onClick={handleClick}></a>
             { isAdmin ? <Link className="right" to="/admin">Admin</Link> : null }
           </div> : <div className="nav-div right">
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
         }
-          <div className="relative shoppingCartContainer">
-            <Link title="Your Cart" to="/cart"> <span id="shoppingCart" className="inline navGlyph glyphicon glyphicon-shopping-cart"><p className="left shoppingCartCount">{cart.products ? cart.products.length : 0 }</p></span></Link>
+
+            <Link title="Your Cart" to="/cart"><span id="shoppingCart" className="inline navGlyph glyphicon glyphicon-shopping-cart"><p className="left shoppingCartCount">{cart.products ? cart.products.length : 0 }</p></span></Link>
           </div>
-        </div>
       </nav>
       { children }
     </div>
