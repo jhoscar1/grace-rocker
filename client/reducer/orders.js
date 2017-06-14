@@ -2,6 +2,7 @@
 // And each product will contain the correct quantity and price
 import { fetchCart } from './cart';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 const initialState = ({
     orders: [],
     activeOrders: [],
@@ -31,10 +32,12 @@ export const processOrder = (orderId, body) => dispatch => {
   .then(() => {
    return axios.post(`/api/mailing/`, body)
     .then(() => {
-     dispatch(fetchCart());
+      dispatch(fetchCart());
     })
     .catch(console.error.bind(console));
-
+  })
+  .then(() => {
+    browserHistory.push('/home');
   })
   .catch(error => {
     dispatch(fetchCart(error));

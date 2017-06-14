@@ -13,7 +13,7 @@ module.exports = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false,
     get: function(){
-      return this.getDataValue('price') / 100
+      return this.getDataValue('price')
     }
   },
   stock: {
@@ -45,11 +45,4 @@ module.exports = db.define('product', {
       return this.getDataValue('tags')
     }
   }
-  // instanceMethods: {
-  //   decStock: function(value){
-  //     const currentStock = +this.stock;
-  //     if(+value <= currentStock) {
-  //       this.setDataValue('stock', (currentStock - +value));
-  //     }
-  //   }
 })

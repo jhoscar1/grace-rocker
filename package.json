@@ -60,6 +60,7 @@
     "enzyme": "^2.8.2",
     "mocha": "^3.3.0",
     "node-sass": "^4.5.0",
+    "react-stripe-checkout": "^2.4.0",
     "sass-loader": "^6.0.0",
     "style-loader": "^0.13.1",
     "supertest": "^3.0.0",
