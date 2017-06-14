@@ -62,6 +62,13 @@ class ProductAdminPanel extends React.Component {
     return (
       <div>
         <div className="allProducts">
+          {
+         this.state.selectedProduct.id ?
+         <UpdateForm
+         handleSubmit={this.handleSubmit}
+         product={this.state.selectedProduct || ''}
+         /> : null
+         }
         <h2> Product List </h2>
           <button
             className="btn btn-default"
@@ -100,13 +107,6 @@ class ProductAdminPanel extends React.Component {
             </tbody>
           </table>
         </div>
-         {
-        this.state.selectedProduct.id ?
-        <UpdateForm
-        handleSubmit={this.handleSubmit}
-        product={this.state.selectedProduct || ''}
-        /> : null
-        }
       </div>
   )}
 }

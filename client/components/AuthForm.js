@@ -36,16 +36,16 @@ const AuthForm = props => {
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
+          <input className="form-control" name="email" type="text" />
         </div>
         <div>
           <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
+          <input className="form-control" name="password" type="password" />
         </div>
         {displayName === 'Sign Up' || displayName === 'Update' ? signUpData : null}
         {displayName === 'Update' ? updateData : null}
         <div>
-          <button type="submit">{ displayName }</button>
+          <button className="btn btn-primary" type="submit">{ displayName }</button>
         </div>
         { error &&  <div> { error.response.data } </div> }
       </form>

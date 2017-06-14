@@ -9,8 +9,8 @@ return (
         <th>{(user.isAdmin).toString()}</th>
         <th>{user.shippingAddress}</th>
         <th>{user.createdAt}</th>
-        <th><button onClick={user.id && deleteUser}>X</button></th>
-        <th><button onClick={handleUpdateClick}>X</button></th>
+        <th><button className="btn btn-default" onClick={user.id && deleteUser}>Delete</button></th>
+        <th><button className="btn btn-default" onClick={handleUpdateClick}>Update</button></th>
       </tr>
   )
 }

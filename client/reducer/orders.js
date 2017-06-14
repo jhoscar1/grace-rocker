@@ -15,6 +15,7 @@ export const SET_ORDER = 'SET_ORDER';
 export const DELETE_ORDER = 'DELETE_ORDER';
 export const GET_ORDERS = 'GET_ORDERS';
 export const PROCESS_ORDER = 'PROCESS_ORDER'
+export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
 
 /* --------------------------    ACTION-CREATORS    --------------------------*/
 
@@ -22,6 +23,7 @@ export const getOrders = (orders) => ({ type: GET_ORDERS, orders})
 export const setOrder = (orders) => ({ type: SET_ORDER, orders });
 export const deleteOrder = (order) => ({ type: DELETE_ORDER, order });
 export const shipOrder = order => ({ type: PROCESS_ORDER, order });
+export const setCurrentOrder = order => ({ type: SET_CURRENT_ORDER, order });
 /* -----------------------------  DISPATCHERS   ------------------------------*/
 
 export const processOrder = (orderId, body) => dispatch => {
@@ -59,7 +61,7 @@ export const fetchAllOrders = ()  => dispatch => {
 export const fetchSingleOrder = orderId => dispatch => {
   axios.get(`/api/orders/${orderId}`)
   .then(res => res.data)
-  .then(foundOrder => dispatch(setOrder(foundOrder)))
+  .then(foundOrder => dispatch(setCurrentOrder(foundOrder)))
 }
 
 /* -----------------------------    REDUCERS    ------------------------------*/
@@ -73,6 +75,9 @@ export default (state = initialState, action) => {
     //   newState.orders
     case SET_ORDER:
       newState.orders = action.orders;
+      return newState;
+    case SET_CURRENT_ORDER:
+      newState.currentOrder = action.order;
       return newState;
     case DELETE_ORDER:
     default:

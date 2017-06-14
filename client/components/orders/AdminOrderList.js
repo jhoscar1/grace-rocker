@@ -41,6 +41,7 @@ class AdminOrdersView extends React.Component {
   render () {
     return (
       <div>
+            {this.state.orderToUpdateId ? <UpdateOrderForm orderNo={this.state.orderToUpdateId} handleSubmit={this.handleStatusUpdate}/> : null}
         <h3>All Orders</h3>
         <div className="AdminOrderView">
           <table className="table">
@@ -66,7 +67,7 @@ class AdminOrdersView extends React.Component {
             </thead>
           </table>
         </div>
-        {this.state.orderToUpdateId ? <UpdateOrderForm orderNo={this.state.orderToUpdateId} handleSubmit={this.handleStatusUpdate}/> : null}
+
       </div>
     )
   }

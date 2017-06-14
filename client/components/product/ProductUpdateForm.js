@@ -7,7 +7,7 @@ const UpdateForm = props => {
   console.log('product', product)
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-group">
         <h4> Updating {product.name}: </h4>
         <div>
           <label htmlFor="name"><small>name</small></label>
@@ -30,7 +30,7 @@ const UpdateForm = props => {
           <input placeholder={`${product.description}`} name="description" type="text" />
         </div>
         <div>
-          <button type="submit"> Submit </button>
+          <button type="submit" className="btn btn-primary"> Submit </button>
         </div>
       </form>
     </div>
