@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import Star from '../Star'
 
 class Catalog extends React.Component {
 
@@ -75,6 +76,17 @@ class Catalog extends React.Component {
     return <input checked={this.state.checkedObj[value]} className="check" type="checkbox" onChange={this.handleTick} value={value}></input>
   }
 
+  priceTransform(price){
+    if (price.toString().split("").indexOf(".") === -1) return price.toString().concat(".00");
+    else if (price.toString().split("").indexOf(".") === price.toString().length - 2) return price.toString().concat("0");
+    else return price;
+  }
+
+  calculateReviewAverage(reviewsArr){
+    return (reviewsArr.reduce((acc, val) => {
+      return +acc + +val.stars
+    }, 0) / +reviewsArr.length)
+  }
 
 //the big ternary on products.map is the search logic. it allows us to search by name and category simultaneously.
 //when selectedCategories is empty, no categories are filtered. as soon as it contains one value, we filter our selecton down to that category.
@@ -98,12 +110,13 @@ class Catalog extends React.Component {
           )
         })
       }
-        <button className="right" onClick={this.resetTags}>Reset Filter</button>
+        <button className="right btn btn-default" onClick={this.resetTags}>Reset Filter</button>
       </form>
       <hr />
     </div>
         {
           products.map(product => {
+            console.log(product)
             return (
                 product.name.toLowerCase().includes(searchInput.toLowerCase())
                   && (
@@ -111,17 +124,19 @@ class Catalog extends React.Component {
                 _.intersection(selectedCategories, product.tagsArray).length
               ) ?
               (
-                <div key={product.id} >
-                <div className="clearfix productItem row">
-                { product.stock > 0 ?
-                  <img className="productImage" src={`${product.picture}`} />
-                  :
-                  <img className="productImage" src="/out-of-stock-label.png" />
-                }
-                  <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
-                  <h4> Price: $ {product.price} </h4>
-                </div>
-                <hr className="catalogHr" />
+               <div key={product.id} className="thumbnail productItem col-md-4 col-sm-6">
+                  { product.stock > 0 ?
+                    <img className="productImage" src={`${product.picture}`} />
+                    :
+                    <img className="productImage" src="/out-of-stock-label.png" />
+                  }
+                  <div className="caption">
+                    <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
+                    <h4 className="productPrice"> ${this.priceTransform(product.price)} </h4>
+                    <div>
+                    <Star numStars={this.calculateReviewAverage(product.reviews)} /><span className="small"> ({product.reviews.length})</span>
+                    </div>
+                  </div>
                 </div>
               ) : null
             )

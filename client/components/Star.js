@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({numStars}) => {
-    
+
     const starsToDisplay = [];
     for (let i = 0; i < numStars; i++) {
         starsToDisplay.push(
@@ -9,7 +9,7 @@ export default ({numStars}) => {
         )
     }
     return (
-        <div>
+        <div className="inline">
             {starsToDisplay}
         </div>
     )

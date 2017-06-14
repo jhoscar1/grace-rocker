@@ -33,26 +33,11 @@ nav>h1 {
 
 .shoppingCartCount{
   font-size:15px;
+  color:red;
   font-weight: bold;
   position: absolute;
   top: 0;
   left: 15px;
-}
-
-.noDecoration{
-  text-decoration: 'none'
-}
-
-.shoppingCartContainer{
-  height: 40px;
-  width: 40px;
-  margin: 20px;
-}
-.catalogHr {
-    height: 2px;
-    background-color:#555;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .logo {
@@ -72,7 +57,7 @@ img {
 
 .productImage {
   float: left;
-  height: 200px;
+  height: 200px !important;
   width: 200px;
 }
 
@@ -84,17 +69,12 @@ img {
   font-size:35px;
 }
 
-.iconContainer{
-  padding-left: 10%;
-  width:15%;
-  align-items: stretch;
-}
-
-
 #shoppingCart {
+  color: #333333;
   padding: 10px 0 0 0;
   margin: 0;
   position: absolute;
+  right: 5%;
   top: 70%;
 }
 
@@ -115,8 +95,16 @@ img {
 
 }
 
+.productPrice{
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .dropdownContent {
+    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
     position: absolute;
+    right: 7%;
+    top: 100%;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -149,7 +137,7 @@ a {
   position:relative;
 }
 
-.bottom{
+.bottom {
   position: absolute;
   bottom: 0;
 }
@@ -160,7 +148,7 @@ a {
 }
 
 .productItem {
-  margin-bottom: 10px;
+  margin-bottom: 4%;
 }
 
 nav>h2{
