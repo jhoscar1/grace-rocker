@@ -36,6 +36,7 @@ class Checkout extends React.Component {
 
   render() {
     const { cart, user } = this.props
+    let totalCost = 0;
     return(
 
       <div>
@@ -49,6 +50,7 @@ class Checkout extends React.Component {
         <hr />
         <div className = "left">
           {(cart && cart.products) ? cart.products.map(product => {
+            {totalCost += (+product.price) * (+product.product_order.unit_quantity)}
             return (
               <div className="clearfix productItem" key={product.id}>
                 <img className="productImage column-sm" src={`${product.picture}`} />
@@ -62,7 +64,7 @@ class Checkout extends React.Component {
         <div>
           <form className="borderedForm right">
               <h2> Order Summary </h2>
-              <h3> Total Cost: $1000 </h3>
+              <h3> Total Cost: $ {totalCost} </h3>
               <h4> Change Order Details: </h4>
               <label htmlFor="userName" >Name: </label>
               <input defaultValue={`${user.name || '' }`} name="userName"></input>
