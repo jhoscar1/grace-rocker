@@ -10,10 +10,10 @@ const initialState = ({
 
 /* ------------------------------    ACTIONS    ------------------------------*/
 // Admin Order Actions
-const SET_ORDER = 'SET_ORDER';
-const DELETE_ORDER = 'DELETE_ORDER';
-const GET_ORDERS = 'GET_ORDERS';
-const PROCESS_ORDER = 'PROCESS_ORDER'
+export const SET_ORDER = 'SET_ORDER';
+export const DELETE_ORDER = 'DELETE_ORDER';
+export const GET_ORDERS = 'GET_ORDERS';
+export const PROCESS_ORDER = 'PROCESS_ORDER'
 
 /* --------------------------    ACTION-CREATORS    --------------------------*/
 
@@ -25,10 +25,20 @@ export const shipOrder = order => ({ type: PROCESS_ORDER, order });
 
 export const processOrder = (orderId, body) => dispatch => {
   axios.put(`/api/orders/${orderId}`, body)
-  .then(res => res.data)
-  .then(() => {
-    dispatch(fetchCart());
+  .then(res => {
+    return res.data
   })
+  .then(() => {
+   return axios.post(`/api/mailing/`, body)
+    .then(() => {
+     dispatch(fetchCart());
+    })
+    .catch(console.error.bind(console));
+
+  })
+  .catch(error => {
+    dispatch(fetchCart(error));
+  });
 }
 
 export const fetchOrders = userId => dispatch => {

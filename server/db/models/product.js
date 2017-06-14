@@ -17,7 +17,10 @@ module.exports = db.define('product', {
     }
   },
   stock: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
   },
   description: {
     type: Sequelize.TEXT
@@ -42,4 +45,11 @@ module.exports = db.define('product', {
       return this.getDataValue('tags')
     }
   }
+  // instanceMethods: {
+  //   decStock: function(value){
+  //     const currentStock = +this.stock;
+  //     if(+value <= currentStock) {
+  //       this.setDataValue('stock', (currentStock - +value));
+  //     }
+  //   }
 })

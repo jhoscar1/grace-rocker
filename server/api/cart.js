@@ -37,9 +37,10 @@ const findOrCreateCartByUser = (req, res, next) => {
     return order;
   })
   .then((order) => {
-    order.setUser(req.user)
+    return order.setUser(req.user)
     .then(setOrder => {
       res.json(setOrder);
+      return null;
     })
   })
   .catch(next);
@@ -73,7 +74,7 @@ router.post('/:orderId/:productId', gatekeeper.isAdminOrHasOrder, (req, res, nex
     const product = selectedProduct;
     return Order.findById(req.params.orderId)
     .then(order => {
-      return order.addProduct(product, {unit_quantity: req.body.quantity});
+      return order.addProduct(product, {unit_quantity: req.body.quantity, unit_price: product.price});
     })
   })
   .then(result => {
