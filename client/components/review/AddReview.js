@@ -4,7 +4,7 @@ import { fetchProducts } from '../../reducer/';
 import axios from 'axios';
 
 class AddReview extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {

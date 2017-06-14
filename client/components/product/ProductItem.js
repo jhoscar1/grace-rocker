@@ -10,8 +10,8 @@ return (
         <th>{product.stock}</th>
         <th>{product.description}</th>
         <th>{product.createdAt}</th>
-        <th><button onClick={deleteProduct}>X</button></th>
-        <th><button onClick={handleUpdateClick}>X</button></th>
+        <th><button className="btn btn-default" onClick={deleteProduct}>Delete</button></th>
+        <th><button className="btn btn-default" onClick={handleUpdateClick}>Update</button></th>
       </tr>
   )
 }

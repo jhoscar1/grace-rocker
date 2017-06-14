@@ -9,8 +9,7 @@ export default function AdminOrderItem (props) {
       <th>{props.item.total_cost}</th>
       <th><Link to={`/admin/orders/${props.item.id}`}>View Order Details</Link></th>
       <th>{props.item.status}</th>
-      <th><button onClick={props.handleUpdateClick}>X</button></th>
+      <th><button className="btn btn-default" onClick={props.handleUpdateClick}>Edit</button></th>
     </tr>
   )
-
 }

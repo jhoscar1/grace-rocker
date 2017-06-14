@@ -59,6 +59,14 @@ class UserList extends React.Component {
     return (
       <div>
         <h2> User List </h2>
+          {
+          this.state.updateUserId ?
+          <AuthForm
+          name="update"
+          displayName="Update"
+          handleSubmit={this.handleUpdateSubmit}
+          /> : null
+          }
         <div className="allUsers">
           <table className="table">
             <thead>
@@ -88,14 +96,7 @@ class UserList extends React.Component {
             </tbody>
           </table>
         </div>
-        {
-        this.state.updateUserId ?
-        <AuthForm
-        name="update"
-        displayName="Update"
-        handleSubmit={this.handleUpdateSubmit}
-        /> : null
-        }
+
       </div>
 
     )

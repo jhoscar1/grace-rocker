@@ -15,7 +15,7 @@ const OrderItem = props => {
       <div className="row">
         {
           order.products ? order.products.map( product => (
-          <div key={product.id}>
+          <div key={product.id} className="clearfix productItem">
             { (() => {
               totalCost += product.product_order.subtotal
             })()  }
