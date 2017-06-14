@@ -113,7 +113,11 @@ class Catalog extends React.Component {
               (
                 <div key={product.id} >
                 <div className="clearfix productItem row">
+                { product.stock > 0 ?
                   <img className="productImage" src={`${product.picture}`} />
+                  :
+                  <img className="productImage" src="/out-of-stock-label.png" />
+                }
                   <h2> <Link to={`/products/${product.id}`}> {product.name} </Link></h2>
                   <h4> Price: $ {product.price} </h4>
                 </div>

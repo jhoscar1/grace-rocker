@@ -3,7 +3,6 @@ import Review from '../review/Review';
 import { connect } from 'react-redux';
 import AddReview from '../review/AddReview';
 import { addProduct, updateQuantity, fetchCart } from '../../reducer/cart';
-import axios from 'axios';
 
 class ProductDetail extends Component {
   constructor(props){
@@ -26,7 +25,6 @@ class ProductDetail extends Component {
   checkCart(evt){
     evt.preventDefault()
     const orderQuantity = +evt.target.addQuantity.value
-    console.log(this.props.activeOrder)
     this.props.fetchCart()
     this.validatePurchase(orderQuantity)
   }
@@ -54,11 +52,15 @@ class ProductDetail extends Component {
       return (
         <div className="clearfix">
           <div>
-          <img className="productImage" src={`${product.picture}`} />
+          { product.stock > 0 ?
+            <img className="productImage" src={`${product.picture}`} />
+            :
+            <img className="productImage" src="/out-of-stock-label.png" />
+          }
           <form className="addToCart" onSubmit={this.checkCart}>
             <label htmlFor="addQuantity">Quantity:</label>
             <input name="addQuantity" />
-            <button><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
+            <button disabled={product.stock > 0 ? false : true}><i className="glyphicon glyphicon-shopping-cart" /> ADD TO CART</button>
             {message ? <div><span> {message} </span></div> : null}
           </form>
 

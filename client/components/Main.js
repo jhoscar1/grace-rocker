@@ -29,6 +29,7 @@ const Main = props => {
         }
 
             <Link title="Your Cart" to="/cart"><span id="shoppingCart" className="inline navGlyph glyphicon glyphicon-shopping-cart"><p className="left shoppingCartCount">{cart.products ? cart.products.length : 0 }</p></span></Link>
+            <Link title="Your Userpage" to={`/users/${userId}`}>My Account</Link>
           </div>
       </nav>
       { children }
@@ -48,6 +49,7 @@ const mapState = ({ userReducer, cartReducer}) => ({
   loggedIn: !!userReducer.user.id,
   isAdmin: userReducer.user.isAdmin,
   cart: cartReducer.cart
+  userId: userReducer.user.id
 });
 
 const mapDispatch = dispatch => ({
