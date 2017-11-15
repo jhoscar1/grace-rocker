@@ -12,12 +12,9 @@ class UserList extends React.Component {
     this.state = {
       updateUserId: ''
     }
-    this.deleteUser = this.deleteUser.bind(this);
-    this.handleUpdateClick = this.handleUpdateClick.bind(this);
-    this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this);
   }
 
-  deleteUser(id) {
+  deleteUser = (id) => {
     return () => {
       axios.delete(`/api/users/${id}`)
       .then(() => {
@@ -26,7 +23,7 @@ class UserList extends React.Component {
     }
   }
 
-  handleUpdateClick(id) {
+  handleUpdateClick = (id) => {
     return () => {
       this.setState({
         updateUserId: id
@@ -34,7 +31,7 @@ class UserList extends React.Component {
     }
   }
 
-  handleUpdateSubmit(event){
+  handleUpdateSubmit = (event) => {
     event.preventDefault();
 
     const id = this.state.updateUserId

@@ -14,10 +14,9 @@ class AddUser extends Component {
             imageLink: '',
             descriptionInput: ''
         }
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onSubmit(event) {
+    onSubmit = (event) => {
         event.preventDefault();
         const product = {
             name: this.state.nameInput,

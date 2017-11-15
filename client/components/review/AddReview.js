@@ -12,10 +12,9 @@ class AddReview extends Component {
             reviewBody: '',
             numStars: 1
         }
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onSubmit(event) {
+    onSubmit = (event) => {
         event.preventDefault();
         const review = {
             title: this.state.reviewTitle,
@@ -26,12 +25,13 @@ class AddReview extends Component {
         .then(() => {
             this.props.fetchProducts();
         })
-        .catch(console.error)
+        .catch(console.error);
+
         this.setState({
             reviewTitle: '',
             reviewBody: '',
             numStars: 1
-        })
+        });
     }
 
     render() {
@@ -72,6 +72,8 @@ class AddReview extends Component {
 }
 
 const mapState = null;
-const mapDispatch = {fetchProducts};
+const mapDispatch = {
+  fetchProducts
+};
 
 export default connect(mapState, mapDispatch)(AddReview)

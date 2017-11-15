@@ -11,12 +11,9 @@ class Cart extends React.Component {
       cart: this.props.cart,
       warning: false
     }
-    this.handleUpdateSubmit = this.handleUpdateSubmit.bind(this);
-    this.handleDeleteCartProd = this.handleDeleteCartProd.bind(this);
-    this.handleCartCheckout = this.handleCartCheckout.bind(this);
    }
 
-  handleUpdateSubmit(productId, orderId, userId) {
+  handleUpdateSubmit = (productId, orderId, userId) => {
     return (evt) => {
       evt.preventDefault();
       const quantityValue = +evt.target.quantityValue.value;
@@ -28,7 +25,8 @@ class Cart extends React.Component {
       }}
   }
 
-  handleDeleteCartProd(orderId, productId) {
+  // should do this in redux
+  handleDeleteCartProd = (orderId, productId) => {
     return () => {
       axios.delete(`/api/cart/${orderId}/${productId}`)
       .then( () => {
@@ -37,7 +35,7 @@ class Cart extends React.Component {
     }
   }
 
-  handleCartCheckout() {
+  handleCartCheckout = () => {
     return () => {
       browserHistory.push('/checkout')
     };

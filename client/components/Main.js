@@ -5,8 +5,6 @@ import { Link } from 'react-router';
 import { logout } from '../reducer/user';
 import axios from 'axios';
 
-// Component //
-
 class Main extends React.Component{
   constructor(props){
     super(props)
@@ -14,18 +12,15 @@ class Main extends React.Component{
       showDropdown: false,
       showUserDropdown: false
     }
-    this.exposeDropdown = this.exposeDropdown.bind(this);
-    this.exposeOtherDropdown = this.exposeOtherDropdown.bind(this);
-
   }
 
-  exposeDropdown(){
+  exposeDropdown = () => {
     this.setState({
       showDropdown: !this.state.showDropdown
     })
   }
 
-  exposeOtherDropdown(){
+  exposeOtherDropdown = () => {
     this.setState({
       showUserDropdown: !this.state.showUserDropdown
     })
@@ -33,6 +28,7 @@ class Main extends React.Component{
 
   render(){
     const { children, handleClick, loggedIn, isAdmin, cart, userId } = this.props;
+    
     return (
       <div>
         <nav className="row flex relative">
@@ -75,8 +71,6 @@ Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired
 };
-
-// Container //
 
 const mapState = ({ userReducer, cartReducer}) => ({
   loggedIn: !!userReducer.user.id,
