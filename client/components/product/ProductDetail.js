@@ -11,20 +11,17 @@ class ProductDetail extends Component {
       open: false,
       message: ''
     }
-    this.validatePurchase = this.validatePurchase.bind(this);
-    this.toggleForm = this.toggleForm.bind(this);
-    this.checkCart = this.checkCart.bind(this);
   }
 
-  toggleForm() {
+  toggleForm = () => {
     this.setState({
       open: !this.state.open
     })
   }
 
-  checkCart(evt){
-    evt.preventDefault()
-    const orderQuantity = +evt.target.addQuantity.value
+  checkCart = (event) => {
+    event.preventDefault()
+    const orderQuantity = +event.target.addQuantity.value
     this.props.fetchCart()
     this.validatePurchase(orderQuantity)
   }

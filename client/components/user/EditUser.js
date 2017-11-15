@@ -5,7 +5,6 @@ import { editUser } from '../../reducer/';
 class EditUser extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             nameInput: `${props.user.name}`,
             emailInput: `${props.user.email}`,
@@ -66,7 +65,6 @@ class EditUser extends Component {
 }
 
 const mapState = (state, ownProps) => {
-    console.log(ownProps);
     return {
         user: ownProps.user
     }

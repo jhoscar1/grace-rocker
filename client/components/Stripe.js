@@ -14,11 +14,10 @@ export default class TakeMoney extends React.Component {
     this.state = {
       tokenProp: '',
     }
-    this.onToken = this.onToken.bind(this)
   }
 
 
-  onToken (token) {
+  onToken = (token) => {
     this.props.submit();
   }
 

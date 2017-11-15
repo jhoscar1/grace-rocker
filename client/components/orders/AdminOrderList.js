@@ -13,11 +13,9 @@ class AdminOrdersView extends React.Component {
     this.state = {
       orderToUpdateId: ''
     }
-    this.handleUpdateClick = this.handleUpdateClick.bind(this);
-    this.handleStatusUpdate = this.handleStatusUpdate.bind(this)
   }
 
-  handleUpdateClick(orderId) {
+  handleUpdateClick = (orderId) => {
     return () => {
       this.setState({
         orderToUpdateId: orderId,
@@ -25,7 +23,7 @@ class AdminOrdersView extends React.Component {
     }
   }
 
-  handleStatusUpdate(event) {
+  handleStatusUpdate = (event) => {
 
     event.preventDefault();
     const id = this.state.orderToUpdateId;

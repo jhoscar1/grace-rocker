@@ -15,17 +15,14 @@ class Catalog extends React.Component {
       selectedCategories: [],
       checkedObj: {}
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTick = this.handleTick.bind(this);
-    this.resetTags = this.resetTags.bind(this);
   }
 
-  handleChange(event){
+  handleChange = (event) => {
     this.setState({searchInput: event.target.value})
   }
 
   //this function constructs a set of all agglomerated tags from the products array
-  tagsGet(){
+  tagsGet = () => {
     let temp = [], obj = {};
     this.props.products.forEach(product => {
       product.tagsArray.forEach(tag => {
@@ -41,7 +38,7 @@ class Catalog extends React.Component {
     return temp
   }
 
-  resetTags(evt){
+  resetTags = (evt) => {
     evt.preventDefault()
     this.setState({
       checkedObj: {},
@@ -50,7 +47,7 @@ class Catalog extends React.Component {
   }
 
   //ontick: if checked, add it to the checkedObj to ensure it remains checked and include it in categories to search for. if unchecked, remove it from the checkedObj and the active categories array.
-  handleTick(event){
+  handleTick = (event) => {
     const category = event.target.value
     if (event.target.checked){
       let newCheckedValObj = {};
@@ -72,17 +69,17 @@ class Catalog extends React.Component {
  }
 
  //just returns some checkbox html
-  createCheckbox(value){
+  createCheckbox = (value) => {
     return <input checked={this.state.checkedObj[value]} className="check" type="checkbox" onChange={this.handleTick} value={value}></input>
   }
 
-  priceTransform(price){
+  priceTransform = (price) => {
     if (price.toString().split("").indexOf(".") === -1) return price.toString().concat(".00");
     else if (price.toString().split("").indexOf(".") === price.toString().length - 2) return price.toString().concat("0");
     else return price;
   }
 
-  calculateReviewAverage(reviewsArr){
+  calculateReviewAverage = (reviewsArr) => {
     return (reviewsArr.reduce((acc, val) => {
       return +acc + +val.stars
     }, 0) / +reviewsArr.length)

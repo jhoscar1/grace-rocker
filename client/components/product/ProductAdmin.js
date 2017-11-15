@@ -14,18 +14,15 @@ class ProductAdminPanel extends React.Component {
       selectedProduct: {},
       open: false
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleForm = this.toggleForm.bind(this);
   }
 
-
-  deleteProductCooker(id) {
+  deleteProductCooker = (id) => {
     return () => {
       this.props.deleteProduct(id)
     }
   }
 
-  handleClickCooker(productInst) {
+  handleClickCooker = (productInst) => {
     return () => {
       this.setState({
         selectedProduct: productInst
@@ -33,13 +30,13 @@ class ProductAdminPanel extends React.Component {
     }
   }
 
-  toggleForm() {
+  toggleForm = () => {
     this.setState({
       open: !this.state.open
     })
   }
 
-  handleSubmit(event){
+  handleSubmit = (event) => {
     event.preventDefault();
     const id = this.state.selectedProduct.id
     const name = event.target.name.value;
@@ -56,7 +53,6 @@ class ProductAdminPanel extends React.Component {
 
     this.props.updateSelectedProduct(id, body)
   }
-
 
   render(){
     return (

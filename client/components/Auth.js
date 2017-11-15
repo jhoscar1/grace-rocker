@@ -21,7 +21,6 @@ const mapDispatch = dispatch => ({
     const userName = evt.target.userName && evt.target.userName.value || '';
     const email = evt.target.email.value;
     const password = evt.target.password.value;
-    // const shippingAddress = evt.target.shippingAddress && evt.target.shippingAddress.value;
     dispatch(auth(email, password, formName, userName));
   }
 });

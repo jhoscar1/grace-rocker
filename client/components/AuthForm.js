@@ -20,7 +20,6 @@ const AuthForm = props => {
 
   const updateData = (
     <div>
-
       <div>
         <label htmlFor="isAdmin"><small>Admin Status</small></label>
         <select name="isAdmin">

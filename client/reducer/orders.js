@@ -1,5 +1,3 @@
-// TODO: Our orders will need to send along an array of products on the order
-// And each product will contain the correct quantity and price
 import { fetchCart } from './cart';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
@@ -10,7 +8,6 @@ const initialState = ({
 });
 
 /* ------------------------------    ACTIONS    ------------------------------*/
-// Admin Order Actions
 export const SET_ORDER = 'SET_ORDER';
 export const DELETE_ORDER = 'DELETE_ORDER';
 export const GET_ORDERS = 'GET_ORDERS';
@@ -71,8 +68,6 @@ export default (state = initialState, action) => {
     case GET_ORDERS:
       newState.orders = action.orders;
       return newState;
-    // case GET_ALL_ORDERS:
-    //   newState.orders
     case SET_ORDER:
       newState.orders = action.orders;
       return newState;

@@ -12,12 +12,9 @@ class Checkout extends React.Component {
     this.state = {
       message: ''
     }
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleSuccessfulSubmit = this.handleSuccessfulSubmit.bind(this);
-    this.changeDisplayMessage = this.changeDisplayMessage.bind(this);
   }
 
-  handleSuccessfulSubmit(orderId) {
+  handleSuccessfulSubmit = (orderId) => {
     const { cart } = this.props
     let body = Object.assign({}, cart, {status: 'processing'}, {email: this.props.user.email});
     this.props.processTheOrder(orderId, body)
@@ -25,7 +22,7 @@ class Checkout extends React.Component {
 
 
 
-  onSubmit(){
+  onSubmit = () => {
     const { cart } = this.props
     if (!cart.products.length){
       this.setState({message: "You have no products in your cart."})
@@ -34,7 +31,7 @@ class Checkout extends React.Component {
     }
   }
 
-  changeDisplayMessage(){
+  changeDisplayMessage = () => {
     this.setState({message: "You have no products in your cart."})
   }
 

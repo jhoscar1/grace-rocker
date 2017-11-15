@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const UpdateForm = props => {
 
   const { handleSubmit, product } = props;
-  console.log('product', product)
   return (
     <div>
       <form onSubmit={handleSubmit} className="form-group">
@@ -38,11 +37,3 @@ const UpdateForm = props => {
 };
 
 export default UpdateForm;
-
-// UpdateForm.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   stock: PropTypes.number.isRequired,
-//   displayName: PropTypes.string.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-//   error: PropTypes.object
-// };

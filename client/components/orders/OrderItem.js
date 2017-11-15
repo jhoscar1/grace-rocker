@@ -39,21 +39,3 @@ const OrderItem = props => {
 }
 
 export default OrderItem;
-
-
-
-
-
-
-// <div className="col-sm-6 col-md-4">
-//   <div className="thumbnail">
-//     <img className="productImage clearfix" src={`${product.picture}`} />
-//     <div className="caption">
-//       <h3> <Link to={`products/${product.id}`}>{product.name}</Link> </h3>
-//       <p className="product-quantity">Quantity: {product.product_order.unit_quantity}</p>
-//       <p className="product-price">Price: $ {product.product_order.unit_price}
-//       </p>
-//       <h4 className="product-subtotal">Subtotal: $ {product.product_order.subtotal}</h4>
-//     </div>
-//   </div>
-// </div>

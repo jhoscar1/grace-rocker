@@ -4,17 +4,16 @@ import { connect } from 'react-redux';
 import EditUser from './EditUser';
 import OrderList from '../orders/OrderList';
 
-class UserDetail extends Component { /*({ user, children }) => {*/
+class UserDetail extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             open: false
         }
-        this.toggleForm = this.toggleForm.bind(this);
     }
 
-    toggleForm() {
+    toggleForm = () => {
         this.setState({
             open: !this.state.open
         })
@@ -22,7 +21,6 @@ class UserDetail extends Component { /*({ user, children }) => {*/
 
     render() {
         const { user, children, orders } = this.props;
-        console.log(children);
         return (
             <div className="user-page">
                 <h2>{user.name}</h2>

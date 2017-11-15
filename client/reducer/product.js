@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 /* -------------------------- CONSTANTS ------------------------*/
-
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const SELECT_PRODUCT = 'SELECT_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
@@ -14,16 +13,13 @@ const initialState = {
 };
 
 /* -------------------------- ACTION CREATORS ------------------------*/
-
 const getProducts = products => ({ type: GET_PRODUCTS, products });
 const selectProduct = product => ({ type: SELECT_PRODUCT, product });
 const updateProduct = product => ({ type: UPDATE_PRODUCT, product});
 const removeProduct = id => ({ type: REMOVE_PRODUCT, id });
 const addProduct = product => ({type: CREATE_PRODUCT, product })
 
-
 /* -------------------------- DISPATCHERS ------------------------*/
-
 export const fetchProducts = () => {
   return dispatch => {
     axios.get('/api/products')
@@ -67,7 +63,6 @@ export const updateSelectedProduct = (id, body) => {
   }
 }
 /* -------------------------- REDUCER ------------------------*/
-
 export default function (state = initialState, action) {
   var newState = Object.assign({}, state)
   switch (action.type) {

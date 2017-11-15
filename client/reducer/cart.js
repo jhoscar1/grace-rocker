@@ -14,11 +14,6 @@ const initialState = {
 
 
 const getCart = cart => ({type: GET_CART, cart})
-// const setQuantity = (productId, quantity) => ({
-//   type: SET_QUANTITY,
-//   quantity,
-//   productId
-// })
 
 /* -------------------------- DISPATCHERS ------------------------*/
 
