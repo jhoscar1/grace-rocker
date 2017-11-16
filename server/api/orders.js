@@ -67,7 +67,6 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
   // adding validation to the cart's products
-  console.log('in router...')
   Order.findById(req.params.id, { include: {all: true}})
   .then(foundProductsArr => {
     return foundProductsArr.products;
@@ -97,7 +96,6 @@ router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
     if (!badOrders.length) {
       // If validation checks out, then decrement the available in stock in the database and change the status
       Promise.map(req.body.products, (prodInOrder) => {
-        console.log(prodInOrder)
         return Product.findById(prodInOrder.id)
         .then(prod => {
         return prod.decrement('stock', {by: +prodInOrder.product_order.unit_quantity});
@@ -124,6 +122,18 @@ router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
       res.status(409).send(errStatement);
       return null;
     }
+  })
+  .catch(next);
+});
+
+router.put('/edit/:orderId', (req, res, next) => {
+  Order.findById(req.params.orderId)
+  .then((foundOrder) => {
+    foundOrder.status = req.body.status;
+    return foundOrder.update(foundOrder);
+  })
+  .then(updatedOrder => {
+    res.json(updatedOrder)
   })
   .catch(next);
 });

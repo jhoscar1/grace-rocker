@@ -7,7 +7,6 @@ import { fetchAllOrders, fetchSortedOrders } from '../../reducer/orders';
 
 
 class AdminOrdersView extends React.Component {
-
   constructor (props) {
     super(props);
     this.state = {
@@ -16,19 +15,16 @@ class AdminOrdersView extends React.Component {
   }
 
   handleUpdateClick = (orderId) => {
-    return () => {
-      this.setState({
-        orderToUpdateId: orderId,
-      })
-    }
+    this.setState({
+      orderToUpdateId: orderId,
+    })
   }
 
   handleStatusUpdate = (event) => {
-
     event.preventDefault();
     const id = this.state.orderToUpdateId;
     const status = event.target.orderStatus.value;
-    axios.put(`/api/orders/${this.state.orderToUpdateId}`, {
+    axios.put(`/api/orders/edit/${this.state.orderToUpdateId}`, {
       status: status
     })
     .then(() => {
@@ -39,7 +35,13 @@ class AdminOrdersView extends React.Component {
   render () {
     return (
       <div>
-            {this.state.orderToUpdateId ? <UpdateOrderForm orderNo={this.state.orderToUpdateId} handleSubmit={this.handleStatusUpdate}/> : null}
+        {
+          this.state.orderToUpdateId
+          ?
+          <UpdateOrderForm orderNo={this.state.orderToUpdateId} handleSubmit={this.handleStatusUpdate}/>
+          :
+          null
+        }
         <h3>All Orders</h3>
         <div className="AdminOrderView">
           <table className="table">
@@ -56,8 +58,8 @@ class AdminOrdersView extends React.Component {
                 return (
                   <AdminOrderItem
                     key={+order.id}
-                    item={order}
-                    handleUpdateClick={this.handleUpdateClick(order.id)}
+                    order={order}
+                    handleUpdateClick={this.handleUpdateClick}
                     />
                 )
               })
