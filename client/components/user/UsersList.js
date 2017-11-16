@@ -3,7 +3,7 @@ import axios from 'axios'
 import UserItem from './UserItem'
 import AuthForm from '../AuthForm'
 import { connect } from 'react-redux';
-import { fetchUsers } from '../../reducer/user';
+import { editUser, fetchUsers } from '../../reducer/user';
 
 class UserList extends React.Component {
 
@@ -35,21 +35,15 @@ class UserList extends React.Component {
     event.preventDefault();
 
     const id = this.state.updateUserId
-    const name = event.target.name.value;
+    const name = event.target.userName.value;
     const email = event.target.email.value;
     const isAdmin = event.target.isAdmin.value;
     const shippingAddress = event.target.shippingAddress.value;
     const password = event.target.password.value;
-    axios.put(`/api/users/${id}`, {
-      name: name,
-      email: email,
-      isAdmin: isAdmin,
-      shippingAddress: shippingAddress,
-      password: password,
-    })
-    .then(() => {
-      return this.props.fetchUsers()
-    })
+
+    const user = {name, email, isAdmin, shippingAddress, password};
+    this.props.editUser(this.state.updateUserId, user);
+    this.setState({updateUserId: ''});
   }
 
   render() {
@@ -106,8 +100,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUsers: function() {
-      dispatch(fetchUsers())
+    fetchUsers: () => {
+      dispatch(fetchUsers());
+    },
+    editUser: (id, user) => {
+      dispatch(editUser(id, user));
     }
   }
 }

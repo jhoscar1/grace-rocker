@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 export const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const GET_USERS = 'GET_USERS';
-const UPDATE_USER = 'UPDATE_USERS';
+const UPDATE_USER = 'UPDATE_USER';
 
 const initialState = {
   users: [],
@@ -42,15 +42,12 @@ export const removeSelectedUser = id => {
 }
 
 export const editUser = (id, body) => {
-  console.log(body);
   return dispatch => {
     axios.put(`/api/users/${id}`, body)
     .then((user) => {
-      dispatch(updateUser(user.data))
+      dispatch(updateUser(user.data));
     })
-    .then(() => {
-
-    })
+    .catch(console.error);
   }
 }
 

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const AuthForm = props => {
 
   const { name, displayName, handleSubmit, error } = props;
+  console.log('authform', props);
 
   const signUpData = (
     <div>
@@ -23,8 +24,8 @@ const AuthForm = props => {
       <div>
         <label htmlFor="isAdmin"><small>Admin Status</small></label>
         <select name="isAdmin">
-          <option> true </option>
           <option> false </option>
+          <option> true </option>
         </select>
       </div>
     </div>
