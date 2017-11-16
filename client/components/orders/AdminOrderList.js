@@ -24,9 +24,7 @@ class AdminOrdersView extends React.Component {
     event.preventDefault();
     const id = this.state.orderToUpdateId;
     const status = event.target.orderStatus.value;
-    axios.put(`/api/orders/edit/${this.state.orderToUpdateId}`, {
-      status: status
-    })
+    axios.put(`/api/orders/edit/${this.state.orderToUpdateId}`, {status})
     .then(() => {
         return this.props.fetchAllOrders()
     })
@@ -67,7 +65,6 @@ class AdminOrdersView extends React.Component {
             </thead>
           </table>
         </div>
-
       </div>
     )
   }

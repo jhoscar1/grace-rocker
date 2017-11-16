@@ -126,14 +126,14 @@ router.put('/:id', /*gatekeeper.isAdminOrHasOrder*/ (req, res, next) => {
   .catch(next);
 });
 
-router.put('/edit/:orderId', (req, res, next) => {
-  Order.findById(req.params.orderId)
+router.put('/edit/:id', (req, res, next) => {
+  Order.findById(req.params.id)
   .then((foundOrder) => {
-    foundOrder.status = req.body.status;
-    return foundOrder.update(foundOrder);
+    const newOrder = Object.assign({}, foundOrder, {status: req.body.status});
+    return foundOrder.update(newOrder);
   })
   .then(updatedOrder => {
-    res.json(updatedOrder)
+    res.json(updatedOrder);
   })
   .catch(next);
 });
