@@ -1,5 +1,4 @@
 import React from 'react';
-
 const UserItem = props => {
   const { user, deleteUser, handleUpdateClick } = props;
   return (

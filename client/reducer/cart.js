@@ -55,9 +55,6 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       newState.cart = action.cart;
-    //   break;
-    // case SET_QUANTITY:
-    //   newState.cart.product[action.productId].product_order.unit_quantity = action.quantity
       break;
     default:
       return state;

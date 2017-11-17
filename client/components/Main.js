@@ -28,24 +28,34 @@ class Main extends React.Component{
 
   render(){
     const { children, handleClick, loggedIn, isAdmin, cart, userId } = this.props;
-    
+
     return (
       <div>
-        <nav className="row flex relative">
-          <h2 className="left bottom"> GRACE ROCKER </h2>
+        <nav className="row flex relative"> {/* row */}
+          <h2 className="left bottom"> GRACE ROCKER </h2> {/* title */}
           <Link className="left" to={'/home'}><img className="logo" src="/assets/gracerocker.png"/></Link>
           <div>
           { loggedIn ?
             <div>
               <button className="inline navGlyph glyphicon glyphicon-user" id="accountPage"  onClick={this.exposeDropdown} />
-              { this.state.showDropdown ?
-                <div className="dropdownContent">
-                  <a><Link style={{ textDecoration: 'none'}} className="" id="home" title="Main Page" to="/home">Home</Link></a>
-                  <a style={{ textDecoration: 'none'}} className="" id="signout" title="Log out" href="#" onClick={handleClick}>Logout</a>
-                  { isAdmin ? <a><Link style={{ textDecoration: 'none'}} className="right" to="/admin">Admin</Link></a> : null }
-                  <Link style={{ textDecoration: 'none'}} title="Your Userpage" className="" to={`/users/${userId}`}>Your Account</Link>
-                </div> : null }
-              </div> :
+              {
+              this.state.showDropdown ?
+              <div className="dropdownContent">
+                <a>
+                  <Link style={{ textDecoration: 'none'}} className="" id="home" title="Main Page" to="/home">Home</Link>
+                </a>
+                <a style={{ textDecoration: 'none'}} className="" id="signout" title="Log out" href="#" onClick={handleClick}>Logout
+                </a>
+                { isAdmin ?
+                  <a><Link style={{ textDecoration: 'none'}} className="right" to="/admin">Admin</Link></a>
+                  : null
+                }
+                <Link style={{ textDecoration: 'none'}} title="Your Userpage" className="" to={`/users/${userId}`}>Your Account</Link>
+                </div>
+              : null
+              }
+              </div>
+            :
             <div>
               <button className="inline navGlyph glyphicon glyphicon-user" id="accountPage" onClick={this.exposeOtherDropdown} />
               {this.state.showUserDropdown ?
@@ -55,7 +65,7 @@ class Main extends React.Component{
               </div>
                 : null
               }
-              </div>
+            </div>
             }
             </div>
               <Link title="Your Cart" to="/cart"><span id="shoppingCart" className="inline navGlyph glyphicon glyphicon-shopping-cart"><p className="left shoppingCartCount">{cart.products ? cart.products.length : 0 }</p></span></Link>

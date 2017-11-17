@@ -30,11 +30,11 @@ module.exports = db.define('product', {
     defaultValue: "https://cdn.tutsplus.com/net/uploads/legacy/958_placeholders/placehold.gif"
   },
   tags: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        defaultValue: [],
-        get: function() {
-            return this.getDataValue("tags").join(", ")
-        }
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: [],
+    get: function() {
+        return this.getDataValue("tags").join(", ")
+    }
   }
 }, {
   getterMethods: {
@@ -43,6 +43,14 @@ module.exports = db.define('product', {
     },
     tagsArray: function(){
       return this.getDataValue('tags')
+    },
+    createdAt: function(){
+      const unreadable = this.getDataValue('createdAt');
+      return unreadable.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
     }
   }
 })

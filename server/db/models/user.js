@@ -52,6 +52,16 @@ module.exports = db.define('user', {
       return crypto.createHash('sha1').update(plainText).update(salt).digest('hex');
     }
   },
+  getterMethods: {
+    createdAt: function(){
+      const unreadable = this.getDataValue('createdAt');
+      return unreadable.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+  },
   hooks: {
     beforeCreate: setSaltAndPassword,
     beforeUpdate: setSaltAndPassword

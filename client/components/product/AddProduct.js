@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {newProduct} from '../../reducer/';
 
 
-class AddUser extends Component {
+class AddProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -99,4 +99,4 @@ class AddUser extends Component {
 const mapState = null;
 const mapDispatch = {newProduct};
 
-export default connect(mapState, mapDispatch)(AddUser);
+export default connect(mapState, mapDispatch)(AddProduct);

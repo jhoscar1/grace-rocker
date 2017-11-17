@@ -1,4 +1,5 @@
 import React from 'react';
+import {convertDate} from '../user/UserItem';
 
 const ProductItem = props => {
   const { product, deleteProduct, handleUpdateClick } = props;

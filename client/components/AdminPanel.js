@@ -7,9 +7,9 @@ export default (props) => {
   return (
     <div>
       <ul className="nav nav-tabs">
-        <li><Link to="/admin/users" activeClass="active">Users</Link></li>
-        <li><Link to="/admin/orders" activeClass="active">Orders</Link></li>
-        <li><Link to="/admin/products" activeClass="active">Products</Link></li>
+        <li><Link to="/admin/users" activeClassName="active">Users</Link></li>
+        <li><Link to="/admin/orders" activeClassName="active">Orders</Link></li>
+        <li><Link to="/admin/products" activeClassName="active">Products</Link></li>
       </ul>
       {props.children && props.children}
     </div>

@@ -113,7 +113,6 @@ class Catalog extends React.Component {
     </div>
         {
           products.map(product => {
-            console.log(product)
             return (
                 product.name.toLowerCase().includes(searchInput.toLowerCase())
                   && (
